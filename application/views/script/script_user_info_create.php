@@ -43,8 +43,8 @@
               beforeSend: function() {
               },
               success: function(data) {
+                  $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                 if(data.code==0){
-                  $(this).find('button[type=submit]').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                    alert(data.message);
                 }else{
                    // alert("thêm thành công.");

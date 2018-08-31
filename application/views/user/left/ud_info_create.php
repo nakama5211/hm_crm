@@ -175,7 +175,7 @@
 
           	<div class="fc-corner-right">
           		<div class="fc-button-group" style="float:right">
-					<button type="submit" class="btn btn-primary float-right margin-bot-5">
+					<button type="submit" id="btn-save" class="btn btn-primary float-right margin-bot-5">
 								<i class="fa fa-share"></i> Lưu thông tin</button>
 				</div>
           	</div>
