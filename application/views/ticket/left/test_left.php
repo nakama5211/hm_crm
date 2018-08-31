@@ -1,0 +1,1 @@
+<iframe src="<?php echo(base_url('ticket/test_left_detail'))?>"></iframe>
