@@ -246,7 +246,6 @@
                 {
                 if(data.data.length >0)
                  {
-                  alert(data.data[0].createat);
                     var data_html = '';
                     for (var i = 0; i < data.data.length; i++) {
                         var title = "'"+data.data[i].ticketid+"'";
