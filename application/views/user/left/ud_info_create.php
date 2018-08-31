@@ -2,8 +2,9 @@
 <div class="tile p-0 padding-5 margin-bot-5">
 	            <div class="tile-body padding-left-10">
 	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Phân quyền</label>
-	              		<select name="roleid" class="control-label col-md-7 no-border no-padding margin-left-10" id="roleid" onchange="selectGroup(this)" required="">
+	            		<label class="control-label user-label col-md-3 no-padding">Phân quyền
+	              		(<span style="color: red">*</span>)</label>
+	              		<select name="roleid" class="control-label col-md-8 no-border no-padding margin-left-10" id="roleid" onchange="selectGroup(this)" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Phân Quyền--</option>
 	              			<?php
 	              				foreach ($role_list as $key => $value) {
@@ -13,11 +14,11 @@
 	              				}
 	              			?>
 	              		</select>
-	              		(<span style="color: red">*</span>)
 	            	</div>
 	            	<div class="div-group">
-	            		<label class="control-label user-label col-md-3 no-padding">Nhóm</label>
-	              		<select name="groupid" class="control-label col-md-7 no-border no-padding margin-left-10  grouplist" id="groupid" required="">
+	            		<label class="control-label user-label col-md-3 no-padding">Nhóm
+	              		(<span style="color: red">*</span>)</label>
+	              		<select name="groupid" class="control-label col-md-8 no-border no-padding margin-left-10  grouplist" id="groupid" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Nhóm Quyền--</option>
 	              			<?php
 	              				foreach ($group_list as $value) {
@@ -27,7 +28,6 @@
 	              				}
 	              			?>
 	              		</select>
-	              		(<span style="color: red">*</span>)
 	            	</div>
 	            </div>
           	</div>
@@ -50,12 +50,12 @@
 	            	</div>
 
 	            	<div class="div-cmnd">
-	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport:</label>
-	              		<label class="control-label col-md-7 no-padding-right">
+	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport
+	              		(<span style="color: red">*</span>):</label>
+	              		<label class="control-label col-md-8 no-padding-right">
 		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required
                minlength="9" maxlength="10">
 		              	</label>
-	              		(<span style="color: red">*</span>)
 	            	</div>
 	            	<div class="div-ngaysinh">
 	            		<label class="control-label user-label col-md-3 no-padding">Ngày sinh:</label>
