@@ -234,75 +234,74 @@
          console.log('Load Fail!!!');
       })
       //loadticketContract
-      // $.ajax({
-      //   url: '<?php echo base_url().'user/loadTicketContract' ?>',
-      //   type: 'POST',
-      //   dataType: 'JSON',
-      //   data: {contractid : contractid},
-      // })
-      // .done(function(data) {
-      //           $("#div-table-ticket").css('background', 'none');
-      //           if(data.data != null)
-      //           {
-      //           if(data.data.length >0)
-      //            {
-      //               var data_html = '';
-      //               for (var i = 0; i < data.data.length; i++) {
-      //                   var title = "'"+data.data[i].ticketid+"'";
-      //                   var alt = "'<?php echo base_url().'ticket/detail/'?>"+data.data[i].ticketid+"'";
-      //                   if(data.data[i].createat !== null)
-      //                   {
-      //                      var t3 = new Date(data.data[i].createat.replace(/\s/,'T'));
-      //                      if(t3 > dayCompare)
-      //                      {
-      //                      var createat = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-      //                      }
-      //                      else{ var createat = '';}
-      //                   }else{var createat ='';}
-      //                   if(data.data[i].lastupdate !== null)
-      //                   {
-      //                      var t4 = new Date(data.data[i].lastupdate.replace(/\s/,'T'));
-      //                      if(t4 > dayCompare)
-      //                      {
-      //                      var lastupdate = formatDMY(t4.getDate(),t4.getMonth()+1,t4.getFullYear());
-      //                    }else{var lastupdate = '';}
-      //                   }else{var lastupdate ='';}
-      //                   data_html+='<tr class="border-bot-1">\
-      //                       <td width="100">\
-      //                         <a class="buttonnewiframe" onclick="addTab('+alt+','+title+')" href="#">\
-      //                         <span class="id-label span-danger">O</span>  #'+data.data[i].ticketid+'\
-      //                         </a>\
-      //                       </td>\
-      //                       <td>\
-      //                         '+data.data[i].title+'\
-      //                       </td>\
-      //                       <td>\
-      //                         '+createat+'</td>\
-      //                       <td>'+data.data[i].name+'</td>\
-      //                       <td>'+lastupdate+'</td>\
-      //                     </tr>';
-      //               }
-      //            }
-      //            $('#div-table-ticket').html('<table class="table" id="table-1">\
-      //                 <thead class="no-border-top">\
-      //                   <tr>\
-      //                     <th>ID</th>\
-      //                     <th>Tựa đề</th>\
-      //                     <th width="100px">Ngày yêu cầu</th>\
-      //                     <th width="112px">Người phụ trách</th>\
-      //                     <th width="110px">Cập nhật lần cuối</th>\
-      //                   </tr>\
-      //                 </thead>\
-      //                 <tbody>\
-      //                   '+data_html+'\
-      //                 </tbody>\
-      //               </table>');
-      //           }
-      //         })
-      // .fail(function() {
-      //    console.log('Load Fail');
-      // })
-      
+      $.ajax({
+        url: '<?php echo base_url().'user/loadTicketContract' ?>',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {contractid : contractid},
+      })
+      .done(function(data) {
+                $("#div-table-ticket").css('background', 'none');
+                if(data.data != null)
+                {
+                if(data.data.length >0)
+                 {
+                    var data_html = '';
+                    for (var i = 0; i < data.data.length; i++) {
+                        var title = "'"+data.data[i].ticketid+"'";
+                        var alt = "'<?php echo base_url().'ticket/detail/'?>"+data.data[i].ticketid+"'";
+                        if(data.data[i].createat !== null)
+                        {
+                           var t3 = new Date(data.data[i].createat.replace(/\s/,'T'));
+                           if(t3 > dayCompare)
+                           {
+                           var createat = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                           }
+                           else{ var createat = '';}
+                        }else{var createat ='';}
+                        if(data.data[i].lastupdate !== null)
+                        {
+                           var t4 = new Date(data.data[i].lastupdate.replace(/\s/,'T'));
+                           if(t4 > dayCompare)
+                           {
+                           var lastupdate = formatDMY(t4.getDate(),t4.getMonth()+1,t4.getFullYear());
+                         }else{var lastupdate = '';}
+                        }else{var lastupdate ='';}
+                        data_html+='<tr class="border-bot-1">\
+                            <td width="100">\
+                              <a class="buttonnewiframe" onclick="addTab('+alt+','+title+')" href="#">\
+                              <span class="id-label span-danger">O</span>  #'+data.data[i].ticketid+'\
+                              </a>\
+                            </td>\
+                            <td>\
+                              '+data.data[i].title+'\
+                            </td>\
+                            <td>\
+                              '+createat+'</td>\
+                            <td>'+data.data[i].name+'</td>\
+                            <td>'+lastupdate+'</td>\
+                          </tr>';
+                    }
+                 }
+                 $('#div-table-ticket').html('<table class="table" id="table-1">\
+                      <thead class="no-border-top">\
+                        <tr>\
+                          <th>ID</th>\
+                          <th>Tựa đề</th>\
+                          <th width="100px">Ngày yêu cầu</th>\
+                          <th width="112px">Người phụ trách</th>\
+                          <th width="110px">Cập nhật lần cuối</th>\
+                        </tr>\
+                      </thead>\
+                      <tbody>\
+                        '+data_html+'\
+                      </tbody>\
+                    </table>');
+                }
+              })
+      .fail(function() {
+         console.log('Load Fail');
+      })
 
        $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
             'data': JSON.stringify({  
