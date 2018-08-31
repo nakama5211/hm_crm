@@ -2,7 +2,8 @@
 <div class="tile p-0 padding-5 margin-bot-5">
 	            <div class="tile-body padding-left-10">
 	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Phân quyền</label>
+	            		<label class="control-label user-label col-md-3 no-padding">Phân quyền
+	              		(<span style="color: red">*</span>)</label>
 	              		<select name="roleid" class="control-label col-md-8 no-border no-padding margin-left-10" id="roleid" onchange="selectGroup(this)" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Phân Quyền--</option>
 	              			<?php
@@ -15,7 +16,8 @@
 	              		</select>
 	            	</div>
 	            	<div class="div-group">
-	            		<label class="control-label user-label col-md-3 no-padding">Nhóm</label>
+	            		<label class="control-label user-label col-md-3 no-padding">Nhóm
+	              		(<span style="color: red">*</span>)</label>
 	              		<select name="groupid" class="control-label col-md-8 no-border no-padding margin-left-10  grouplist" id="groupid" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Nhóm Quyền--</option>
 	              			<?php
@@ -48,10 +50,11 @@
 	            	</div>
 
 	            	<div class="div-cmnd">
-	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport:</label>
-	              		<label class="control-label col-md-8 no-padding-right">
+	            		<label class="control-label user-label col-md-4 no-padding">CMND/Passport
+	              		(<span style="color: red">*</span>):</label>
+	              		<label class="control-label col-md-7 no-padding-right">
 		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required
-               minlength="9" maxlength="10">
+               minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="div-ngaysinh">
@@ -172,7 +175,8 @@
 
           	<div class="fc-corner-right">
           		<div class="fc-button-group" style="float:right">
-					<button type="submit" class="fc-agendaWeek-button fc-button fc-state-default fc-state-active fc-corner-right btn-createuser">Lưu thông tin</button>
+					<button type="submit" id="btn-save" class="btn btn-primary float-right margin-bot-5">
+								<i class="fa fa-share"></i> Lưu thông tin</button>
 				</div>
           	</div>
      </form>

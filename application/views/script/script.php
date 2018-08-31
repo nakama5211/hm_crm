@@ -8,7 +8,8 @@
                 .on("click", ".fa-times", function () {
                   var id = $(".nav-tabs").children().length;
                   // alert(id);
-                  var width = 956;
+                  var widthsub = window.top.$('.nav-insert').width() * 2;
+                  var width = window.top.$('#lengthmenu').width() - widthsub;
                   if(id >4)
                   {
                       $("ul.nav-tabs li").each(function(){

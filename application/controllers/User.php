@@ -176,9 +176,6 @@ class User extends CI_Controller {
         $group_list = json_decode($_jsongroup,true);
 
 		$_data = [];   
-        
-        $_jsonlistuser = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/search?action=search_customer&search=&roleid='.$roleid);
-        $list_user = json_decode($_jsonlistuser,true);
 
         $_jsonlistcodic = file_get_contents('http://test.tavicosoft.com/crm/index.php/codedictionary/select/');
         $list_codic = json_decode($_jsonlistcodic,true);
@@ -191,13 +188,10 @@ class User extends CI_Controller {
         $_data['role_list'] = $role_list; 
         $_data['group_list'] = $group_list['data']; 
         $_data['list_ext'] = $list_ext['data']; 
-        $_data1['list_user'] = $list_user['data']; 
         $_data['city'] = $_jsoncity;
         $_body = [];
         $_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
         $_body['left'] = $this->load->view('user/left/ud_info_create', $_data, TRUE); 
-        //$_body['right'] = $this->load->view('user/right/ud_history', NULL, TRUE);
-        $_body['center'] = $this->load->view('user/center/ud_info_create_center', $_data1, TRUE);
 		$_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
 		$_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
 		$_data['script'] = $this->load->view('script/script_user_info_create', NULL, TRUE);

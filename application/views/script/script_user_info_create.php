@@ -30,6 +30,8 @@
       for (var [key, value] of formData.entries()) { 
             console.log(key, value);
       }
+
+      $(this).find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
       $.ajax({
               type: "POST",
               url: "<?php echo base_url().'user/aj_insert';?>",
@@ -41,6 +43,7 @@
               beforeSend: function() {
               },
               success: function(data) {
+                  $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                 if(data.code==0){
                    alert(data.message);
                 }else{
