@@ -3,7 +3,7 @@
 	            <div class="tile-body padding-left-10">
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Phân quyền</label>
-	              		<select name="roleid" class="control-label col-md-8 no-border no-padding margin-left-10" id="roleid" onchange="selectGroup(this)" required="">
+	              		<select name="roleid" class="control-label col-md-7 no-border no-padding margin-left-10" id="roleid" onchange="selectGroup(this)" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Phân Quyền--</option>
 	              			<?php
 	              				foreach ($role_list as $key => $value) {
@@ -13,10 +13,11 @@
 	              				}
 	              			?>
 	              		</select>
+	              		(<span style="color: red">*</span>)
 	            	</div>
 	            	<div class="div-group">
 	            		<label class="control-label user-label col-md-3 no-padding">Nhóm</label>
-	              		<select name="groupid" class="control-label col-md-8 no-border no-padding margin-left-10  grouplist" id="groupid" required="">
+	              		<select name="groupid" class="control-label col-md-7 no-border no-padding margin-left-10  grouplist" id="groupid" required="">
 	              			<option selected="true" disabled="true" value="">--Chọn Nhóm Quyền--</option>
 	              			<?php
 	              				foreach ($group_list as $value) {
@@ -26,6 +27,7 @@
 	              				}
 	              			?>
 	              		</select>
+	              		(<span style="color: red">*</span>)
 	            	</div>
 	            </div>
           	</div>
