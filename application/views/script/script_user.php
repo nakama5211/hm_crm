@@ -732,7 +732,7 @@
                           }else{var quantity = "";}
                           if(obj.result.data[i].amount !== null)
                           {
-                            var amount = obj.result.data[i].amount;
+                            var amount = formatNumber(obj.result.data[i].amount);
                           }else{var amount = "";}
                           if(obj.result.data[i].remarks !== null)
                           {
@@ -770,6 +770,7 @@
                     }
                     else if(target == "crmContract01b")
                     {
+                      alert(data);
                         $("#div-content-2").css('background', 'none');
                         var data_html = '';
                         for(var i = 0;i<obj.result.data.length;i++)
@@ -789,7 +790,7 @@
                           }else{var name = "";}
                           if(obj.result.data[i].name1 !== null)
                           {
-                            var name1 = obj.result.data[i].name1;
+                            var name1 = formatNumber(obj.result.data[i].name1);
                           }else{var name1 = "";}
                           if(obj.result.data[i].remarks !== null)
                           {
@@ -811,9 +812,9 @@
                           <thead class="no-border-top">\
                             <tr>\
                               <th style="\
-                        width: 11%;">Ngày</th>\
+                        width: 11%;">HH/DV</th>\
                         <th style="\
-                        width: 19%;;">HH/DV</th>\
+                        width: 19%;;">Ngày</th>\
                         <th style="\
                         width: 10.3%;">Số lượng</th><th style="\
                         width: 10%;;">Giá trị</th>\
