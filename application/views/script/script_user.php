@@ -1,5 +1,5 @@
 <script type="text/javascript">
-
+      var dayCompare = new Date("2000-01-01T00:00:00");
       $(document).ready( function () {
         loadFirst();
         });
@@ -253,12 +253,19 @@
                         if(data.data[i].createat !== null)
                         {
                            var t3 = new Date(data.data[i].createat.replace(/\s/,'T'));
+                           if(t3 < dayCompare)
+                           {
                            var createat = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                           }
+                           else{ var createat = '';}
                         }else{var createat ='';}
                         if(data.data[i].lastupdate !== null)
                         {
                            var t4 = new Date(data.data[i].lastupdate.replace(/\s/,'T'));
+                           if(t4 < dayCompare)
+                           {
                            var lastupdate = formatDMY(t4.getDate(),t4.getMonth()+1,t4.getFullYear());
+                         }else{var lastupdate = '';}
                         }else{var lastupdate ='';}
                         data_html+='<tr class="border-bot-1">\
                             <td width="100">\
@@ -341,7 +348,10 @@
                         if(obj.result.data[i].issueddate !== null)
                         {
                            var t3 = new Date(obj.result.data[i].issueddate);
+                           if(t3 < dayCompare)
+                           {
                            var issueddate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                          }else{var issueddate = ''}
                         }else{var issueddate ='';}
                         if(obj.result.data[i].issuedplace !== null)
                         {
@@ -558,12 +568,19 @@
                      if (obj.result.data[0].duedate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].duedate);
+                        if(t2 < dayCompare)
+                           {
                         var duedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
+                          }
+                          else{var duedate = '';}
                      }else{ var duedate = "";}
                      if (obj.result.data[0].adjustdate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].adjustdate);
+                        if(t2 < dayCompare)
+                           {
                         var adjustdate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
+                          }else{var adjustdate ='';}
                      }else{ var adjustdate = "";}
                      if (obj.result.data[0].value0 !== null)
                      {
@@ -720,7 +737,10 @@
                         if(obj.result.data[i].promotiondate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].promotiondate);
+                            if(t3 < dayCompare)
+                           {
                             var promotiondate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                            }else{var promotiondate='';}
                           }else{var promotiondate = "";}
                           if(obj.result.data[i].description !== null)
                           {
@@ -770,6 +790,7 @@
                     }
                     else if(target == "crmContract01b")
                     {
+                      alert(data);
                         $("#div-content-2").css('background', 'none');
                         var data_html = '';
                         for(var i = 0;i<obj.result.data.length;i++)
@@ -781,7 +802,9 @@
                           if(obj.result.data[i].statusdate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].statusdate);
-                            var statusdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                            if(t3 < dayCompare)
+                           {
+                            var statusdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var statusdate='';}
                           }else{var statusdate = "";}
                           if(obj.result.data[i].name !== null)
                           {
@@ -838,7 +861,9 @@
                           if(obj.result.data[i].eventdate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].eventdate);
-                            var eventdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                            if(t3 < dayCompare)
+                           {
+                            var eventdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var eventdate='';}
                           }else{var eventdate = "";}
                           if(obj.result.data[i].eventstatus !== null)
                           {
