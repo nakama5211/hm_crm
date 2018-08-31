@@ -30,7 +30,7 @@
       for (var [key, value] of formData.entries()) { 
             console.log(key, value);
       }
-      
+
       $(this).find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
       $.ajax({
               type: "POST",
@@ -44,6 +44,7 @@
               },
               success: function(data) {
                 if(data.code==0){
+                  $(this).find('button[type=submit]').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                    alert(data.message);
                 }else{
                    // alert("thêm thành công.");
