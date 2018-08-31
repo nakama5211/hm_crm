@@ -54,7 +54,7 @@
 	              		(<span style="color: red">*</span>):</label>
 	              		<label class="control-label col-md-7 no-padding-right">
 		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required
-               minlength="9" maxlength="10">
+               minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="div-ngaysinh">
