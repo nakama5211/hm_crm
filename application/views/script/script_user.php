@@ -752,7 +752,7 @@
                           }else{var quantity = "";}
                           if(obj.result.data[i].amount !== null)
                           {
-                            var amount = formatNumber(obj.result.data[i].amount);
+                            var amount = formatNumber(Math.abs(obj.result.data[i].amount));
                           }else{var amount = "";}
                           if(obj.result.data[i].remarks !== null)
                           {
