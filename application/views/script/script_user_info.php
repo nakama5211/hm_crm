@@ -85,7 +85,29 @@
       // .fail(function() {
       //   console.log('Load Fail!');
       // })
-      
+    $('#table-1-contract').DataTable({
+                    "paging":   false,
+                    "columns": [
+                      { "width": "60px" },
+                      { "width": "80px" },
+                      { "width": "90px" },
+                      { "width": "73px" },
+                      { "width": "75px" },
+                      { "width": "250px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax": '<?php echo base_url() ?>user/testContract',
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "Đang tải...",
+                       "processing": ""
+                    }
+                  });
     $('.btn-update').click(function(){
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();

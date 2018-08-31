@@ -55,7 +55,57 @@ class User extends CI_Controller {
 		$_data['mainview'] = $this->load->view('user/user', $_body , TRUE);
 		$this->load->view('dashboard',$_data);
 	}
+    public function testContract()
+    {
+        $data_contractc = array(
+            'reportcode'=>'crmContract01',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'idcard'=> '025980578'
+            )
+        );
 
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"]; 
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            $href = ''.base_url().'user/contract/'.$data['trade_cntt'][$i]['contractid'].'';
+            $onclick = "addTab('".$href."','".$data['trade_cntt'][$i]['contractid']."')";
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                $text .= '[
+                "<a onclick='.$onclick.' href=\'#\'>' .$data['trade_cntt'][$i]['contractid']. '</a>",
+                       "'.$data['trade_cntt'][$i]['status'].'",
+                       "'.$data['trade_cntt'][$i]['property'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['startdate'])).'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['effectivedate'])).'",
+                       "'.$data['trade_cntt'][$i]['notes'].'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "<a onclick='.$onclick.' href=\'#\'>' .$data['trade_cntt'][$i]['contractid']. '</a>",
+                       "'.$data['trade_cntt'][$i]['status'].'",
+                       "'.$data['trade_cntt'][$i]['property'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['startdate'])).'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['effectivedate'])).'",
+                       "'.$data['trade_cntt'][$i]['notes'].'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
 	public function detail(){
 		$_body = [];
 		$customer = [];
