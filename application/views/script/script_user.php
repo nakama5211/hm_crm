@@ -770,7 +770,6 @@
                     }
                     else if(target == "crmContract01b")
                     {
-                      alert(data);
                         $("#div-content-2").css('background', 'none');
                         var data_html = '';
                         for(var i = 0;i<obj.result.data.length;i++)
