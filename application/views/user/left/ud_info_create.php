@@ -175,7 +175,8 @@
 
           	<div class="fc-corner-right">
           		<div class="fc-button-group" style="float:right">
-					<button type="submit" class="fc-agendaWeek-button fc-button fc-state-default fc-state-active fc-corner-right btn-createuser">Lưu thông tin</button>
+					<button type="submit" class="btn btn-primary float-right margin-bot-5">
+								<i class="fa fa-share"></i> Lưu thông tin</button>
 				</div>
           	</div>
      </form>
