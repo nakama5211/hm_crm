@@ -44,12 +44,12 @@
 			                    ?></td>
 			                    <td>
 			                    	<?php 
-				                    if($rows['duedate']!=null)
+				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
 				                    {
 				                    echo date("d/m/Y", strtotime($rows['duedate']));}?>
 			                    	</td>
 			                    <td><?php 
-			                    if($rows['createat']!=null)
+			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
 			                    {
 			                    echo date("d/m/Y", strtotime($rows['createat']));}?></td>
 		                  	</tr>	
@@ -73,11 +73,11 @@
 			                    	else {echo "Không xác định";}
 			                    ?></td>
 			                    <td><?php 
-				                    if($rows['duedate']!=null)
+				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
 				                    {
 				                    echo date("d/m/Y", strtotime($rows['duedate']));}?></td>
 			                    <td><?php 
-			                    if($rows['createat']!=null)
+			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
 			                    {
 			                    echo date("d/m/Y", strtotime($rows['createat']));}?></td>
 		                  	</tr>	

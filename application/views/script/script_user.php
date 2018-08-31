@@ -246,6 +246,7 @@
                 {
                 if(data.data.length >0)
                  {
+                  alert(data.data[0].createat);
                     var data_html = '';
                     for (var i = 0; i < data.data.length; i++) {
                         var title = "'"+data.data[i].ticketid+"'";
@@ -253,7 +254,7 @@
                         if(data.data[i].createat !== null)
                         {
                            var t3 = new Date(data.data[i].createat.replace(/\s/,'T'));
-                           if(t3 < dayCompare)
+                           if(t3 > dayCompare)
                            {
                            var createat = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
                            }
@@ -262,7 +263,7 @@
                         if(data.data[i].lastupdate !== null)
                         {
                            var t4 = new Date(data.data[i].lastupdate.replace(/\s/,'T'));
-                           if(t4 < dayCompare)
+                           if(t4 > dayCompare)
                            {
                            var lastupdate = formatDMY(t4.getDate(),t4.getMonth()+1,t4.getFullYear());
                          }else{var lastupdate = '';}
@@ -348,7 +349,7 @@
                         if(obj.result.data[i].issueddate !== null)
                         {
                            var t3 = new Date(obj.result.data[i].issueddate);
-                           if(t3 < dayCompare)
+                           if(t3 > dayCompare)
                            {
                            var issueddate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
                           }else{var issueddate = ''}
@@ -568,7 +569,7 @@
                      if (obj.result.data[0].duedate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].duedate);
-                        if(t2 < dayCompare)
+                        if(t2 > dayCompare)
                            {
                         var duedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
                           }
@@ -577,7 +578,7 @@
                      if (obj.result.data[0].adjustdate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].adjustdate);
-                        if(t2 < dayCompare)
+                        if(t2 > dayCompare)
                            {
                         var adjustdate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
                           }else{var adjustdate ='';}
@@ -737,7 +738,7 @@
                         if(obj.result.data[i].promotiondate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].promotiondate);
-                            if(t3 < dayCompare)
+                            if(t3 > dayCompare)
                            {
                             var promotiondate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
                             }else{var promotiondate='';}
@@ -790,7 +791,6 @@
                     }
                     else if(target == "crmContract01b")
                     {
-                      alert(data);
                         $("#div-content-2").css('background', 'none');
                         var data_html = '';
                         for(var i = 0;i<obj.result.data.length;i++)
@@ -802,7 +802,7 @@
                           if(obj.result.data[i].statusdate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].statusdate);
-                            if(t3 < dayCompare)
+                            if(t3 > dayCompare)
                            {
                             var statusdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var statusdate='';}
                           }else{var statusdate = "";}
@@ -861,7 +861,7 @@
                           if(obj.result.data[i].eventdate !== null)
                           {
                             var t3 = new Date(obj.result.data[i].eventdate);
-                            if(t3 < dayCompare)
+                            if(t3 > dayCompare)
                            {
                             var eventdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var eventdate='';}
                           }else{var eventdate = "";}

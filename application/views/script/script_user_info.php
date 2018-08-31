@@ -1,5 +1,6 @@
 <script type="text/javascript">
-	
+  
+  var dayCompare = new Date("2000-01-01T00:00:00");	
   $(document).ready( function () {
     loadFirst();
       });
@@ -25,9 +26,14 @@
                  $("#tab1").text('Giao Dịch('+obj.result.data.length+')');
                  for (var i = 0; i < obj.result.data.length; i++) {
                   var t1 = new Date(obj.result.data[i].startdate);
+                  if(t1 > dayCompare)
+                  {
                   var startdate = formatDMY(t1.getDate(),t1.getMonth()+1,t1.getFullYear());
+                }else{var startdate ='';}
                   var t2 = new Date(obj.result.data[i].effectivedate);
-                  var effectivedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
+                  if(t2 > dayCompare)
+                  {
+                  var effectivedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());}else{var effectivedate = '';}
                   var custidCustomer = '<?php echo $this->input->get('cusid')?>' ;
                  var href = "'<?php echo base_url() ?>user/contract/"+obj.result.data[i].contractid+"/"+custidCustomer+"'";
                  var title = "'#"+obj.result.data[i].contractid+"'";

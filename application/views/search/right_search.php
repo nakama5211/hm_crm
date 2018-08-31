@@ -26,7 +26,7 @@
 			                    <td><?php echo $rows['telephone'] ?></td>
 			                    <td><?php echo $rows['email'] ?></td>
 			                    <td><?php 
-			                    if($rows['lastupdate']!=null)
+			                    if($rows['lastupdate']!=null && strtotime($rows['lastupdate'])>$dayCompare)
 			                    {
 			                    echo date("d/m/Y", strtotime($rows['lastupdate']));}
 			                     ?></td>
