@@ -811,7 +811,7 @@
                           }else{var name = "";}
                           if(obj.result.data[i].name1 !== null)
                           {
-                            var name1 = formatNumber(obj.result.data[i].name1);
+                            var name1 = formatNumber(Math.abs(obj.result.data[i].name1));
                           }else{var name1 = "";}
                           if(obj.result.data[i].remarks !== null)
                           {
