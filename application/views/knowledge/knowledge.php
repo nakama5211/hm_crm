@@ -7,35 +7,35 @@
 	              		<input class="form-control margin-top-10 margin-bot-5" type="text" name="s_text" placeholder="Tìm kiếm bài viết">
 	              		<p class="font-size-8 field-click-able">Tìm theo bộ lọc</p>
 	              	</div>
-	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Nhóm</label>
-	              		<select name="s_group" class="control-label col-md-8 no-border no-padding margin-left-10">
-	              			<option value="" selected="">Tất cả</option>
-	              			<?php if (isset($l_group) && !empty($l_group)) {
-	              				foreach ($l_group as $key => $value) {
-	              					echo '<option value="'.$value['code'].'">'.$value['name'].'</option>';
-	              				}
-	              			} ?>
-	              		</select>
-	            	</div>
-	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Danh mục</label>
-	              		<select name="s_cate" class="control-label col-md-8 no-border no-padding margin-left-10">
-	              			<option value="" selected="">Tất cả</option>
-	              			<?php if (isset($l_cate) && !empty($l_cate)) {
-	              				foreach ($l_cate as $key => $value) {
-	              					echo '<option value="'.$value['code'].'">'.$value['name'].'</option>';
-	              				}
-	              			} ?>
-	              		</select>
-	            	</div>
-	            	<div class="">
+	              	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Phân loại</label>
-	              		<select name="s_type" class="control-label col-md-8 no-border no-padding margin-left-10">
+	              		<select name="s_type" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_1">
 	              			<option value="" selected="">Tất cả</option>
 	              			<?php if (isset($l_type) && !empty($l_type)) {
 	              				foreach ($l_type as $key => $value) {
 	              					echo '<option value="'.$value['code'].'">'.$value['name'].'</option>';
+	              				}
+	              			} ?>
+	              		</select>
+	            	</div>
+	            	<div class="">
+	            		<label class="control-label user-label col-md-3 no-padding">Nhóm vấn đề</label>
+	              		<select name="s_group" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_2">
+	              			<option value="" selected="">Tất cả</option>
+	              			<?php if (isset($l_group) && !empty($l_group)) {
+	              				foreach ($l_group as $key => $value) {
+	              					echo '<option ref1="'.$value['ref1'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
+	              				}
+	              			} ?>
+	              		</select>
+	            	</div>
+	            	<div class="">
+	            		<label class="control-label user-label col-md-3 no-padding">Chi tiết VĐ</label>
+	              		<select name="s_cate" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_3">
+	              			<option value="" selected="">Tất cả</option>
+	              			<?php if (isset($l_cate) && !empty($l_cate)) {
+	              				foreach ($l_cate as $key => $value) {
+	              					echo '<option ref1="'.$value['ref1'].'" ref2="'.$value['ref2'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
 	              				}
 	              			} ?>
 	              		</select>

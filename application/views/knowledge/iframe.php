@@ -11,10 +11,10 @@
 	              		<thead class="no-border-top">
 	              			<tr>
 	              				<th>Chủ đề</th>
-	              				
-	              				<th width="100">Nhóm</th>
-	              				<th>Danh mục</th>
 	              				<th>Phân loại</th>
+	              				<th width="100">Nhóm vấn đề</th>
+	              				<th>Chi tiết VĐ</th>
+	              				
 	              				<th>Đăng bởi</th>
 	              				<th>Ngày đăng</th>
 	              				<th>Trạng thái</th>
@@ -28,7 +28,19 @@
 			                    	$titleUpdate = 'Cập nhật Knowledge '.$value['id']; ?>
 			                    <td><a onclick="addTab('<?php echo $linkUpdate ?>','<?php echo $titleUpdate ?>')" href="#"><?php echo $value['title'] ?></a></td>
 
-			                    
+			                    <td>
+			                    	
+			                    	<?php if (isset($l_type) && !empty($l_type)) {
+		                				$exi = 'Không xác định';
+		                				foreach ($l_type as $k => $v) {
+		                					if ($value['tickettype']==$v['code']) {
+		                						$exi = $v['name'];
+		                						break;
+		                					}
+		                				}
+		                				echo $exi;
+		                			} ?>
+			                    </td>
 		                		<td>
 		                			<?php if (isset($l_group) && !empty($l_group)) {
 		                				$exi = 'Không xác định';
@@ -54,19 +66,7 @@
 		                				echo $exi;
 		                			} ?>
 			                    </td>
-			                    <td>
-			                    	
-			                    	<?php if (isset($l_type) && !empty($l_type)) {
-		                				$exi = 'Không xác định';
-		                				foreach ($l_type as $k => $v) {
-		                					if ($value['tickettype']==$v['code']) {
-		                						$exi = $v['name'];
-		                						break;
-		                					}
-		                				}
-		                				echo $exi;
-		                			} ?>
-			                    </td>
+			                    
 			                    <td><?php echo($value['custname']); ?></td>
 			                    <td><?php echo date("d-m-Y", strtotime($value['createdat'])); ?></td>
 			                    <td><?php if($value['hidden']=='0')echo "Đang hoạt động"; else echo "Ngưng hoạt động"; ?></td>

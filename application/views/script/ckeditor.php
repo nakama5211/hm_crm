@@ -91,6 +91,41 @@
 		{
 			$('#ck-edit').trigger('click');
 		}
+
+		$('select#level_1').change(function(){
+	        var val = $(this).val();
+	        if(val){
+	          $('select#level_2 option, select#level_3 option').each(function(){
+	            var ref1 = $(this).attr('ref1');
+	            if (ref1==val) {
+	              $(this).removeClass('hide');
+	            }else{
+	              $(this).addClass('hide');
+	            }
+	          });
+	        }else{
+	          $('select#level_2 option, select#level_3 option').each(function(){
+	            $(this).removeClass('hide');
+	          });
+	        }
+	    });
+	    $('select#level_2').change(function(){
+	        var val = $(this).val();
+	        if(val){
+	          $('select#level_3 option').each(function(){
+	            var ref2 = $(this).attr('ref2');
+	            if (ref2==val) {
+	              $(this).removeClass('hide');
+	            }else{
+	              $(this).addClass('hide');
+	            }
+	          });
+	        }else{
+	          $('select#level_3 option').each(function(){
+	            $(this).removeClass('hide');
+	          });
+	        }  
+	    });
 	});
     
 </script>

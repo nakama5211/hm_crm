@@ -10,37 +10,8 @@
           	<div class="tile p-0 padding-5 margin-bot-5">
 	            <div class="tile-body padding-left-10">
 	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Nhóm</label>
-	            		<select name="group" class="control-label col-md-8 no-border no-padding margin-left-10" value="<?php echo isset($knowledge[0]['groupid'])?$knowledge[0]['groupid']:'' ?>">
-	              			<?php if (isset($l_group) && !empty($l_group)) {
-	              				foreach ($l_group as $key => $value) {
-	              					$sel = '';
-	              					if (isset($knowledge[0]['groupid']) && $value['code']==$knowledge[0]['groupid']) {
-	              						$sel = 'selected';
-	              					}
-	              					echo '<option '.$sel.' value="'.$value['code'].'">'.$value['name'].'</option>';
-	              				}
-	              				# code...
-	              			} ?>
-	              		</select>
-	            	</div>
-	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Danh mục</label>
-	            		<select name="cate" class="control-label col-md-8 no-border no-padding margin-left-10" value="<?php echo isset($knowledge[0]['categoryid'])?$knowledge[0]['categoryid']:'' ?>">
-	              			<?php if (isset($l_cate) && !empty($l_cate)) {
-	              				foreach ($l_cate as $key => $value) {
-	              					$sel = '';
-	              					if (isset($knowledge[0]['categoryid']) && $value['code']==$knowledge[0]['categoryid']) {
-	              						$sel = 'selected';
-	              					}
-	              					echo '<option '.$sel.' value="'.$value['code'].'">'.$value['name'].'</option>';
-	              				}
-	              			} ?>
-	              		</select>
-	            	</div>
-	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Phân loại</label>
-	            		<select name="type" class="control-label col-md-8 no-border no-padding margin-left-10" value="<?php echo isset($knowledge[0]['tickettype'])?$knowledge[0]['tickettype']:'' ?>">
+	            		<select name="type" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_1" value="<?php echo isset($knowledge[0]['tickettype'])?$knowledge[0]['tickettype']:'' ?>">
 	              			<?php if (isset($l_type) && !empty($l_type)) {
 	              				foreach ($l_type as $key => $value) {
 	              					$sel = '';
@@ -53,6 +24,36 @@
 	              			} ?>
 	              		</select>
 	            	</div>
+	            	<div class="">
+	            		<label class="control-label user-label col-md-3 no-padding">Nhóm vấn đề</label>
+	            		<select name="group" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_2" value="<?php echo isset($knowledge[0]['groupid'])?$knowledge[0]['groupid']:'' ?>">
+	              			<?php if (isset($l_group) && !empty($l_group)) {
+	              				foreach ($l_group as $key => $value) {
+	              					$sel = '';
+	              					if (isset($knowledge[0]['groupid']) && $value['code']==$knowledge[0]['groupid']) {
+	              						$sel = 'selected';
+	              					}
+	              					echo '<option '.$sel.' ref1="'.$value['ref1'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
+	              				}
+	              				# code...
+	              			} ?>
+	              		</select>
+	            	</div>
+	            	<div class="">
+	            		<label class="control-label user-label col-md-3 no-padding">Chi tiết VĐ</label>
+	            		<select name="cate" class="control-label col-md-8 no-border no-padding margin-left-10" id="level_3" value="<?php echo isset($knowledge[0]['categoryid'])?$knowledge[0]['categoryid']:'' ?>">
+	              			<?php if (isset($l_cate) && !empty($l_cate)) {
+	              				foreach ($l_cate as $key => $value) {
+	              					$sel = '';
+	              					if (isset($knowledge[0]['categoryid']) && $value['code']==$knowledge[0]['categoryid']) {
+	              						$sel = 'selected';
+	              					}
+	              					echo '<option '.$sel.' ref1="'.$value['ref1'].'" ref2="'.$value['ref2'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
+	              				}
+	              			} ?>
+	              		</select>
+	            	</div>
+	            	
 	            </div>
           	</div>
           	<div class="tile p-0 padding-5 margin-bot-5">
@@ -67,7 +68,7 @@
 		              	</label>
 	            	</div>
 	            	<div class="">
-	            		<label class="control-label user-label col-md-3 no-padding">Mức Ưu tiên</label>
+	            		<label class="control-label user-label col-md-3 no-padding">Tag</label>
 	            		<select name="ticketprioty" class="control-label col-md-8 no-border no-padding margin-left-10" value="<?php echo isset($knowledge[0]['ticketprioty'])?$knowledge[0]['ticketprioty']:'' ?>">
 	            			<?php if (isset($knowledge[0]['ticketprioty'])) {
 	            				if ($knowledge[0]['ticketprioty']=='0') {
