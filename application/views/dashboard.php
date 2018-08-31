@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/customer2.css">
   </head>
   <body class="app sidebar-mini rtl sidenav-toggled">
+    <?php $dayCompare = strtotime('2000-01-01T00:00:00');?>
     <?php echo isset($mainview) ? $mainview : ''; ?>
     
 
