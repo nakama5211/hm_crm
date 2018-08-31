@@ -167,3 +167,10 @@ background: rgb(44, 166, 164) !important;
   display: inline-block !important;
   float: left;
 }
+.col-md-27
+{
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 27%;
+  flex: 0 0 27%;
+  max-width: 27%;
+}

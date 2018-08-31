@@ -50,9 +50,9 @@
 	            	</div>
 
 	            	<div class="div-cmnd">
-	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport
+	            		<label class="control-label user-label col-md-4 no-padding">CMND/Passport
 	              		(<span style="color: red">*</span>):</label>
-	              		<label class="control-label col-md-8 no-padding-right">
+	              		<label class="control-label col-md-7 no-padding-right">
 		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required
                minlength="9" maxlength="10">
 		              	</label>
