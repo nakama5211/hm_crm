@@ -125,8 +125,8 @@
 	<button type="button" class="fc-agendaWeek-button fc-button fc-state-default fc-state-active fc-corner-right">Ticket</button>
 			    </div>
 			    <div class="bs-component margin-top-10">
-          			<div class="table-responsive" style="height: 396px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat" id="div-table-ticket">
-		              	<table class="table" id="table-1">
+          			<div class="table-responsive" style="height: 396px;" id="div-table-ticket">
+		              	<table class="table table-striped table-bordered" id="table-1-ticketcontract">
                       <thead class="no-border-top">
                         <tr>
                           <th>ID</th>
@@ -137,6 +137,7 @@
                         </tr>
                       </thead>
                       <tbody>
+
                       </tbody>
                     </table>
 		            </div>

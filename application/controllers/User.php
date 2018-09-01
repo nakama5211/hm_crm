@@ -57,12 +57,13 @@ class User extends CI_Controller {
 	}
     public function testContract()
     {
+        $idcard = $this->uri->segment(3);
         $data_contractc = array(
             'reportcode'=>'crmContract01',
             'limit'=>25,
             'start'=>0,
             'queryFilters'=>array(
-                'idcard'=> '025980578'
+                'idcard'=> $idcard
             )
         );
 
@@ -249,6 +250,62 @@ class User extends CI_Controller {
 		$this->load->view('dashboard',$_data);
 	}
 
+    public function getCongnoThanhtoan()
+    {
+         $data_contractc = array(
+            'method' => 'getReturnData',
+            'reportcode'=>'crmContract01c',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'contractid'=> $this->uri->segment(3)
+            )
+        );
+
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            $href = ''.base_url().'ticket/detail/'.$data['trade_cntt'][$i]['ticketid'].'/'.$data['trade_cntt'][$i]['custid'].'/'.$data['trade_cntt'][$i]['idcard'].'';
+            $onclick = "addTab('".$href."','".$data['trade_cntt'][$i]['ticketid']."')";
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['revenuetype'].'",
+                       "'.$data['trade_cntt'][$i]['value0'].'",
+                       "'.$data['trade_cntt'][$i]['value4'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['transdate'])).'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['duedate'])).'",
+                       "'.number_format(abs($data['trade_cntt'][$i]['amount'])).'",
+                       "'.$data['trade_cntt'][$i]['extdescription1'].'",
+                       "'.$data['trade_cntt'][$i]['allocation'].'",
+                       "'.$data['trade_cntt'][$i]['anal_r9'].'",
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['revenuetype'].'",
+                       "'.$data['trade_cntt'][$i]['value0'].'",
+                       "'.$data['trade_cntt'][$i]['value4'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['createat'])).'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['duedate'])).'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
+
 	public function contract(){
 		$data['contractid'] = $this->uri->segment(3);
         //a
@@ -263,26 +320,12 @@ class User extends CI_Controller {
 
 
         $result = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/api/get_list_contract",$data);
-        // var_dump($result);
         $_json = json_decode($result,true);
         $_json2 = json_decode($_json,true);
         $data_left['trade'] = $_json2["result"]["data"];
         //c
 
-        $data_contractc = array(
-            'method' => 'getReturnData',
-            'reportcode'=>'crmContract01c',
-            'limit'=>25,
-            'start'=>0,
-            'queryFilters'=>array(
-                'contractid'=> $this->uri->segment(3)
-            )
-        );
-
-        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
-        $_json_contractc = json_decode($result_contractc,true);
-        $_json2_contractc = json_decode($_json_contractc,true);
-        $data['trade_cntt'] = $_json2_contractc["result"]["data"]; 
+       
 
         $data['ticket_bottom'] = array('data' => [] );
         $right['history'] =[];
@@ -307,9 +350,43 @@ class User extends CI_Controller {
 	}
     public function loadTicketContract()
     {
-        $contractid = $this->input->post('contractid');
+        // $contractid = $this->input->post('contractid');
+        $contractid = $this->uri->segment(3);
         $json_ticket_bottom = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?contractid='.$contractid.'');
-        echo $json_ticket_bottom;
+        $data['trade_cntt'] = json_decode($json_ticket_bottom,true)['data'];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            $href = ''.base_url().'ticket/detail/'.$data['trade_cntt'][$i]['ticketid'].'/'.$data['trade_cntt'][$i]['custid'].'/'.$data['trade_cntt'][$i]['idcard'].'';
+            $onclick = "addTab('".$href."','".$data['trade_cntt'][$i]['ticketid']."')";
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                $text .= '[
+                       "<a onclick='.$onclick.' href=\'#\'>#' .$data['trade_cntt'][$i]['ticketid']. '</a>",
+                       "'.$data['trade_cntt'][$i]['title'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['createat'])).'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['lastupdate'])).'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "<a onclick='.$onclick.' href=\'#\'>#' .$data['trade_cntt'][$i]['ticketid']. '</a>",
+                       "'.$data['trade_cntt'][$i]['title'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['createat'])).'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.date("d/m/Y",strtotime($data['trade_cntt'][$i]['lastupdate'])).'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
     }
 	public function insertPhoneList()
 	{
