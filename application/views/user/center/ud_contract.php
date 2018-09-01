@@ -56,44 +56,7 @@
 				              			</tr>
 				              		</thead>
 					                <tbody>
-					                	<?php 
-					                	if(count($trade_cntt) >0)
-					                	{
-					                	foreach ($trade_cntt as $value) { ?>
-					                  	<tr class="border-bot-1">
-						                    <td width="60">
-						                    	<?php echo $value['revenuetype'] ?>
-						                    </td>
-						                    <td>
-						                    	<?php echo $value['value0'] ?>
-						                    </td>
-						                    <td><?php echo $value['value4'] ?></td>
-						                    <td>
-												<?php 
-												if($value['transdate'] !=null )
-												{
-													$date = str_replace('/', '-', $value['transdate']);
-													if($date > $dayCompare)
-													{
-													echo date('d/m/Y', strtotime($date));
-													}
-												}
-												?>
-						                    <td><?php 
-						                    if($value['duedate'] !=null)
-												{
-													$date = str_replace('/', '-', $value['duedate']);
-													if($date > $dayCompare)
-													{
-													echo date('d/m/Y', strtotime($date));
-													}
-												} ?></td>
-						                    <td><?php echo number_format(abs($value['amount']))   ?></td>
-						                    <td><?php echo $value['extdescription1'] ?></td>
-						                    <td><?php echo $value['allocation'] ?></td>
-						                    <td><?php echo $value['anal_r9'] ?></td>
-					                  	</tr>
-					                	<?php }} ?>
+					                	
 					                </tbody>
 				              	</table>
 		                </div>

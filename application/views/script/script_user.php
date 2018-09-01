@@ -868,8 +868,8 @@
         });
     $.fn.dataTable.moment('DD/MM/YYYY');
           $('#table-1-congno').DataTable({
-             "paging":   false,
-            "columns": [
+            "paging":   false,
+                    "columns": [
               { "width": "46px" },
               { "width": "19px" },
               { "width": "38px" },
@@ -879,13 +879,19 @@
               { "width": "220px" },
               { "width": "18px" },
               { "width": "450px" }
-            ],
-            "ajax": '<?php echo base_url() ?>user/getCongnoThanhtoan/'+contractid+'',
-            "info":     false,
-            "searching": false,
-            "scrollY":        "294px",
-            "scrollX":        true,
-            "scrollCollapse": true
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />"
+                    },
+                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/AGR00001'
           }).columns.adjust().draw();
 
           $('#table-1-dchd').DataTable({
