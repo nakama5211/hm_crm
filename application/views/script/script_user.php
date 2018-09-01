@@ -257,6 +257,101 @@
                     }
         });
 
+      $('#table-1-history').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "71px" },
+                      { "width": "123px" },
+                      { "width": "67px" },
+                      { "width": "65px" },
+                      { "width": "323px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getHistory/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+
+      $('#table-1-gift').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "71px" },
+                      { "width": "123px" },
+                      { "width": "67px" },
+                      { "width": "65px" },
+                      { "width": "323px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getGift/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+
+      $('#table-1-buss').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "195px" },
+                      { "width": "117px" },
+                      { "width": "83px" },
+                      { "width": "255px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getBussEmployee/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+
+      $('#table-1-notes').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "81px" },
+                      { "width": "93px" },
+                      { "width": "71px" },
+                      { "width": "169px" },
+                      { "width": "235px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getNotes/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+
        $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
             'data': JSON.stringify({  
              "reportcode":"crmContract01e",

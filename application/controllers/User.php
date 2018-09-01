@@ -323,6 +323,208 @@ class User extends CI_Controller {
             }';
     }
 
+    public function getHistory()
+    {
+        $data_contractc = array(
+            'method' => 'qry',
+            'reportcode'=>'crmContract01b',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'contractid'=> $this->uri->segment(3)
+            )
+        );
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                if(strtotime($data['trade_cntt'][$i]['statusdate']) > $dayCompare)
+                {
+                    $statusdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['statusdate']));
+                }else{$statusdate='';}
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['status'].'",
+                       "'.$statusdate.'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['name1'].'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['status'].'",
+                       "'.$statusdate.'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['name1'].'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
+
+    public function getGift()
+    {
+        $data_contractc = array(
+            'method' => 'qry',
+            'reportcode'=>'crmContract01d',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'contractid'=> $this->uri->segment(3)
+            )
+        );
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                if(strtotime($data['trade_cntt'][$i]['promotiondate']) > $dayCompare)
+                {
+                    $promotiondate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['promotiondate']));
+                }else{$promotiondate='';}
+                $text .= '[
+                       "'.$promotiondate.'",
+                       "'.$data['trade_cntt'][$i]['description'].'",
+                       "'.$data['trade_cntt'][$i]['quantity'].'",
+                       "'.$data['trade_cntt'][$i]['amount'].'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "'.$promotiondate.'",
+                       "'.$data['trade_cntt'][$i]['description'].'",
+                       "'.$data['trade_cntt'][$i]['quantity'].'",
+                       "'.$data['trade_cntt'][$i]['amount'].'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
+
+    public function getBussEmployee()
+    {
+        $data_contractc = array(
+            'method' => 'qry',
+            'reportcode'=>'crmContract01f',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'contractid'=> $this->uri->segment(3)
+            )
+        );
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['name1'].'",
+                       "'.number_format((float)$data['trade_cntt'][$i]['commissionrate'],5,'.','').'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['name1'].'",
+                       "'.number_format((float)$data['trade_cntt'][$i]['commissionrate'],5,'.','').'",
+                       "'.$data['trade_cntt'][$i]['remarks'].'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
+
+    public function getNotes()
+    {
+        $data_contractc = array(
+            'method' => 'qry',
+            'reportcode'=>'crmContract01h',
+            'limit'=>25,
+            'start'=>0,
+            'queryFilters'=>array(
+                'contractid'=> $this->uri->segment(3)
+            )
+        );
+        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
+        $_json_contractc = json_decode($result_contractc,true);
+        $_json2_contractc = json_decode($_json_contractc,true);
+        $data['trade_cntt'] = $_json2_contractc["result"]["data"];
+        $text = '';
+        for ($i=0; $i < count($data['trade_cntt']); $i++) { 
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                if(strtotime($data['trade_cntt'][$i]['eventdate']) > $dayCompare)
+                {
+                    $eventdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['eventdate']));
+                }else{$eventdate='';}
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['eventtype'].'",
+                       "'.$eventdate.'",
+                       "'.$data['trade_cntt'][$i]['eventstatus'].'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['notes'].'"
+                      ]';
+            }
+            else
+            {
+                $text .= '[
+                       "'.$data['trade_cntt'][$i]['eventtype'].'",
+                       "'.$eventdate.'",
+                       "'.$data['trade_cntt'][$i]['eventstatus'].'",
+                       "'.$data['trade_cntt'][$i]['name'].'",
+                       "'.$data['trade_cntt'][$i]['notes'].'"
+                      ],
+                      ';
+            }
+        }
+
+        echo '{
+              "data": 
+                [
+                    '.$text.'
+                ]
+            }';
+    }
+
     public function contract(){
         $data['contractid'] = $this->uri->segment(3);
         //a
@@ -389,7 +591,7 @@ class User extends CI_Controller {
             {
                 
                 $text .= '[
-                       "<a onclick='.$onclick.' href=\'#\'>#' .$data['trade_cntt'][$i]['ticketid']. '</a>",
+                       "<a onclick='.$onclick.' href=\'#\'><span class=\'id-label span-danger\'>O</span> #' .$data['trade_cntt'][$i]['ticketid']. '</a>",
                        "'.$data['trade_cntt'][$i]['title'].'",
                        "'.$createat.'",
                        "'.$data['trade_cntt'][$i]['name'].'",
@@ -399,7 +601,7 @@ class User extends CI_Controller {
             else
             {
                 $text .= '[
-                       "<a onclick='.$onclick.' href=\'#\'>#' .$data['trade_cntt'][$i]['ticketid']. '</a>",
+                       "<a onclick='.$onclick.' href=\'#\'><span class=\'id-label span-danger\'>O</span> #' .$data['trade_cntt'][$i]['ticketid']. '</a>",
                        "'.$data['trade_cntt'][$i]['title'].'",
                        "'.$createat.'",
                        "'.$data['trade_cntt'][$i]['name'].'",

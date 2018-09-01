@@ -36,8 +36,22 @@
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-2">
-		                  	<div class="table-responsive" id="div-content-2" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-2" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-history">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 11%;">HH/DV</th>
+                         <th style="
+                         width: 19%;;">Ngày</th>
+                         <th style="
+                         width: 10.3%;">Số lượng</th><th style="
+                         width: 10%;;">Giá trị</th>
+                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-3">
@@ -61,13 +75,40 @@
 				              	</table>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-4">
-		                  	<div class="table-responsive" id="div-content-4" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-4" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-gift">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 11%;">Ngày</th>
+                         <th style="
+                         width: 19%;;">HH/DV</th>
+                         <th style="
+                         width: 10.3%;">Số lượng</th><th style="
+                         width: 10%;;">Giá trị</th>
+                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-5">
-		                  	<div class="table-responsive" id="div-content-5" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-5" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-buss">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                 width: 30%;">Nhân viên</th><th style="
+                 width: 18%;">Sàn</th><th style="
+                 width: 12.8%;">Tỉ lệ thưởng</th>
+                                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-6">
@@ -76,8 +117,21 @@
 				              	</div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-7">
-		                  	<div class="table-responsive" class="div-content-7" id="div-content-7" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-				              	
+		                  	<div class="table-responsive" class="div-content-7" id="div-content-7" style="height: 294px;">
+				              	<table class="table table-striped table-bordered" id="table-1-notes">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 12.5%;">Loại ghi chú</th><th style="
+                         width: 14.3%;">Ngày ghi chú</th><th style="
+                         width: 11%;;">Tình trạng</th><th style="
+                         width: 26%;">Nhân viên</th>
+                               <th>Nội dung</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 	              	</div>
