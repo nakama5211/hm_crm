@@ -349,8 +349,8 @@ class User extends CI_Controller {
                 $text .= '[
                        "'.$data['trade_cntt'][$i]['status'].'",
                        "'.$statusdate.'",
-                       "'.$data['trade_cntt'][$i]['name'].'",
-                       "'.$data['trade_cntt'][$i]['name1'].'",
+                       "'.number_format($data['trade_cntt'][$i]['name']).'",
+                       "'.number_format($data['trade_cntt'][$i]['name1']).'",
                        "'.$data['trade_cntt'][$i]['remarks'].'"
                       ]';
             }
@@ -401,8 +401,8 @@ class User extends CI_Controller {
                 $text .= '[
                        "'.$promotiondate.'",
                        "'.$data['trade_cntt'][$i]['description'].'",
-                       "'.$data['trade_cntt'][$i]['quantity'].'",
-                       "'.$data['trade_cntt'][$i]['amount'].'",
+                       "'.number_format($data['trade_cntt'][$i]['quantity']).'",
+                       "'.number_format(abs($data['trade_cntt'][$i]['amount'])).'",
                        "'.$data['trade_cntt'][$i]['remarks'].'"
                       ]';
             }

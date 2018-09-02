@@ -14,7 +14,7 @@
 		                	<a class="user-tab" data-toggle="tab" alt="crmContract01b" href="#tab-content-2">Lịch sử trạng thái</a>
 		                </li>
 		                <li class="nav-item" role="presentation"> 
-		                	<a class="user-tab" data-toggle="tab" href="#tab-content-3">Công nợ/Thanh toán</a>
+		                	<a class="user-tab" data-toggle="tab" alt="crmContract01c" href="#tab-content-3">Công nợ/Thanh toán</a>
 		                </li>
 		                <li class="nav-item" role="presentation">
 		                	<a class="user-tab" data-toggle="tab" alt="crmContract01d" href="#tab-content-4">KM/Quà tặng</a>
