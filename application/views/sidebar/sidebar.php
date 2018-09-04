@@ -19,7 +19,7 @@
                         $title_first = 'Cài đặt';
                         $alt_first = 'settings';
                         $icon_first = 'fas fa-user-circle';
-                        $link = 'setting';
+                        $link = 'settings';
                     }
                     else{
                         $title_first = 'Phiếu';

@@ -1,5 +1,6 @@
 <script type="text/javascript">
-	
+  
+  var dayCompare = new Date("2000-01-01T00:00:00");	
   $(document).ready( function () {
     loadFirst();
       });
@@ -10,55 +11,8 @@
       var load_roleid = $('#roleid').val();
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
       loadGroup(load_roleid);
-      $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
-            'data': JSON.stringify({  
-             "reportcode":"crmContract01","limit":25,"start":0,"queryFilters":{"idcard":idcard}
-            }),
-            'type': 'POST',
-            'processData': false,
-            'contentType': 'application/json' 
-        })
-          .done(function(data) {
-                  $("#div-content-1").css('background', 'none');
-            var data_html = '';
-                 var obj = jQuery.parseJSON(data);
-                 $("#tab1").text('Giao Dịch('+obj.result.data.length+')');
-                 for (var i = 0; i < obj.result.data.length; i++) {
-                  var t1 = new Date(obj.result.data[i].startdate);
-                  var startdate = formatDMY(t1.getDate(),t1.getMonth()+1,t1.getFullYear());
-                  var t2 = new Date(obj.result.data[i].effectivedate);
-                  var effectivedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
-                  var custidCustomer = '<?php echo $this->input->get('cusid')?>' ;
-                 var href = "'<?php echo base_url() ?>user/contract/"+obj.result.data[i].contractid+"/"+custidCustomer+"'";
-                 var title = "'#"+obj.result.data[i].contractid+"'";
-                 data_html+=' <tr>\
-                          <td><a class="buttonnewiframe" onClick="addTab('+href+','+title+')" href="#">#'+obj.result.data[i].contractid+'</a>\
-                                </td>\
-                                <td>\
-                                  '+obj.result.data[i].status+'\
-                                </td>\
-                                <td>'+obj.result.data[i].property+'</td>\
-                                <td>'+startdate+'</td>\
-                                <td>'+effectivedate+'</td>\
-                                <td>'+obj.result.data[i].notes+'</td>\
-                      </tr>';
-                  }
-                  $('#div-content-1').html('<table class="table table-striped table-bordered" cellspacing="0" id="table-1-contract">\
-                          <thead>\
-                    <tr>\
-                        <th>Mã GD</th>\
-                            <th>Tình trạng</th>\
-                            <th>Mã căn hộ</th>\
-                            <th>Ngày bắt đầu</th>\
-                            <th>Ngày hiệu lực</th>\
-                            <th>Ghi chú</th>\
-                    </tr>\
-                  </thead>\
-                  <tbody>\
-                    '+data_html+'\
-                  </tbody>\
-                        </table>');
-                  $('#table-1-contract').DataTable({
+
+    $('#table-1-contract').DataTable({
                     "paging":   false,
                     "columns": [
                       { "width": "60px" },
@@ -72,12 +26,15 @@
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
-                    "scrollCollapse": true
+                    "scrollCollapse": true,
+                    "ajax": '<?php echo base_url() ?>user/testContract/'+idcard+'',
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
                   });
-              })
-      .fail(function() {
-        console.log('Load Fail!');
-      })
     $('.btn-update').click(function(){
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();

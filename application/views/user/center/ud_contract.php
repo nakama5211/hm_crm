@@ -14,7 +14,7 @@
 		                	<a class="user-tab" data-toggle="tab" alt="crmContract01b" href="#tab-content-2">Lịch sử trạng thái</a>
 		                </li>
 		                <li class="nav-item" role="presentation"> 
-		                	<a class="user-tab" data-toggle="tab" href="#tab-content-3">Công nợ/Thanh toán</a>
+		                	<a class="user-tab" data-toggle="tab" alt="crmContract01c" href="#tab-content-3">Công nợ/Thanh toán</a>
 		                </li>
 		                <li class="nav-item" role="presentation">
 		                	<a class="user-tab" data-toggle="tab" alt="crmContract01d" href="#tab-content-4">KM/Quà tặng</a>
@@ -36,8 +36,22 @@
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-2">
-		                  	<div class="table-responsive" id="div-content-2" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-2" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-history">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 11%;">HH/DV</th>
+                         <th style="
+                         width: 19%;;">Ngày</th>
+                         <th style="
+                         width: 10.3%;">Số lượng</th><th style="
+                         width: 10%;;">Giá trị</th>
+                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-3">
@@ -56,49 +70,45 @@
 				              			</tr>
 				              		</thead>
 					                <tbody>
-					                	<?php 
-					                	if(count($trade_cntt) >0)
-					                	{
-					                	foreach ($trade_cntt as $value) { ?>
-					                  	<tr class="border-bot-1">
-						                    <td width="60">
-						                    	<?php echo $value['revenuetype'] ?>
-						                    </td>
-						                    <td>
-						                    	<?php echo $value['value0'] ?>
-						                    </td>
-						                    <td><?php echo $value['value4'] ?></td>
-						                    <td>
-												<?php 
-												if($value['transdate'] !=null)
-												{
-													$date = str_replace('/', '-', $value['transdate']);
-													echo date('d/m/Y', strtotime($date));
-												}
-												?>
-						                    <td><?php 
-						                    if($value['duedate'] !=null)
-												{
-													$date = str_replace('/', '-', $value['duedate']);
-													echo date('d/m/Y', strtotime($date));
-												} ?></td>
-						                    <td><?php echo number_format(abs($value['amount']))   ?></td>
-						                    <td><?php echo $value['extdescription1'] ?></td>
-						                    <td><?php echo $value['allocation'] ?></td>
-						                    <td><?php echo $value['anal_r9'] ?></td>
-					                  	</tr>
-					                	<?php }} ?>
+					                	
 					                </tbody>
 				              	</table>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-4">
-		                  	<div class="table-responsive" id="div-content-4" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-4" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-gift">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 11%;">Ngày</th>
+                         <th style="
+                         width: 19%;;">HH/DV</th>
+                         <th style="
+                         width: 10.3%;">Số lượng</th><th style="
+                         width: 10%;;">Giá trị</th>
+                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-5">
-		                  	<div class="table-responsive" id="div-content-5" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                  	<div class="table-responsive" id="div-content-5" style="height: 294px;">
+		                  		<table class="table table-striped table-bordered" id="table-1-buss">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                 width: 30%;">Nhân viên</th><th style="
+                 width: 18%;">Sàn</th><th style="
+                 width: 12.8%;">Tỉ lệ thưởng</th>
+                                               <th>Ghi chú</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-6">
@@ -107,8 +117,21 @@
 				              	</div>
 		                </div>
 		                <div class="tab-pane fade" id="tab-content-7">
-		                  	<div class="table-responsive" class="div-content-7" id="div-content-7" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-				              	
+		                  	<div class="table-responsive" class="div-content-7" id="div-content-7" style="height: 294px;">
+				              	<table class="table table-striped table-bordered" id="table-1-notes">
+                           <thead class="no-border-top">
+                             <tr>
+                               <th style="
+                         width: 12.5%;">Loại ghi chú</th><th style="
+                         width: 14.3%;">Ngày ghi chú</th><th style="
+                         width: 11%;;">Tình trạng</th><th style="
+                         width: 26%;">Nhân viên</th>
+                               <th>Nội dung</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                         </table>
 				            </div>
 		                </div>
 	              	</div>
@@ -119,8 +142,8 @@
 	<button type="button" class="fc-agendaWeek-button fc-button fc-state-default fc-state-active fc-corner-right">Ticket</button>
 			    </div>
 			    <div class="bs-component margin-top-10">
-          			<div class="table-responsive" style="height: 396px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat" id="div-table-ticket">
-		              	<table class="table" id="table-1">
+          			<div class="table-responsive" style="height: 396px;" id="div-table-ticket">
+		              	<table class="table table-striped table-bordered" id="table-1-ticketcontract">
                       <thead class="no-border-top">
                         <tr>
                           <th>ID</th>
@@ -131,6 +154,7 @@
                         </tr>
                       </thead>
                       <tbody>
+
                       </tbody>
                     </table>
 		            </div>

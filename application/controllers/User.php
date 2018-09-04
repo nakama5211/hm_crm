@@ -5,13 +5,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
-	public function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->load->library(array('session'));
         $this->load->helper(array('url'));
         $this->load->model('M_api');
+        $this->load->model('M_data_API');
         $this->load->driver('cache');
-
+        $dayCompare = strtotime('2000-01-01T00:00:00');
         $time = microtime();
         $time = explode(' ', $time);
         $time = $time[1] + $time[0];
@@ -42,33 +43,37 @@ class User extends CI_Controller {
 
     }
 
-	public function index()
-	{
+    public function index()
+    {
         $_body = [];
         $_body['left'] = $this->load->view('user/left/ud_dashboard_left',null,TRUE); 
         $_body['right'] = $this->load->view('user/right/ud_dashboard_right', null, TRUE);
         $_body['center'] = $this->load->view('user/center/ud_dashboard_center', null, TRUE);
-		$_data = [];    
-		$_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
-		$_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE); 
+        $_data = [];    
+        $_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
+        $_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE); 
         $_data['script'] = $this->load->view('script/script_dashboard', NULL, TRUE);  
-		$_data['mainview'] = $this->load->view('user/user', $_body , TRUE);
-		$this->load->view('dashboard',$_data);
-	}
-
-	public function detail(){
-		$_body = [];
-		$customer = [];
-		if(isset($_GET['cusid'])){
-			$_cusid = $_GET['cusid']; 
-		}
+        $_data['mainview'] = $this->load->view('user/user', $_body , TRUE);
+        $this->load->view('dashboard',$_data);
+    }
+    public function testContract()
+    {
+        $idcard = $this->uri->segment(3);
+        $this->M_data_API->getContractByIdcard($idcard);
+    }
+    public function detail(){
+        $_body = [];
+        $customer = [];
+        if(isset($_GET['cusid'])){
+            $_cusid = $_GET['cusid']; 
+        }
         else
         {
             $_cusid = '';
         }
-		if(isset($_GET['phone'])){
-			$_phone = $_GET['phone']; 
-		}
+        if(isset($_GET['phone'])){
+            $_phone = $_GET['phone']; 
+        }
         else
         {
             $_phone = '';
@@ -80,9 +85,9 @@ class User extends CI_Controller {
         {
             $_roleid = '';
         }
-		//Get Thong tin dia chi
-		$customer['city'] = $this->_init['_jsoncity'];
-		//Get thông tin khách hàng dựa vào id hoặc số phone
+        //Get Thong tin dia chi
+        $customer['city'] = $this->_init['_jsoncity'];
+        //Get thông tin khách hàng dựa vào id hoặc số phone
         $var = $this->session->userdata;
         if(isset($_GET['action']))
         {
@@ -99,13 +104,13 @@ class User extends CI_Controller {
         {
             $roleid = $var['roleid'];
         }
-		$_jsonuser = json_decode(file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?search=&custid='.$_cusid.'&telephone='.$_phone.'&roleid='.$roleid), true);
-		$_dataContract['user'] = $_jsonuser['data'];
-		//Get thông tin ticket dựa vào cusid
-		$_jsonticket = json_decode(file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/select/'.$_cusid.''), true);
-		$_dataContract['ticket'] = $_jsonticket['data'];
+        $_jsonuser = json_decode(file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?search=&custid='.$_cusid.'&telephone='.$_phone.'&roleid='.$roleid), true);
+        $_dataContract['user'] = $_jsonuser['data'];
+        //Get thông tin ticket dựa vào cusid
+        $_jsonticket = json_decode(file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/select/'.$_cusid.''), true);
+        $_dataContract['ticket'] = $_jsonticket['data'];
             $_dataContract['trade'] = array();
-		//Get thông tin cuộc gọi từ SDT
+        //Get thông tin cuộc gọi từ SDT
         $var = $this->session->userdata;
         $roleid = $var['roleid'];
         $role_list = array();
@@ -122,7 +127,7 @@ class User extends CI_Controller {
         $customer['role_list'] = $role_list; 
         $customer['group_list'] = $group_list['data']; 
         
-		$customer['detail'] = $_jsonuser['data'];
+        $customer['detail'] = $_jsonuser['data'];
 
         $list_ext = $this->_init['_jsonlistext'];
         $customer['list_ext'] = $list_ext['data']; 
@@ -137,22 +142,22 @@ class User extends CI_Controller {
         $right['history'] = $_jsonhistory_data['data'];
         $customer['address'] = $_jsonaddress['data'];
 
-		$_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
-		$_body['left'] = $this->load->view('user/left/ud_info',$customer,TRUE); 
-		$_body['right'] = $this->load->view('user/right/ud_history', $right, TRUE);
-		$_body['center'] = $this->load->view('user/center/ud_body', $_dataContract, TRUE);
+        $_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
+        $_body['left'] = $this->load->view('user/left/ud_info',$customer,TRUE); 
+        $_body['right'] = $this->load->view('user/right/ud_history', $right, TRUE);
+        $_body['center'] = $this->load->view('user/center/ud_body', $_dataContract, TRUE);
 
 
-		$_data = [];
-		$_data['link'] = 'user/detail';      
-		$_data['script'] = $this->load->view('script/script_user_info', NULL, TRUE);
-		$_data['mainview'] = $this->load->view('user/user_detail', $_body , TRUE);
-		$this->load->view('dashboard',$_data);
-	}
+        $_data = [];
+        $_data['link'] = 'user/detail';      
+        $_data['script'] = $this->load->view('script/script_user_info', NULL, TRUE);
+        $_data['mainview'] = $this->load->view('user/user_detail', $_body , TRUE);
+        $this->load->view('dashboard',$_data);
+    }
 
 
 
-	public function create(){
+    public function create(){
         $arrContextOptions=array(
             "ssl"=>array(
                 "verify_peer"=>false,
@@ -175,7 +180,7 @@ class User extends CI_Controller {
         $_jsongroup = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/group');
         $group_list = json_decode($_jsongroup,true);
 
-		$_data = [];   
+        $_data = [];   
 
         $_jsonlistcodic = file_get_contents('http://test.tavicosoft.com/crm/index.php/codedictionary/select/');
         $list_codic = json_decode($_jsonlistcodic,true);
@@ -192,17 +197,47 @@ class User extends CI_Controller {
         $_body = [];
         $_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
         $_body['left'] = $this->load->view('user/left/ud_info_create', $_data, TRUE); 
-		$_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
-		$_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
-		$_data['script'] = $this->load->view('script/script_user_info_create', NULL, TRUE);
-		$_data['mainview'] = $this->load->view('user/user_create', $_body , TRUE);
-		$this->load->view('dashboard',$_data);
-	}
+        $_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
+        $_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
+        $_data['script'] = $this->load->view('script/script_user_info_create', NULL, TRUE);
+        $_data['mainview'] = $this->load->view('user/user_create', $_body , TRUE);
+        $this->load->view('dashboard',$_data);
+    }
 
-	public function contract(){
-		$data['contractid'] = $this->uri->segment(3);
+    public function getCongnoThanhtoan()
+    {
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->getCongnoThanhtoan($contractid);
+    }
+
+    public function getHistory()
+    {
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->getHistory($contractid);
+    }
+
+    public function getGift()
+    {
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->getGift($contractid);
+    }
+
+    public function getBussEmployee()
+    {
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->getBussEmployee($contractid);
+    }
+
+    public function getNotes()
+    {
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->getNotes($contractid);
+    }
+
+    public function contract(){
+        $data['contractid'] = $this->uri->segment(3);
         //a
-		$data = array(
+        $data = array(
             'reportcode'=>'crmContract01a',
             'limit'=>25,
             'start'=>0,
@@ -213,61 +248,46 @@ class User extends CI_Controller {
 
 
         $result = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/api/get_list_contract",$data);
-        // var_dump($result);
         $_json = json_decode($result,true);
         $_json2 = json_decode($_json,true);
         $data_left['trade'] = $_json2["result"]["data"];
         //c
 
-        $data_contractc = array(
-            'method' => 'getReturnData',
-            'reportcode'=>'crmContract01c',
-            'limit'=>25,
-            'start'=>0,
-            'queryFilters'=>array(
-                'contractid'=> $this->uri->segment(3)
-            )
-        );
-
-        $result_contractc = $this->M_api->execute_normal_api("http://crm.tavicosoft.com/dev/api/get_list_contract",$data_contractc);
-        $_json_contractc = json_decode($result_contractc,true);
-        $_json2_contractc = json_decode($_json_contractc,true);
-        $data['trade_cntt'] = $_json2_contractc["result"]["data"]; 
+       
 
         $data['ticket_bottom'] = array('data' => [] );
         $right['history'] =[];
-		$_body = [];
-		$_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
-		$_body['left'] = $this->load->view('user/left/ud_contract', $data_left, TRUE); 
-		$_body['right'] = $this->load->view('user/right/ud_history', $right, TRUE);
-		$_body['center'] = $this->load->view('user/center/ud_contract', $data, TRUE);
+        $_body = [];
+        $_body['top'] = $this->load->view('user/top/ud_breadcrumb', NULL, TRUE);
+        $_body['left'] = $this->load->view('user/left/ud_contract', $data_left, TRUE); 
+        $_body['right'] = $this->load->view('user/right/ud_history', $right, TRUE);
+        $_body['center'] = $this->load->view('user/center/ud_contract', $data, TRUE);
 
-		$_data = [];    
-		$_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
-		$_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
-		$_data['script'] = $this->load->view('script/script_user', NULL, TRUE);
-		$_data['mainview'] = $this->load->view('user/user_detail', $_body , TRUE);
-		$this->load->view('dashboard',$_data);
+        $_data = [];    
+        $_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
+        $_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
+        $_data['script'] = $this->load->view('script/script_user', NULL, TRUE);
+        $_data['mainview'] = $this->load->view('user/user_detail', $_body , TRUE);
+        $this->load->view('dashboard',$_data);
         $time = microtime();
         $time = explode(' ', $time);
         $time = $time[1] + $time[0];
         $finish = $time;
         $total_time = round(($finish - $this->_init['start']), 4);
         // echo 'Page generated in '.$total_time.' seconds.';
-	}
+    }
     public function loadTicketContract()
     {
-        $contractid = $this->input->post('contractid');
-        $json_ticket_bottom = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?contractid='.$contractid.'');
-        echo $json_ticket_bottom;
+        $contractid = $this->uri->segment(3);
+        $this->M_data_API->loadTicketContract($contractid);
     }
-	public function insertPhoneList()
-	{
-		$telephonelist = $this->input->post('telephonelist');
-		$idcard = strval($_GET['idcard']);
+    public function insertPhoneList()
+    {
+        $telephonelist = $this->input->post('telephonelist');
+        $idcard = strval($_GET['idcard']);
         $custid = strval($_GET['cusid']);
         $roleid = strval($_GET['roleid']);
-		$postdata = http_build_query([
+        $postdata = http_build_query([
                 'telephonelist' => $telephonelist
         ]);
         $opts = array('http' =>
@@ -281,15 +301,15 @@ class User extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/customer/update/'.$custid.'',false,$context);
          header('location:/user/detail/?cusid='.$custid.'&idcard='.$idcard.'&roleid='.$roleid);
-	}
+    }
 
-	public function insertEmailList()
-	{
-		$emaillist = $this->input->post('emaillist');
+    public function insertEmailList()
+    {
+        $emaillist = $this->input->post('emaillist');
         $idcard = strval($_GET['idcard']);
-		$custid = strval($_GET['cusid']);
+        $custid = strval($_GET['cusid']);
         $roleid = strval($_GET['roleid']);
-		$postdata = http_build_query([
+        $postdata = http_build_query([
                 'emaillist' => $emaillist
         ]);
         $opts = array('http' =>
@@ -303,35 +323,35 @@ class User extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/customer/update/'.$custid.'',false,$context);
          header('location:/user/detail/?cusid='.$custid.'&idcard='.$idcard.'&roleid='.$roleid);
-	}
+    }
 
-	public function selectCity()
-	{
-		$id_city = $this->input->post('id_city');
-		$arrContextOptions=array(
-		    "ssl"=>array(
-		        "verify_peer"=>false,
-		        "verify_peer_name"=>false,
-		    ),
-		);  
-		$_jsoncity = json_decode(file_get_contents('https://hungminhits.com/api/list_district/'.$id_city.'',false, stream_context_create($arrContextOptions)))  ;
-		$city = $_jsoncity;
-		echo json_encode($city);
-	}
+    public function selectCity()
+    {
+        $id_city = $this->input->post('id_city');
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );  
+        $_jsoncity = json_decode(file_get_contents('https://hungminhits.com/api/list_district/'.$id_city.'',false, stream_context_create($arrContextOptions)))  ;
+        $city = $_jsoncity;
+        echo json_encode($city);
+    }
 
-	public function selectDistrict()
-	{
-		$id_district = $this->input->post('id_district');
-		$arrContextOptions=array(
-		    "ssl"=>array(
-		        "verify_peer"=>false,
-		        "verify_peer_name"=>false,
-		    ),
-		);  
-		$_jsoncity = json_decode(file_get_contents('https://hungminhits.com/api/list_ward/'.$id_district.'',false, stream_context_create($arrContextOptions)))  ;
-		$city = $_jsoncity;
-		echo json_encode($city);
-	}
+    public function selectDistrict()
+    {
+        $id_district = $this->input->post('id_district');
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );  
+        $_jsoncity = json_decode(file_get_contents('https://hungminhits.com/api/list_ward/'.$id_district.'',false, stream_context_create($arrContextOptions)))  ;
+        $city = $_jsoncity;
+        echo json_encode($city);
+    }
 
     public function getListExt()
     {
@@ -339,7 +359,7 @@ class User extends CI_Controller {
         echo $_jsonlistext;
     }
 
-	public function getSSLPage($url) {
+    public function getSSLPage($url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -347,7 +367,7 @@ class User extends CI_Controller {
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
-	}
+    }
 
     public function getGroupByRoleId()
     {

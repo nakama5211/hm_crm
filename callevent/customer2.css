@@ -3,12 +3,14 @@ html {
     overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-}
-/* optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
+    width: 5px;   
     background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #f6f6f6;
+    border: 5px solid transparent;
+    border-radius: 9px;
+    background-clip: content-box;
 }
 .myiframe {
     display: block;       /* iframes are inline by default */
@@ -70,6 +72,18 @@ padding-left: 0 !important;
   margin-top: 0px;
   margin-left: 35px;
 }
+.dropdown-item {
+  display: block;
+  /* width: 100%; */
+  padding: 8px 20px;
+  clear: both;
+  font-weight: 400;
+   color: #212529; 
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  }
 .dropdown-item.active
 {
   color: #009688;
@@ -157,20 +171,17 @@ background: rgb(44, 166, 164) !important;
 .component-fields:hover > .user-name{
     display: initial;
 }
-.nav-inline
-{
-  display: inline-block !important;
-  float: left;
+#table-1 td {
+padding: 0.5rem;
+padding-top: 0.2rem;
+vertical-align: top;
+border-top: 0px solid #dee2e6;
+padding-bottom: 0.2rem !important;
 }
-.nav-inline>li
-{
-  display: inline-block !important;
-  float: left;
-}
-.col-md-27
-{
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 27%;
-  flex: 0 0 27%;
-  max-width: 27%;
+.table th, .table td {
+padding: 0.75rem;
+padding-bottom: 0.3rem;
+padding-top: 0.3rem;
+vertical-align: top;
+border-top: 1px solid #dee2e6;
 }

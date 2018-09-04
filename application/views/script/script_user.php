@@ -210,6 +210,7 @@
       return today;
   }
   function loadFirst(){
+    $.fn.dataTable.moment('DD/MM/YYYY');
         var arrayCheck = [];
         var contractid = '<?php echo $this->uri->segment(3) ?>';
     $('.nav-tabs')
@@ -233,75 +234,29 @@
       .fail(function() {
          console.log('Load Fail!!!');
       })
-      //loadticketContract
-      $.ajax({
-        url: '<?php echo base_url().'user/loadTicketContract' ?>',
-        type: 'POST',
-        dataType: 'JSON',
-        data: {contractid : contractid},
-      })
-      .done(function(data) {
-                $("#div-table-ticket").css('background', 'none');
-                if(data.data != null)
-                {
-                if(data.data.length >0)
-                 {
-                    var data_html = '';
-                    for (var i = 0; i < data.data.length; i++) {
-                        var title = "'"+data.data[i].ticketid+"'";
-                        var alt = "'<?php echo base_url().'ticket/detail/'?>"+data.data[i].ticketid+"'";
-                        if(data.data[i].createat !== null)
-                        {
-                           var t3 = new Date(data.data[i].createat.replace(/\s/,'T'));
-                           if(t3 < dayCompare)
-                           {
-                           var createat = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-                           }
-                           else{ var createat = '';}
-                        }else{var createat ='';}
-                        if(data.data[i].lastupdate !== null)
-                        {
-                           var t4 = new Date(data.data[i].lastupdate.replace(/\s/,'T'));
-                           if(t4 < dayCompare)
-                           {
-                           var lastupdate = formatDMY(t4.getDate(),t4.getMonth()+1,t4.getFullYear());
-                         }else{var lastupdate = '';}
-                        }else{var lastupdate ='';}
-                        data_html+='<tr class="border-bot-1">\
-                            <td width="100">\
-                              <a class="buttonnewiframe" onclick="addTab('+alt+','+title+')" href="#">\
-                              <span class="id-label span-danger">O</span>  #'+data.data[i].ticketid+'\
-                              </a>\
-                            </td>\
-                            <td>\
-                              '+data.data[i].title+'\
-                            </td>\
-                            <td>\
-                              '+createat+'</td>\
-                            <td>'+data.data[i].name+'</td>\
-                            <td>'+lastupdate+'</td>\
-                          </tr>';
+      $('#table-1-ticketcontract').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "60px" },
+                      { "width": "160px" },
+                      { "width": "100px" },
+                      { "width": "112px" },
+                      { "width": "110px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/loadTicketContract/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
                     }
-                 }
-                 $('#div-table-ticket').html('<table class="table" id="table-1">\
-                      <thead class="no-border-top">\
-                        <tr>\
-                          <th>ID</th>\
-                          <th>Tựa đề</th>\
-                          <th width="100px">Ngày yêu cầu</th>\
-                          <th width="112px">Người phụ trách</th>\
-                          <th width="110px">Cập nhật lần cuối</th>\
-                        </tr>\
-                      </thead>\
-                      <tbody>\
-                        '+data_html+'\
-                      </tbody>\
-                    </table>');
-                }
-              })
-      .fail(function() {
-         console.log('Load Fail');
-      })
+        });
 
        $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
             'data': JSON.stringify({  
@@ -348,7 +303,7 @@
                         if(obj.result.data[i].issueddate !== null)
                         {
                            var t3 = new Date(obj.result.data[i].issueddate);
-                           if(t3 < dayCompare)
+                           if(t3 > dayCompare)
                            {
                            var issueddate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
                           }else{var issueddate = ''}
@@ -544,31 +499,156 @@
             return;
           }
           else{arrayCheck.push(target);}
-          
-           $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
-            'data': JSON.stringify({  
-             "reportcode":target,
-            "limit":25,
-            "start":0,
-            "queryFilters":{"contractid":contractid}
-            }),
-            'type': 'POST',
-            'processData': false,
-            'contentType': 'application/json' 
-        })
-          .done(function(data) {
-
-                     var obj = jQuery.parseJSON(data);
-                     
-                     if(target == "crmContract01g")
-                     {
-                     $("#div-content-6").css('background', 'none');
+          if(target == "crmContract01b")
+          {
+            $('#table-1-history').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "71px" },
+                      { "width": "123px" },
+                      { "width": "67px" },
+                      { "width": "65px" },
+                      { "width": "323px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getHistory/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+          }
+          else if(target == "crmContract01c"){
+            $('#table-1-congno').DataTable({
+            "paging":   false,
+                    "columns": [
+              { "width": "46px" },
+              { "width": "19px" },
+              { "width": "38px" },
+              { "width": "50px"},
+              { "width": "50px" },
+              { "width": "55px" },
+              { "width": "220px" },
+              { "width": "18px" },
+              { "width": "450px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    },
+                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid
+          });
+          }
+          else if(target == "crmContract01d"){
+            $('#table-1-gift').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "71px" },
+                      { "width": "123px" },
+                      { "width": "67px" },
+                      { "width": "65px" },
+                      { "width": "323px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getGift/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+          }
+        else if(target == "crmContract01f"){
+          $('#table-1-buss').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "195px" },
+                      { "width": "117px" },
+                      { "width": "83px" },
+                      { "width": "255px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getBussEmployee/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+        });
+        }
+        else if(target == "crmContract01h"){
+          $('#table-1-notes').DataTable({
+          "paging":   false,
+                    "columns": [
+                      { "width": "81px" },
+                      { "width": "93px" },
+                      { "width": "71px" },
+                      { "width": "169px" },
+                      { "width": "235px" }
+                    ],
+                    "info":     false,
+                    "searching": false,
+                    "scrollY":        "235px",
+                    "scrollX":        true,
+                    "scrollCollapse": true,
+                    "ajax":
+                        "<?php echo base_url() ?>user/getNotes/"+contractid,
+                    dom: "Bfrtip",
+                    "processing": true,
+                    'language':{ 
+                       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
+                       "processing": ""
+                    }
+          });
+        }
+        else if(target == "crmContract01g")
+        {
+               $.ajax('http://crm.tavicosoft.com/api/get_list_contract',{
+              'data': JSON.stringify({  
+               "reportcode":target,
+              "limit":25,
+              "start":0,
+              "queryFilters":{"contractid":contractid}
+              }),
+              'type': 'POST',
+              'processData': false,
+              'contentType': 'application/json' 
+          })
+            .done(function(data) {
+                var obj = jQuery.parseJSON(data);
+                $("#div-content-6").css('background', 'none');
                       if(obj.result.data.length >0){
 
                      if (obj.result.data[0].duedate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].duedate);
-                        if(t2 < dayCompare)
+                        if(t2 > dayCompare)
                            {
                         var duedate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
                           }
@@ -577,7 +657,7 @@
                      if (obj.result.data[0].adjustdate !== null)
                      {
                         var t2 = new Date(obj.result.data[0].adjustdate);
-                        if(t2 < dayCompare)
+                        if(t2 > dayCompare)
                            {
                         var adjustdate = formatDMY(t2.getDate(),t2.getMonth()+1,t2.getFullYear());
                           }else{var adjustdate ='';}
@@ -605,7 +685,7 @@
                      }else{ var pptarea = "";}
                      if (obj.result.data[0].contractvalue !== null)
                      {
-                        var contractvalue = obj.result.data[0].contractvalue;
+                        var contractvalue = formatNumber(obj.result.data[0].contractvalue); 
                      }else{ var contractvalue = "";}
                      if (obj.result.data[0].comments !== null)
                      {
@@ -681,279 +761,14 @@
                     </div>\
                   </div>');
                       }
-                    }
-                    else if(target == "crmContract01f"){
-                        $("#div-content-5").css('background', 'none');
-                        var data_html = '';
-                        for(var i = 0;i<obj.result.data.length;i++)
-                        {
-                            if(obj.result.data[i].name !== null)
-                            {
-                              var name = obj.result.data[i].name;
-                            }else{var name = "";}
-                            if(obj.result.data[i].name1 !== null)
-                            {
-                              var name1 = obj.result.data[i].name1;
-                            }else{var name1 = "";}
-                            if(obj.result.data[i].remarks !== null)
-                            {
-                              var remarks = obj.result.data[i].remarks;
-                            }else{var remarks = "";}
-                            if(obj.result.data[i].commissionrate !== null)
-                            {
-                              var float_commissionrate = obj.result.data[i].commissionrate.toFixed(5);
-                            }else{var float_commissionrate = "";}
-                            
-                            data_html+=' <tr class="border-bot-1">\
-                                <td>\
-                                  '+name+'\
-                                </td>\
-                                <td>'+name1+'</td>\
-                                <td>'+float_commissionrate+'</td>\
-                                <td>'+remarks+'</td>\
-                              </tr>';
-                        }
-                        $('#div-content-5').html('<table class="table" id="table-1">\
-                          <thead class="no-border-top">\
-                            <tr>\
-                              <th style="\
-                width: 30%;">Nhân viên</th><th style="\
-                width: 18%;">Sàn</th><th style="\
-                width: 12.8%;">Tỉ lệ thưởng</th>\
-                                              <th>Ghi chú</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody>\
-                            '+data_html+'\
-                          </tbody>\
-                        </table>');
-                    }
-                    else if(target == "crmContract01d")
-                    {
-                        $("#div-content-4").css('background', 'none');
-                        var data_html = '';
-                        for(var i = 0;i<obj.result.data.length;i++)
-                        {
-                        if(obj.result.data[i].promotiondate !== null)
-                          {
-                            var t3 = new Date(obj.result.data[i].promotiondate);
-                            if(t3 < dayCompare)
-                           {
-                            var promotiondate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-                            }else{var promotiondate='';}
-                          }else{var promotiondate = "";}
-                          if(obj.result.data[i].description !== null)
-                          {
-                            var description = obj.result.data[i].description;
-                          }else{var description = "";}
-                          if(obj.result.data[i].quantity !== null)
-                          {
-                            var quantity = obj.result.data[i].quantity;
-                          }else{var quantity = "";}
-                          if(obj.result.data[i].amount !== null)
-                          {
-                            var amount = formatNumber(obj.result.data[i].amount);
-                          }else{var amount = "";}
-                          if(obj.result.data[i].remarks !== null)
-                          {
-                            var remarks = obj.result.data[i].remarks;
-                          }else{var remarks = "";}
-                            data_html+=' <tr class="border-bot-1">\
-                                <td width="100">\
-                                '+promotiondate+'\
-                                </td>\
-                                <td>\
-                                '+description+'\
-                                </td>\
-                                <td>'+quantity+'</td>\
-                                <td>'+amount+'</td>\
-                                <td>'+remarks+'</td>\
-                              </tr>';
-                        }
-                        $('#div-content-4').html('<table class="table" id="table-1">\
-                          <thead class="no-border-top">\
-                            <tr>\
-                              <th style="\
-                        width: 11%;">Ngày</th>\
-                        <th style="\
-                        width: 19%;;">HH/DV</th>\
-                        <th style="\
-                        width: 10.3%;">Số lượng</th><th style="\
-                        width: 10%;;">Giá trị</th>\
-                              <th>Ghi chú</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody>\
-                          '+data_html+'\
-                          </tbody>\
-                        </table>');
-                    }
-                    else if(target == "crmContract01b")
-                    {
-                      alert(data);
-                        $("#div-content-2").css('background', 'none');
-                        var data_html = '';
-                        for(var i = 0;i<obj.result.data.length;i++)
-                        {
-                        if(obj.result.data[i].status !== null)
-                          {
-                            var status = obj.result.data[i].status;
-                          }else{var status = "";}
-                          if(obj.result.data[i].statusdate !== null)
-                          {
-                            var t3 = new Date(obj.result.data[i].statusdate);
-                            if(t3 < dayCompare)
-                           {
-                            var statusdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var statusdate='';}
-                          }else{var statusdate = "";}
-                          if(obj.result.data[i].name !== null)
-                          {
-                            var name = obj.result.data[i].name;
-                          }else{var name = "";}
-                          if(obj.result.data[i].name1 !== null)
-                          {
-                            var name1 = formatNumber(obj.result.data[i].name1);
-                          }else{var name1 = "";}
-                          if(obj.result.data[i].remarks !== null)
-                          {
-                            var remarks = obj.result.data[i].remarks;
-                          }else{var remarks = "";}
-                            data_html+=' <tr class="border-bot-1">\
-                                <td width="100">\
-                                  '+status+'\
-                                </td>\
-                                <td>\
-                                  '+statusdate+'\
-                                </td>\
-                                <td>'+name+'\</td>\
-                                <td>'+name1+'\</td>\
-                                <td>'+remarks+'\</td>\
-                              </tr>';
-                        }
-                        $('#div-content-2').html('<table class="table" id="table-1">\
-                          <thead class="no-border-top">\
-                            <tr>\
-                              <th style="\
-                        width: 11%;">HH/DV</th>\
-                        <th style="\
-                        width: 19%;;">Ngày</th>\
-                        <th style="\
-                        width: 10.3%;">Số lượng</th><th style="\
-                        width: 10%;;">Giá trị</th>\
-                              <th>Ghi chú</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody>\
-                          '+data_html+'\
-                          </tbody>\
-                        </table>');
-                    }
-                    else if(target == "crmContract01h")
-                    {
-                        $("#div-content-7").css('background', 'none');
-                      var data_html = '';
-                        for(var i = 0;i<obj.result.data.length;i++)
-                        {
-                        if(obj.result.data[i].eventtype !== null)
-                          {
-                            var eventtype = obj.result.data[i].eventtype;
-                          }else{var eventtype = "";}
-                          if(obj.result.data[i].eventdate !== null)
-                          {
-                            var t3 = new Date(obj.result.data[i].eventdate);
-                            if(t3 < dayCompare)
-                           {
-                            var eventdate = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());}else{var eventdate='';}
-                          }else{var eventdate = "";}
-                          if(obj.result.data[i].eventstatus !== null)
-                          {
-                            var eventstatus = obj.result.data[i].eventstatus;
-                          }else{var eventstatus = "";}
-                          if(obj.result.data[i].name !== null)
-                          {
-                            var name = obj.result.data[i].name;
-                          }else{var name = "";}
-                          if(obj.result.data[i].notes !== null)
-                          {
-                            var notes = obj.result.data[i].notes;
-                          }else{var notes = "";}
-                            data_html+=' <tr class="border-bot-1">\
-                                <td width="150">\
-                                  '+eventtype+'\
-                                </td>\
-                                <td>\
-                                  '+eventdate+'\
-                                </td>\
-                                <td>'+eventstatus+'\</td>\
-                                <td>'+name+'\</td>\
-                                <td>'+notes+'\</td>\
-                              </tr>';
-                        }
-                        $('#div-content-7').html('<table class="table" id="table-1">\
-                          <thead class="no-border-top">\
-                            <tr>\
-                              <th style="\
-                        width: 12.5%;">Loại ghi chú</th><th style="\
-                        width: 14.3%;">Ngày ghi chú</th><th style="\
-                        width: 11%;;">Tình trạng</th><th style="\
-                        width: 26%;">Nhân viên</th>\
-                              <th>Nội dung</th>\
-                            </tr>\
-                          </thead>\
-                          <tbody>\
-                            '+data_html+'\
-                          </tbody>\
-                        </table>');
-                    }
-                  })
-          .fail(function() {
+            }).fail(function() {
             console.log("error");
           })
+
+        }
         });
-    $.fn.dataTable.moment('DD/MM/YYYY');
-          $('#table-1-congno').DataTable({
-             "paging":   false,
-            "columns": [
-              { "width": "46px" },
-              { "width": "19px" },
-              { "width": "38px" },
-              { "width": "50px"},
-              { "width": "50px" },
-              { "width": "55px" },
-              { "width": "220px" },
-              { "width": "18px" },
-              { "width": "450px" }
-            ],
-            "info":     false,
-            "searching": false,
-            "scrollY":        "294px",
-            "scrollX":        true,
-            "scrollCollapse": true
-          }).columns.adjust().draw();
-
-          $('#table-1-dchd').DataTable({
-             "paging":   false,
-            "info":     false,
-            "searching": false,
-            "scrollY":        "294px",
-            "scrollX":        true,
-            "scrollCollapse": true,
-            "columns": [
-               { "width": "70px" },
-              { "width": "100px" },
-              { "width": "60px" },
-              { "width": "43px" },
-              { "width": "100px" },
-              { "width": "110px" },
-              { "width": "80px" },
-              { "width": "100px" },
-              { "width": "100px" },
-               { "width": "100px" }
-            ]
-          }).columns.adjust().draw();
-
-          $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
-              $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-          });
+          // $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+          //     $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+          // });
   }
 </script>

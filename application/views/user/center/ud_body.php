@@ -83,8 +83,20 @@
 		                  <p>Phiếu liên quan.</p>
 		                </div>
 		                <div  class="tab-pane fade active show" id="tab-content-1">
-		                	<div class="table-responsive" id="div-content-1" style="height: 294px;background:url(<?php echo base_url() ?>/images/ajax-loading.gif) center center no-repeat">
-
+		                	<div class="table-responsive" id="div-content-1" style="height: 294px;">
+		                		<table class="table table-striped table-bordered" cellspacing="0" id="table-1-contract">
+				              		<thead>
+								    <tr>
+								        <th>Mã GD</th>
+			              				<th>Tình trạng</th>
+			              				<th>Mã căn hộ</th>
+			              				<th>Ngày bắt đầu</th>
+			              				<th>Ngày hiệu lực</th>
+				              			<th>Ghi chú</th>
+								    </tr>
+									</thead>
+									
+				              	</table>
 				            </div>
 		                </div>
 	              	</div>
