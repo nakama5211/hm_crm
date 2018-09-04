@@ -47,7 +47,7 @@
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
 	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport:</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input name="idcard" readonly="true" id="idcard" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['idcard'] ?>">
+		              		<input name="idcard" id="idcard" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['idcard'] ?>" required minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
@@ -146,7 +146,7 @@
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<label class="control-label col-md-8 no-padding-right field-click-able"><a data-toggle="modal" data-target="#updateAddress">+ Sửa địa chỉ</a></label>
+	              		<label class="control-label col-md-8 no-padding-right field-click-able"><a data-toggle="modal" data-target="#updateAddress">+ Thêm địa chỉ</a></label>
 	            	</div>
 	            </div>
 	            <div class="">
@@ -306,45 +306,56 @@
 			      </div>
 			      <div class="modal-body">
 			      	<div class="form-group">
-					    <label for="exampleInputEmail1">Địa chỉ:</label>
-					    <input name="fulladdress" class="form-control" value="<?php echo $address[0]['fulladdress'] ?>" id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30">
-					  </div>
-
+					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12" placeholder="Địa chỉ" maxlength="30">
+						</label>
+					</div>
 			      	<div class="form-group">
-					    <label for="exampleInputEmail1">Số nhà:</label>
-					    <input id="sonha" name="address" class="form-control" placeholder="-Số nhà, Đường,..." value="" onkeyup="keyUpAddress(this)"  maxlength="20">
+					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_country">
+		              				<option>Việt Nam</option>
+							</datalist>
+		              	</label>
 					  </div>
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">Thành Phố:</label>
-					    <select name="city" class="form-control" onchange="selectCity(this)" id="city">
-	              			<option selected="true" disabled="true">
-    							--Chọn Tỉnh Thành--
-  							</option>
-	              			<?php 
-	              			if(count($city) >0)
-	              			{
-	              			foreach ($city as $rows) { ?>
-	              				<option value="<?php echo $rows->id_city ?>"><?php echo $rows->name ?></option>
-	              			<?php }} ?>
-	              		</select>
+					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_city">
+								<?php 
+		              			if(isset($city)){
+		              			foreach ($city as $rows) { ?>
+		              				<option id-city="<?php echo $rows->id_city?>" value="<?php echo $rows->name?>"></option>
+		              			<?php }} ?>
+							</datalist>
+	              		</label>
 					  </div>
 			        <div class="form-group">
-					    <label for="exampleInputEmail1">Quận huyện:</label>
-					    <select name="district" id="district" class="form-control" onchange="selectDistrict(this)">
-	              			<option selected="true" id="dodulieu" disabled="true">
-    							--Chọn Quận Huyện--
-  							</option>
-	              		</select>
+					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_distr">
+							</datalist>
+	              		</label>
 					  </div>
 					  <div class="form-group">
-					    <label for="exampleInputEmail1">Phường xã:</label>
-					    <select name="ward" class="form-control" id="ward" onchange="selectWard(this)">
-	              			<option  selected="true" id="dodulieu1" disabled="true">
-    							--Chọn Phường Xã--
-  							</option>
-	              		</select>
+					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_ward">
+							</datalist>
+	              		</label>
 					  </div>
 					  
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ đầy đủ: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input readonly="true" placeholder="Quốc Gia" value="<?php echo $address[0]['fulladdress'] ?>" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
 			      </div>
 
 			      <div class="modal-footer">

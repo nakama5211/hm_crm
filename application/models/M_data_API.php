@@ -5,7 +5,7 @@ class M_data_API extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-        $dayCompare = strtotime('2000-01-01T00:00:00');
+        $this->dayCompare = strtotime('2000-01-01T00:00:00');
 	}
 	public function loadTicketContract($contractid)
 	{
@@ -15,11 +15,11 @@ class M_data_API extends CI_Model {
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             $timeCreate = preg_replace('/\s/', 'T',$data['trade_cntt'][$i]['createat']);
                 $timeUpdate = preg_replace('/\s/', 'T',$data['trade_cntt'][$i]['lastupdate']);
-                if(strtotime($timeCreate) > $dayCompare)
+                if(strtotime($timeCreate) > $this->dayCompare)
                 {
                     $createat = date("d/m/Y",strtotime($timeCreate));
                 }else{$createat='';}
-                if(strtotime($timeUpdate) > $dayCompare)
+                if(strtotime($timeUpdate) > $this->dayCompare)
                 {
                     $lastupdate = date("d/m/Y",strtotime($timeUpdate));
                 }else{$lastupdate='';}
@@ -73,11 +73,11 @@ class M_data_API extends CI_Model {
         $data['trade_cntt'] = $_json2_contractc["result"]["data"]; 
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
-            if(strtotime($data['trade_cntt'][$i]['startdate']) > $dayCompare)
+            if(strtotime($data['trade_cntt'][$i]['startdate']) > $this->dayCompare)
             {
                 $startdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['startdate']));
             }else{$startdate='';}
-            if(strtotime($data['trade_cntt'][$i]['effectivedate']) > $dayCompare)
+            if(strtotime($data['trade_cntt'][$i]['effectivedate']) > $this->dayCompare)
             {
                 $effectivedate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['effectivedate']));
             }else{$effectivedate='';}
@@ -135,11 +135,11 @@ class M_data_API extends CI_Model {
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             if($i == (count($data['trade_cntt'])-1))
             {
-                if(strtotime($data['trade_cntt'][$i]['transdate']) > $dayCompare)
+                if(strtotime($data['trade_cntt'][$i]['transdate']) > $this->dayCompare)
                 {
                     $transdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['transdate']));
                 }else{$transdate='';}
-                if(strtotime($data['trade_cntt'][$i]['duedate']) > $dayCompare)
+                if(strtotime($data['trade_cntt'][$i]['duedate']) > $this->dayCompare)
                 {
                     $duedate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['duedate']));
                 }else{$duedate='';}
@@ -198,7 +198,7 @@ class M_data_API extends CI_Model {
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             if($i == (count($data['trade_cntt'])-1))
             {
-                if(strtotime($data['trade_cntt'][$i]['statusdate']) > $dayCompare)
+                if(strtotime($data['trade_cntt'][$i]['statusdate']) > $this->dayCompare)
                 {
                     $statusdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['statusdate']));
                 }else{$statusdate='';}
@@ -249,7 +249,7 @@ class M_data_API extends CI_Model {
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             if($i == (count($data['trade_cntt'])-1))
             {
-                if(strtotime($data['trade_cntt'][$i]['promotiondate']) > $dayCompare)
+                if(strtotime($data['trade_cntt'][$i]['promotiondate']) > $this->dayCompare)
                 {
                     $promotiondate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['promotiondate']));
                 }else{$promotiondate='';}
@@ -345,7 +345,7 @@ class M_data_API extends CI_Model {
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             if($i == (count($data['trade_cntt'])-1))
             {
-                if(strtotime($data['trade_cntt'][$i]['eventdate']) > $dayCompare)
+                if(strtotime($data['trade_cntt'][$i]['eventdate']) > $this->dayCompare)
                 {
                     $eventdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['eventdate']));
                 }else{$eventdate='';}

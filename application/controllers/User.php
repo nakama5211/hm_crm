@@ -133,6 +133,7 @@ class User extends CI_Controller {
 
         $list_ext = $this->_init['_jsonlistext'];
         $customer['list_ext'] = $list_ext['data']; 
+        $right['list_ext'] = $list_ext['data']; 
 
         $list_codic = $this->_init['_jsonlistcodic'];
         $customer['list_codic'] = $list_codic['data']; 
