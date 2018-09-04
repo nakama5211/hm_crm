@@ -25,24 +25,26 @@
 				      	<p class="margin-bot-3"><?php echo $value['action'] ?></p>
 				        <p class="no-margin-bot">
 				        	<?php $data = json_decode($value['dataaction'],true);
+				        	if(count($data)>0)
+				        	{
 				        foreach ($data as $key => $value) {
-				        	// if($key == "custname")
-				        	// {
-				        	// 	echo "Họ và tên: ".$value."<br />";
-				        	// }
-				        	// if($key == "roleid")
-				        	// {
-				        	// 	echo "Phân quyền: ".switchRoleId($value)."<br />";
-				        	// }
+				        	if($key == "custname")
+				        	{
+				        		echo "Họ và tên: ".$value."<br />";
+				        	}
+				        	if($key == "roleid")
+				        	{
+				        		echo "Phân quyền: ".switchRoleId($value,$role_list)."<br />";
+				        	}
 				        	if($key == "groupid")
 				        	{
-				        		echo "Nhóm: ".switchRoleId($value)."<br />";
+				        		echo "Nhóm: ".switchGroupId($value,$group_list)."<br />";
 				        	}
-				        	// if($key == "extinfo")
-				        	// {
-
-				        	// }
-				        	echo $key.": ".$value."<br />";
+				        	if($key == "extinfo")
+				        	{
+				        		echo switchExtField($value);
+				        	}
+				        }
 				        }
 				         ?></p>
 				    </div>
@@ -50,17 +52,31 @@
 			  	 <?php	$i++;}} ?>
 			</div>
 
-<?php function switchRoleId($value)
+<?php 
+function switchRoleId($value1,$role_list)
 {
-	if($value == "3")
-	{
-		return "Khách hàng";
+	foreach ($role_list as $key => $value) {
+		if($value1 == $key)
+		{
+			return $value;
+		}
 	}
-	else if($value == "2")
-	{
-		return "Chuyên viên";
+}
+function switchGroupId($value1,$group_list)
+{
+	foreach ($group_list as  $value) {
+		if($value1 == $value['groupid'])
+		{
+			return $value['groupname'];
+		}
 	}
-	else{
-		return "Quản trị viên";
+} 
+function switchExtField($extfields)
+{
+	$text = "";
+	foreach ($extfields as $key => $value) {
+		$text.= $key.": ".$value."</br>";
 	}
-} ?>
+	return $text;
+}
+?>
