@@ -1,44 +1,39 @@
 <script type="text/javascript">
+  $(document).ready(function(){
+    $('#login_form').on('submit',function(){
+      var cur = $(this);
+      var formData = new FormData($(this)[0]);
 
-  function login()
-  {
-    var username = $('#username').val();
-            var password = $('#password').val();
-            $.ajax({
-              url: '<?php echo base_url().'login/post_login' ?>',
-              type: 'POST',
-              dataType: 'JSON',
-              data: {username: username, password: password},
-            })
-            .done(function(data) {
-              if(data.message == "Success")
-              {
-                  $("#custid").val(data.data[0].custid);
-                  $("#groupid").val(data.data[0].groupid);
-                  $("#telephone").val(data.data[0].telephone);
-                  $("#custname").val(data.data[0].custname);
-                  $("#avatar").val(data.data[0].avatar);
-                  $("#roleid").val(data.data[0].roleid);
-                  $("#idcard").val(data.data[0].idcard);
-                  $("#username1").val(username);
-                  $("#password1").val(password);
-                 document.getElementById("myForm").submit();
-              }
-              else
-              {
-                swal("Thất Bại!", "Sai tên đăng nhập hoặc mật khẩu.", "error");
-              }
-                                })
-            .fail(function() {
-                swal("Thất Bại!", "Kiểm tra mạng.", "error");
-            });
-  }
-  $('.login-input').keypress(function(e1){
-   if(e1.keyCode==13){          // if user is hitting enter
-       login();
-   }
-  });
-	$('#btn_login').click(function(){
-            login();
+      for (var [key, value] of formData.entries()) { 
+            // console.log(key, value);
+      }
+      cur.find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spinner fa-spin');
+      $.ajax({
+      type: "POST",
+        url: "<?php echo base_url().'login/post_login'?>",
+        data:  formData,
+        dataType:'json',
+        contentType: false,
+        cache: false,
+        processData:false,
+        beforeSend: function() {
+        },
+        success: function(data) {
+          cur.find('button[type=submit]').prop('disabled',false).find('i').removeClass().addClass('fa fa-sign-in');
+          if(data.message == "Success"){
+            window.location.href = "<?php echo base_url().'login/login'?>";
+          }else{
+            swal("Lỗi !", "Sai tên đăng nhập hoặc mật khẩu.", "error");
+          }
+
+        },
+        error: function(xhr, status, error) {
+          cur.find('button[type=submit]').prop('disabled',false).find('i').removeClass().addClass('fa fa-sign-in');
+          // swal("Lỗi !", "Vui lòng kiểm tra lại mạng.", "error");
+          console.log(error);
+        }
       });
+      return false;
+      });
+  });
 </script>

@@ -16,10 +16,7 @@ class Login extends CI_Controller {
         {
             redirect(base_url('dashboard'));
         }
-		$_data = [];    
-		$_data['navbar'] = $this->load->view('navbar/navbar', NULL, TRUE); 
-		$_data['sidebar'] = $this->load->view('sidebar/sidebar', NULL, TRUE);  
-		$_data['mainview'] = $this->load->view('search/search', NULL , TRUE);
+		$_data = []; 
         $_data['script'] = $this->load->view('script/script_login', NULL, TRUE);
 		$this->load->view('login/login',$_data);
 	}
@@ -54,6 +51,16 @@ class Login extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/Api/login',false,$context);
+        $response = json_decode($result,true);
+        if (isset($response['data'])) {
+            $this->session->set_userdata('custid',$response['data'][0]['custid']);
+            $this->session->set_userdata('groupid',$response['data'][0]['groupid']);
+            $this->session->set_userdata('telephone',$response['data'][0]['telephone']);
+            $this->session->set_userdata('custname',$response['data'][0]['custname']);
+            $this->session->set_userdata('avatar',$response['data'][0]['avatar']);
+            $this->session->set_userdata('roleid',$response['data'][0]['roleid']);
+            $this->session->set_userdata('idcard',$response['data'][0]['idcard']);
+        }
         echo $result;
     }
 

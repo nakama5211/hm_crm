@@ -24,18 +24,17 @@
       <div class="row login-box col-xl-12">
       	<div class="col-xl-6 border-right-offset">
       		<div class="offset-2 col-xl-8">
-            <form name="postcontent" id="postcontent" method="POST" enctype="multipart/form-data" 
-action="<?=base_url('login/login')?>">
+            <form id="login_form">
 		          <h3 class="login-head">
 		          	<img src="images/tavicoCRM.png">
 		          </h3>
 		          <div class="form-group">
 		            <label class="control-label login-label">Tên đăng nhập</label>
-		            <input class="form-control login-input" id="username" name="username" type="text" required="" placeholder="Email" autofocus>
+		            <input class="form-control login-input" name="username" type="text" required="" placeholder="Username" autofocus>
 		          </div>
 		          <div class="form-group">
 		            <label class="control-label login-label">Mật khẩu</label>
-		            <input class="form-control login-input" id="password" name="password" type="password" required="" placeholder="Password">
+		            <input class="form-control login-input" name="password" type="password" required="" placeholder="Password">
 		          </div>
               <!-- <div class ="form-group lgin">
                 <div class="g-recaptcha"  data-sitekey="6LfAwGEUAAAAAALMyZ8u3T74s3c6LAotyexVJ2zz"></div>
@@ -46,7 +45,7 @@ action="<?=base_url('login/login')?>">
 		          <div class="form-group btn-container">
 		            <!-- <button type="button" class="btn btn-primary btn-block" onclick="checkCaptcha()"><i class="fa fa-sign-in fa-lg fa-fw"></i>Log in</button> -->
                 <!--<button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>Log in</button>-->
-                <button class="btn btn-primary btn-block btn_login" id="btn_login" type="button"><i class="fa fa-sign-in fa-lg fa-fw"></i>Log in</button>
+                <button class="btn btn-primary btn-block btn_login" type="submit"><i class="fa fa-sign-in"></i>Log in</button>
 		          </div>
               <div class="form-group">
                 <!-- <p class="text-danger alert-danger"><?php if($this->session->flashdata('message')){echo($this->session->flashdata('message'));}?></p> -->
