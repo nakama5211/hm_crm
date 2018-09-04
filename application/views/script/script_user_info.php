@@ -12,7 +12,7 @@
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
       loadGroup(load_roleid);
 
-    $('#table-1-contract').DataTable({
+    var table_contract = $('#table-1-contract').DataTable({
                     "paging":   false,
                     "columns": [
                       { "width": "60px" },
@@ -33,6 +33,12 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        var info = this.api().page.info();
+                        console.log('Total records', info.recordsTotal);
+                        console.log('Displayed records', info.recordsDisplay);
+                        $("#tab1").text('Giao dịch ('+info.recordsDisplay+')');
                     }
                   });
     $('.btn-update').click(function(){

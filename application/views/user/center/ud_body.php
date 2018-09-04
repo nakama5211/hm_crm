@@ -1,4 +1,8 @@
-<?php $custidCustomer = $this->input->get('cusid');?>
+<?php $custidCustomer = $this->input->get('cusid');
+	  $var = $this->session->userdata;
+      $agentcurrent = $var['custid'];
+      $groupid = $var['groupid'];
+?>
 <div class="tile">
 	            <div class="content-title">
 			        <div class="div">
@@ -26,9 +30,9 @@
 		                				$i = 0;
 		                				if(count($ticket)>0)
 		                				{
-		                			foreach ($ticket as $value) {
-		                				if($value['hidden'] == '0')
-		                				{
+		                			foreach ($ticket as $rows) {
+		                				if(( $rows['custid'] == $agentcurrent ||strpos($rows['ticketusers'],$agentcurrent)!==false || $groupid == $rows['groupid'] ) && $rows['hidden'] =='0')
+					                		{
 		                					$i++;
 		                				}
 		                			}}
@@ -56,7 +60,7 @@
 					                	if(count($ticket) >0)
 					                	{
 					                	foreach ($ticket as $rows) {
-					                		if($rows['hidden'] =='0')
+					                		if(( $rows['custid'] == $agentcurrent ||strpos($rows['ticketusers'],$agentcurrent)!==false || $groupid == $rows['groupid'] ) && $rows['hidden'] =='0')
 					                		{
 					                	 ?>
 						                  	<tr class="border-bot-1">
