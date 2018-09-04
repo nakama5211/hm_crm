@@ -42,6 +42,7 @@
                     }
                   });
     $('.btn-update').click(function(){
+      $('#updateUser').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();
         var groupid = $('#groupid').val();
@@ -60,7 +61,7 @@
         var comments = $('#comments').val();
         var thunhap = $('#thunhap').val();
         var fulladdress = $('#fulladdress').val();
-        // var custid = $('#custid').val();
+        var custid = $('#custid').val();
         var password = $('#password').val();
         var queue = $('#queue').val();
         var queueold = $('#queue_old').val();
@@ -73,6 +74,7 @@
       .done(function(data) {
                  if(data.message =='Success')
                  {
+                  $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                   alert('Sửa thông tin thành công');
                     location.reload();
                  }

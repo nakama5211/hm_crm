@@ -401,7 +401,7 @@ class User extends CI_Controller {
                 'telephone' =>isset($data['telephone'])?$data['telephone']:null,
                 'email' => isset($data['email'])?$data['email']:null,
                 'country' => isset($data['country'])?$data['country']:null,
-                'log_custid' =>$var['custid'],
+                'log_custid' =>isset($data['custid'])?$data['custid']:null,
                 'log_roleid' =>$var['roleid'],
                 'log_groupid' =>$var['groupid'],
                 // 'city' => isset($data['city'])?$data['city']:null,
