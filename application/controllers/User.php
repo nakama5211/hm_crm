@@ -466,23 +466,32 @@ class User extends CI_Controller {
 
         $post = $this->input->post();
         $custid = $this->M_api->gen_custid();
-        $postdata = http_build_query([
-                'custid'                       => $custid,
-                'roleid'                       => isset($post['roleid'])?$post['roleid']:'',
-                'groupid'                      => isset($post['groupid'])?$post['groupid']:'',
-                'custname'                     =>isset($post['custname'])?$post['custname']:'',
-                'gender'                       =>isset($post['gender'])?$post['gender']:'',
-                'idcard'                       => isset($post['idcard'])?$post['idcard']:'',
-                'fullbirthday'                 => isset($post['fullbirthday'])?$post['fullbirthday']:'',
-                'telephone'                    =>isset($post['telephone'])?$post['telephone']:'',
-                'email'                        => isset($post['email'])?$post['email']:'',
-                
-                'comments'                      =>isset($post['comments'])?$post['comments']:'',
-                'extinfo'                       => isset($post['ext'])?json_encode($post['ext']):'',
-                
-                'password'                      => isset($post['password'])?$post['password']:'',
-                'queue'                         => isset($post['queue'])?$post['queue']:''
-        ]);
+
+        $res_data = array(
+            'custid'                       => $custid,
+            'roleid'                       => isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      => isset($post['groupid'])?$post['groupid']:'',
+            'custname'                     =>isset($post['custname'])?$post['custname']:'',
+            'gender'                       =>isset($post['gender'])?$post['gender']:'',
+            'idcard'                       => isset($post['idcard'])?$post['idcard']:'',
+            'fullbirthday'                 => isset($post['fullbirthday'])?$post['fullbirthday']:'',
+            'telephone'                    =>isset($post['telephone'])?$post['telephone']:'',
+            'email'                        => isset($post['email'])?$post['email']:'',
+            
+            'comments'                     =>isset($post['comments'])?$post['comments']:'',
+            'extinfo'                      => isset($post['ext'])?json_encode($post['ext']):'',
+            
+            'password'                     => isset($post['password'])?$post['password']:'',
+            'queue'                        => isset($post['queue'])?$post['queue']:''
+        );
+
+        foreach ($res_data as $key => $value) {
+            if ($value=='') {
+                unset($res_data[$key]);
+            }
+        }
+
+        $postdata = http_build_query($res_data);
         $opts = array('http' =>
             array(
                 'method'  => 'POST',
