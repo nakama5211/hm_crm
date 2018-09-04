@@ -130,7 +130,7 @@ class Knowledge extends CI_Controller {
 		$query = '?';
 		foreach ($get as $key => $value) {
 			$v = '';
-			if ($key=='categoryid' || $key=='tickettype' || $key=='groupid' && $value == "all") {
+			if (($key=='categoryid' || $key=='tickettype' || $key=='groupid') && $value == "all") {
 				$v = '';
 			}else{
 				$v = $value;
