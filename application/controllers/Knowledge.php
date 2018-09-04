@@ -129,7 +129,13 @@ class Knowledge extends CI_Controller {
 		$get = $this->input->get();
 		$query = '?';
 		foreach ($get as $key => $value) {
-			$query.=$key.'='.rawurlencode($value).'&';
+			$v = '';
+			if ($key=='categoryid' || $key=='tickettype' || $key=='groupid' && $value == "all") {
+				$v = '';
+			}else{
+				$v = $value;
+			}
+			$query.=$key.'='.rawurlencode($v).'&';
 		}  
 		$json_data = file_get_contents('http://test.tavicosoft.com/crm/index.php/news/search'.$query);
 		$knowledge['news'] = json_decode($json_data,true)['data'];

@@ -45,10 +45,9 @@ $(document).ready( function () {
             success: function(data) {
             $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
               if(data.code==0){
-                 alert(data.message);
+                swal("Lỗi", data.message, "error");
               }else{
-                 // alert("thêm thành công.");
-                 // location.reload();
+                swal("Thành công !", "Thêm người dùng thành công.", "success");
               }
             },
             error: function(xhr, status, error) {
