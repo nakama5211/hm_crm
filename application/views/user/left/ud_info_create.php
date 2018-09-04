@@ -86,22 +86,69 @@
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input name="fulladdress" class="col-md-12 no-padding font-size-12" value="" id="fulladdress" placeholder="Địa chỉ" maxlength="50">
-		              	</label>
+			              			<input list="suggestionList1" id="answerInput1" placeholder="Quốc Gia" class="col-md-12 no-padding font-size-12">
+									<datalist id="suggestionList1">
+				              				<option data-value="VN">Việt Nam</option>
+									</datalist>
+									<input type="hidden" id="country">
+									<script type="text/javascript">
+										document.querySelector('#answerInput1').addEventListener('input', function(e) {
+										    var input = e.target,
+										        list = input.getAttribute('list'),
+										        options = document.querySelectorAll('#' + list + ' option'),
+										        hiddenInput = document.getElementById('city'),
+										        inputValue = input.value;
+
+										    hiddenInput.value = inputValue;
+										    for(var i = 0; i < options.length; i++) {
+										        var option = options[i];
+
+										        if(option.innerText === inputValue) {
+										            hiddenInput.value = option.getAttribute('data-value');
+										            break;
+										        }else{
+										        	hiddenInput.value="";
+										        }
+										    }
+										});
+									</script>
+			              	</label>
 	            	</div>
 	            	<div class="margin-bot-5">
-	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<select class="control-label col-md-8 no-border no-padding margin-left-10" onchange="selectCity(this)" name="city" id="city">
-	              			<option selected="true" disabled="true">
-    							--Chọn Tỉnh Thành--
-  							</option>
-	              			<?php 
-	              			if(count($city) >0)
-	              			{
-	              			foreach ($city as $rows) { ?>
-	              				<option value="<?php echo $rows->id_city ?>"><?php echo $rows->name ?></option>
-	              			<?php }} ?>
-	              		</select>
+	              		<label class="control-label user-label col-md-3 no-padding"></label>
+			              		<label class="control-label col-md-8 no-padding-right">
+			              			<input list="suggestionList" id="answerInput" placeholder="Thành Phố" class="col-md-12 no-padding font-size-12">
+									<datalist id="suggestionList">
+										<?php 
+				              			if(count($city) >0)
+				              			{
+				              			foreach ($city as $rows) { ?>
+				              				<option data-value="<?php echo $rows->id_city ?>"><?php echo $rows->name ?></option>
+				              			<?php }} ?>
+									</datalist>
+									<input type="hidden" id="city">
+									<script type="text/javascript">
+										document.querySelector('#answerInput').addEventListener('input', function(e) {
+										    var input = e.target,
+										        list = input.getAttribute('list'),
+										        options = document.querySelectorAll('#' + list + ' option'),
+										        hiddenInput = document.getElementById('city'),
+										        inputValue = input.value;
+										    hiddenInput.value = inputValue;
+										    for(var i = 0; i < options.length; i++) {
+										        var option = options[i];
+
+										        if(option.innerText === inputValue) {
+										            hiddenInput.value = option.getAttribute('data-value');
+										    		selectCity(option.getAttribute('data-value'));
+										            break;
+										        }else{
+										        	hiddenInput.value="";
+										        }
+										    }
+										});
+									</script>
+			              		</label>
 	            	</div>
 	            	<div class="margin-bot-5">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
@@ -113,7 +160,7 @@
 	            	</div>
 	            	<div class="margin-bot-5">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<select class="control-label col-md-8 no-border no-padding margin-left-10" name="ward" id="ward" onchange="selectWard(this)">
+	              		<select class="control-label col-md-8 no-border no-padding margin-left-10" name="ward" id="ward">
 	              			<option selected="true" id="dodulieu1" disabled="true">
     							--Chọn Phường Xã--
   							</option>
@@ -123,7 +170,7 @@
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	            		<label class="control-label col-md-8 no-padding-right">
 		              		
-	              				<input name="address" id="address" onkeyup="keyUpAddress(this)" class="col-md-12 no-padding font-size-12" placeholder="-Số nhà, Đường,..." maxlength="15">
+	              				<input name="address" id="address" class="col-md-12 no-padding font-size-12" placeholder="-Số nhà, Đường,..." maxlength="15">
 		              	</label>
 	            	</div>
 	            	</div>

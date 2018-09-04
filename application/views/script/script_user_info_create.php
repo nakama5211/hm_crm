@@ -59,42 +59,32 @@
     });
       $('#fullbirthday').datetimepicker({timepicker:false,
       format:'d/m/Y'});});
-      var fulladdress = '';
-      var city = '';
-      var district = '';
-      var ward='';
+  
   function selectCity(obj){
-    var $id = obj.value;
-    city = obj.options[obj.selectedIndex].text;
-    fulladdress = city; 
-    $('#fulladdress').val(fulladdress);
-    // alert(fulladdress);
-      $('.gicungdc').remove(); 
-    $.ajax({
-      url: '<?php echo base_url()?>user/selectCity',
-      type: 'POST',
-      dataType: 'JSON',
-      data: {id_city : $id},
-    })
-    .done(function(data) {
-               // console.log(data.loaisp);
-               for (var i = 0; i < data.length; i++) {
-                $('#dodulieu').after('<option title="'+data[i]['name']+'" class="gicungdc" value="'+data[i]['id_district']+'">'+data[i]['name']+'</option>');
-               }
+    // var $id = obj.value;
+    alert(obj);
+    $('.gicungdc').remove(); 
+    // $.ajax({
+    //   url: '<?php echo base_url()?>user/selectCity',
+    //   type: 'POST',
+    //   dataType: 'JSON',
+    //   data: {id_city : $id},
+    // })
+    // .done(function(data) {
+    //            // console.log(data.loaisp);
+    //            for (var i = 0; i < data.length; i++) {
+    //             $('#dodulieu').after('<option title="'+data[i]['name']+'" class="gicungdc" value="'+data[i]['id_district']+'">'+data[i]['name']+'</option>');
+    //            }
                   
-            })
-    .fail(function() {
-      console.log("error");
-    })
+    //         })
+    // .fail(function() {
+    //   console.log("error");
+    // })
   }
 
   function selectDistrict(obj){
       var $id = obj.value;
-      district = obj.options[obj.selectedIndex].text;
-      fulladdress = district+' '+city;
-    $('#fulladdress').val(fulladdress);
-      // alert(fulladdress);
-        $('.gicungdc1').remove(); 
+      $('.gicungdc1').remove(); 
       $.ajax({
         url: '<?php echo base_url()?>user/selectDistrict',
         type: 'POST',
@@ -111,14 +101,6 @@
       .fail(function() {
         console.log("error");
       })
-    }
-
-    function selectWard(obj){
-      var $id = obj.value;
-      ward = obj.options[obj.selectedIndex].text;
-      fulladdress = ward+' '+district+' '+city;
-      // alert(fulladdress);
-      $('#fulladdress').val(fulladdress);
     }
 
     function selectGroup(obj){
@@ -169,12 +151,5 @@
                     $('.div-danhxung').show();
                     $('.div-ngaysinh').show();
                  }
-    }
-
-    function keyUpAddress(obj)
-    {
-      var text = obj.value;
-      fulladdress = text+' ' + ward+' '+district+' '+city;
-      $('#fulladdress').val(fulladdress);
     }
 </script>
