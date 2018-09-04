@@ -11,7 +11,53 @@
       var load_roleid = $('#roleid').val();
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
       loadGroup(load_roleid);
+      $('input[name=city]').on('keyup',function(){
+    var val = $(this).val();
+    var opt = $('datalist#l_city').find('option[value="'+val+'"]');
+    if (opt.length>0) {
+      var idcity = opt.attr('id-city');
+      $.ajax({
+        url: '<?php echo base_url()?>user/selectCity',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id_city : idcity},
+      })
+      .done(function(data) {
+        var l_r = '';
+        for (var i = 0; i < data.length; i++) {
+          l_r+='<option value="'+data[i]['name']+'" id="'+data[i]['id_district']+'"></option>';
+        }
+        $('datalist#l_distr').html(l_r);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+    }
+  });
 
+  $('input[name=district').on('keyup',function(){
+    var val = $(this).val();
+    var opt = $('datalist#l_distr').find('option[value="'+val+'"]');
+    if (opt.length>0) {
+      var id = opt.attr('id-city');
+      $.ajax({
+        url: '<?php echo base_url()?>user/selectDistrict',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id_district : id},
+      })
+      .done(function(data) {
+        var l_r = '';
+        for (var i = 0; i < data.length; i++) {
+          l_r+='<option value="'+data[i]['name']+'" id="'+data[i]['id_ward']+'"></option>';
+        }
+        $('datalist#l_ward').html(l_r);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+    }
+  });
     var table_contract = $('#table-1-contract').DataTable({
                     "paging":   false,
                     "columns": [

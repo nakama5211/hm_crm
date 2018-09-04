@@ -306,12 +306,13 @@
 			      </div>
 			      <div class="modal-body">
 			      	<div class="form-group">
-					    <label for="exampleInputEmail1">Địa chỉ:</label>
-					    <input name="fulladdress" class="form-control" value="<?php echo $address[0]['fulladdress'] ?>" id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30">
-					  </div>
-
+					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12" placeholder="Địa chỉ" maxlength="30">
+						</label>
+					</div>
 			      	<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding"></label>
+					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
 	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_country">
@@ -320,7 +321,7 @@
 		              	</label>
 					  </div>
 					  <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding"></label>
+					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
 	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_city">
@@ -333,7 +334,7 @@
 	              		</label>
 					  </div>
 			        <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding"></label>
+					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
 	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_distr">
@@ -341,7 +342,7 @@
 	              		</label>
 					  </div>
 					  <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding"></label>
+					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
 	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_ward">
@@ -349,6 +350,12 @@
 	              		</label>
 					  </div>
 					  
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ đầy đủ: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input readonly="true" placeholder="Quốc Gia" value="<?php echo $address[0]['fulladdress'] ?>" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
 			      </div>
 
 			      <div class="modal-footer">
