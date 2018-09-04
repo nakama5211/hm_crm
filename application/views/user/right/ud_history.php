@@ -23,13 +23,26 @@
 				    </div>
 				    <div class="body">
 				      	<p class="margin-bot-3"><?php echo $value['action'] ?></p>
-				        <p class="no-margin-bot"><?php $data = json_decode($value['dataaction'],true);
+				        <p class="no-margin-bot">
+				        	<?php $data = json_decode($value['dataaction'],true);
 				        foreach ($data as $key => $value) {
-				        	if($key == "roleid")
+				        	// if($key == "custname")
+				        	// {
+				        	// 	echo "Họ và tên: ".$value."<br />";
+				        	// }
+				        	// if($key == "roleid")
+				        	// {
+				        	// 	echo "Phân quyền: ".switchRoleId($value)."<br />";
+				        	// }
+				        	if($key == "groupid")
 				        	{
-				        		echo "Phân quyền: ".switchRoleId($value)."<br />";
+				        		echo "Nhóm: ".switchRoleId($value)."<br />";
 				        	}
-				        	// echo $key.": ".$value."<br />";
+				        	// if($key == "extinfo")
+				        	// {
+
+				        	// }
+				        	echo $key.": ".$value."<br />";
 				        }
 				         ?></p>
 				    </div>
@@ -37,10 +50,17 @@
 			  	 <?php	$i++;}} ?>
 			</div>
 
-<?php public function switchRoleId($value)
+<?php function switchRoleId($value)
 {
-	if($value == 3)
+	if($value == "3")
 	{
-		echo "Khách hàng";
+		return "Khách hàng";
+	}
+	else if($value == "2")
+	{
+		return "Chuyên viên";
+	}
+	else{
+		return "Quản trị viên";
 	}
 } ?>
