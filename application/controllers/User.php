@@ -498,12 +498,13 @@ class User extends CI_Controller {
         $res_re = json_decode($result,true);
         $address = array(
                 'custid'                        => $custid,
+                'country'                       =>isset($post['country'])?$post['country']:'',
                 'city'                          =>isset($post['city'])?$post['city']:'',
                 'district'                      =>isset($post['district'])?$post['district']:'',
                 'ward'                          =>isset($post['ward'])?$post['ward']:'',
                 'address'                       =>isset($post['address'])?$post['address']:'',
-                'fulladdress'                   => isset($post['fulladdress'])?$post['fulladdress']:''
         );
+        $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['address'];
         if ($res_re['code']==1) {
             $r_addr = $this->api_save_address($address);
         }

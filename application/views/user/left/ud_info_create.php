@@ -37,8 +37,7 @@
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Họ và Tên</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập họ tên" name="custname" id="custname" required
-               minlength="4" maxlength="30">
+		              		<input class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập họ tên" name="custname" id="custname">
 		              	</label>
 	            	</div>
 	            	<div class="div-danhxung">
@@ -53,21 +52,20 @@
 	            		<label class="control-label user-label col-md-4 no-padding">CMND/Passport
 	              		(<span style="color: red">*</span>):</label>
 	              		<label class="control-label col-md-7 no-padding-right">
-		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required
-               minlength="8">
+		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="div-ngaysinh">
 	            		<label class="control-label user-label col-md-3 no-padding">Ngày sinh:</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="fullbirthday" name="fullbirthday" class="col-md-12 no-padding font-size-12" value="">
+		              		<input id="fullbirthday" name="fullbirthday" placeholder="dd-mm-yy" class="col-md-12 no-padding font-size-12" value="">
 		              	</label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
 	            	<div class="div-phone">
 	            		<label class="control-label user-label col-md-3 no-padding">Điện thoại</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="telephone" name="telephone" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập sdt chính" required>
+		              		<input id="telephone" name="telephone" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập sdt chính">
 		              	</label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
@@ -76,54 +74,53 @@
 	            		<label class="control-label user-label col-md-3 no-padding">E-mail</label> 
 	            	
 	            		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="email" name="email" type="email" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính" minlength="5" maxlength="50">
+		              		<input id="email" name="email" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính">
 		              	</label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" required="" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_country">
 		              				<option>Việt Nam</option>
 							</datalist>
 		              	</label>
 	            	</div>
-	            	<div class="margin-bot-5">
+	            	<div class="">
 	              		<label class="control-label user-label col-md-3 no-padding"></label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_city" placeholder="Tỉnh/Thành Phố" required="" name="city" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_city">
 								<?php 
 		              			if(isset($city)){
 		              			foreach ($city as $rows) { ?>
-		              				<option data-value="<?php echo $rows->id_city ?>"><?php echo $rows->name?></option>
+		              				<option id-city="<?php echo $rows->id_city?>" value="<?php echo $rows->name?>"></option>
 		              			<?php }} ?>
 							</datalist>
 	              		</label>
 	            	</div>
-	            	<div class="margin-bot-5">
+	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_distr" placeholder="Quận/Huyện" required="" name="district" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_distr">
 							</datalist>
 	              		</label>
 	            	</div>
-	            	<div class="margin-bot-5">
+	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_ward" placeholder="Phường/Xã" required="" name="ward" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_ward">
 							</datalist>
 	              		</label>
 	            	</div>
-	            	<div class="margin-bot-5">
+	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	            		<label class="control-label col-md-8 no-padding-right">
 	              			<input name="address" class="col-md-12 no-padding font-size-12" placeholder="Số nhà, Đường,...">
 		              	</label>
-	            	</div>
 	            	</div>
 	            </div>
           	</div>
@@ -157,15 +154,15 @@
 	              		<label class="control-label col-md-8 no-padding-right">
 		              		<input name="ext[<?php echo $value['fieldcode'] ?>]" id="<?php echo $value['fieldcode'] ?>" class="col-md-12 no-padding font-size-12 available" value="" placeholder="<?php echo $value['fieldname'] ?>">
 		              	</label>
-		              		<?php }else if($value['fieldtype'] == 'D'){?>
-		              			<select name="ext[<?php echo $value['fieldcode'] ?>]" class="control-label col-md-8 no-border no-padding margin-left-10" id="<?php echo $value['fieldcode'] ?>">
-		              			<?php foreach ($list_codic as $material) {
-		              				if($material['category'] == $value['datasource'] && $material['status'] =='W'){
-		              				?>
-		              				<option value="<?php echo $material['code'] ?>"><?php echo $material['name'] ?></option>
-		              			<?php }}?> 
-		              			</select>
-		              		<?php } ?>
+	              		<?php }else if($value['fieldtype'] == 'D'){?>
+	              			<select name="ext[<?php echo $value['fieldcode'] ?>]" class="control-label col-md-8 no-border no-padding margin-left-10" id="<?php echo $value['fieldcode'] ?>">
+	              			<?php foreach ($list_codic as $material) {
+	              				if($material['category'] == $value['datasource'] && $material['status'] =='W'){
+	              				?>
+	              				<option value="<?php echo $material['code'] ?>"><?php echo $material['name'] ?></option>
+	              			<?php }}?> 
+	              			</select>
+	              		<?php } ?>
 	            	</div>
 	            <?php }} ?>
 	            </div>
