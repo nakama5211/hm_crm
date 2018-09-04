@@ -32,6 +32,26 @@
 				        	{
 				        		echo "Họ và tên: ".$value."<br />";
 				        	}
+				        	if($key == "gender")
+				        	{
+				        		echo "Giới tính: ".switchGender($value)."<br />";
+				        	}
+				        	if($key == "telephone")
+				        	{
+				        		echo "Số điện thoại: ".$value."<br />";
+				        	}
+				        	if($key == "fullbirthday")
+				        	{
+				        		echo "Ngày Sinh: ".$value."<br />";
+				        	}
+				        	if($key == "email")
+				        	{
+				        		echo "Email: ".$value."<br />";
+				        	}
+				        	if($key == "comments")
+				        	{
+				        		echo "Ghi chú: ".$value."<br />";
+				        	}
 				        	if($key == "roleid")
 				        	{
 				        		echo "Phân quyền: ".switchRoleId($value,$role_list)."<br />";
@@ -42,7 +62,7 @@
 				        	}
 				        	if($key == "extinfo")
 				        	{
-				        		echo switchExtField($value);
+				        		echo switchExtField($value,$list_ext);
 				        	}
 				        }
 				        }
@@ -53,29 +73,53 @@
 			</div>
 
 <?php 
+function switchGender($value1)
+{
+	if($value1 == "M")
+	{
+		return "Nam";
+	}
+	else{
+		return "Nữ";
+	}
+}
 function switchRoleId($value1,$role_list)
 {
+	if(count($role_list)>0)
+	{
 	foreach ($role_list as $key => $value) {
 		if($value1 == $key)
 		{
 			return $value;
 		}
 	}
+	}
 }
 function switchGroupId($value1,$group_list)
 {
-	foreach ($group_list as  $value) {
-		if($value1 == $value['groupid'])
-		{
-			return $value['groupname'];
+	if(count($group_list)>0){
+		foreach ($group_list as  $value) {
+			if($value1 == $value['groupid'])
+			{
+				return $value['groupname'];
+			}
 		}
 	}
 } 
-function switchExtField($extfields)
+function switchExtField($extfields,$list_ext)
 {
 	$text = "";
-	foreach ($extfields as $key => $value) {
-		$text.= $key.": ".$value."</br>";
+
+	if(count($extfields)>0)
+	{
+		foreach ($extfields as $key => $value) {
+			foreach ($list_ext as  $value1) {
+				if($key == $value1['fieldcode'])
+				{
+					$text.= $value1['fieldname'].": ".$value."</br>";
+				}
+			}
+		}
 	}
 	return $text;
 }

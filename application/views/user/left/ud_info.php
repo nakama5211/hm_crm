@@ -47,7 +47,7 @@
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
 	            		<label class="control-label user-label col-md-3 no-padding">CMND/Passport:</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input name="idcard" readonly="true" id="idcard" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['idcard'] ?>">
+		              		<input name="idcard" id="idcard" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['idcard'] ?>" required minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
@@ -146,7 +146,7 @@
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<label class="control-label col-md-8 no-padding-right field-click-able"><a data-toggle="modal" data-target="#updateAddress">+ Sửa địa chỉ</a></label>
+	              		<label class="control-label col-md-8 no-padding-right field-click-able"><a data-toggle="modal" data-target="#updateAddress">+ Thêm địa chỉ</a></label>
 	            	</div>
 	            </div>
 	            <div class="">
