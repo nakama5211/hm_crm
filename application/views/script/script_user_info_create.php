@@ -1,20 +1,20 @@
 <script type="text/javascript">
-	$(document).ready( function () {
-    $('#table-1-create-user').DataTable({
+$(document).ready( function () {
+  $('#table-1-create-user').DataTable({
              "paging":   true,
              "language": {
               "paginate": {
                 "previous": "Trước",
                 "next":"Sau"
-              }
-            },
+                }
+              },
             "columns": [
               { "width": "20%" },
               { "width": "20%" },
               { "width": "20%" },
               { "width": "20%" },
               { "width": "20%" }
-            ],
+             ],
             "info":     false,
             "searching": false,
             "scrollY":        "100%",
@@ -22,67 +22,95 @@
             "scrollX":        true,
             "bLengthChange": false,
             "scrollCollapse": true
-          }).columns.adjust().draw();
-    $('form#insertUserVal').on('submit',function(){
-        
-      var formData = new FormData($(this)[0]);
+    }).columns.adjust().draw();
+  $('form#insertUserVal').on('submit',function(){
+      
+    var formData = new FormData($(this)[0]);
 
-      for (var [key, value] of formData.entries()) { 
-            console.log(key, value);
-      }
+    for (var [key, value] of formData.entries()) { 
+          console.log(key, value);
+    }
 
-      $(this).find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
-      $.ajax({
-              type: "POST",
-              url: "<?php echo base_url().'user/aj_insert';?>",
-              data:  formData,
-              dataType:'json',
-              contentType: false,
-              cache: false,
-              processData:false,
-              beforeSend: function() {
-              },
-              success: function(data) {
-                  $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                if(data.code==0){
-                   alert(data.message);
-                }else{
-                   // alert("thêm thành công.");
-                   // location.reload();
-                }
-              },
-              error: function(xhr, status, error) {
-                console.log(error);
+    $(this).find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
+    $.ajax({
+            type: "POST",
+            url: "<?php echo base_url().'user/aj_insert';?>",
+            data:  formData,
+            dataType:'json',
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function() {
+            },
+            success: function(data) {
+            $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+              if(data.code==0){
+                 alert(data.message);
+              }else{
+                 // alert("thêm thành công.");
+                 // location.reload();
               }
-          });
-      return false;
-    });
-      $('#fullbirthday').datetimepicker({timepicker:false,
-      format:'d/m/Y'});});
-  
-  function selectCity(obj){
-    // var $id = obj.value;
-    alert(obj);
-    $('.gicungdc').remove(); 
-    // $.ajax({
-    //   url: '<?php echo base_url()?>user/selectCity',
-    //   type: 'POST',
-    //   dataType: 'JSON',
-    //   data: {id_city : $id},
-    // })
-    // .done(function(data) {
-    //            // console.log(data.loaisp);
-    //            for (var i = 0; i < data.length; i++) {
-    //             $('#dodulieu').after('<option title="'+data[i]['name']+'" class="gicungdc" value="'+data[i]['id_district']+'">'+data[i]['name']+'</option>');
-    //            }
-                  
-    //         })
-    // .fail(function() {
-    //   console.log("error");
-    // })
-  }
+            },
+            error: function(xhr, status, error) {
+              console.log(error);
+            }
+        });
+    return false;
+  });
 
-  function selectDistrict(obj){
+  $('#fullbirthday').datetimepicker({timepicker:false,format:'d/m/Y'});
+
+  $('input[name=city]').on('keyup',function(){
+    var val = $(this).val();
+    var opt = $('datalist#l_city').find('option[value="'+val+'"]');
+    if (opt.length>0) {
+      var idcity = opt.attr('id-city');
+      $.ajax({
+        url: '<?php echo base_url()?>user/selectCity',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id_city : idcity},
+      })
+      .done(function(data) {
+        var l_r = '';
+        for (var i = 0; i < data.length; i++) {
+          l_r+='<option value="'+data[i]['name']+'" id="'+data[i]['id_district']+'"></option>';
+        }
+        $('datalist#l_distr').html(l_r);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+    }
+  });
+
+  $('input[name=district').on('keyup',function(){
+    var val = $(this).val();
+    var opt = $('datalist#l_distr').find('option[value="'+val+'"]');
+    if (opt.length>0) {
+      var id = opt.attr('id-city');
+      $.ajax({
+        url: '<?php echo base_url()?>user/selectDistrict',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id_district : id},
+      })
+      .done(function(data) {
+        var l_r = '';
+        for (var i = 0; i < data.length; i++) {
+          l_r+='<option value="'+data[i]['name']+'" id="'+data[i]['id_ward']+'"></option>';
+        }
+        $('datalist#l_ward').html(l_r);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+    }
+  });
+});
+  
+
+    function selectDistrict(obj){
       var $id = obj.value;
       $('.gicungdc1').remove(); 
       $.ajax({
@@ -93,11 +121,11 @@
       })
       .done(function(data) {
                  // console.log(data.loaisp);
-                 for (var i = 0; i < data.length; i++) {
-                  $('#dodulieu1').after('<option title="'+data[i]['name']+'" class="gicungdc1" value="'+data[i]['id_ward']+'">'+data[i]['name']+'</option>');
-                 }
-                    
-              })
+         for (var i = 0; i < data.length; i++) {
+          $('#dodulieu1').after('<option title="'+data[i]['name']+'" class="gicungdc1" value="'+data[i]['id_ward']+'">'+data[i]['name']+'</option>');
+         }
+            
+      })
       .fail(function() {
         console.log("error");
       })
