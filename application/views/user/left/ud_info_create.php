@@ -76,101 +76,52 @@
 	            		<label class="control-label user-label col-md-3 no-padding">E-mail</label> 
 	            	
 	            		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="email" name="email" type="email" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính" 
-               minlength="5" maxlength="50">
+		              		<input id="email" name="email" type="email" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính" minlength="5" maxlength="50">
 		              	</label>
 	            	</div>
-		            <div class="div-address">
-
 	            	<div class="break-line margin-bot-5"></div>
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-			              			<input list="suggestionList1" id="answerInput1" placeholder="Quốc Gia" class="col-md-12 no-padding font-size-12">
-									<datalist id="suggestionList1">
-				              				<option data-value="VN">Việt Nam</option>
-									</datalist>
-									<input type="hidden" id="country">
-									<script type="text/javascript">
-										document.querySelector('#answerInput1').addEventListener('input', function(e) {
-										    var input = e.target,
-										        list = input.getAttribute('list'),
-										        options = document.querySelectorAll('#' + list + ' option'),
-										        hiddenInput = document.getElementById('city'),
-										        inputValue = input.value;
-
-										    hiddenInput.value = inputValue;
-										    for(var i = 0; i < options.length; i++) {
-										        var option = options[i];
-
-										        if(option.innerText === inputValue) {
-										            hiddenInput.value = option.getAttribute('data-value');
-										            break;
-										        }else{
-										        	hiddenInput.value="";
-										        }
-										    }
-										});
-									</script>
-			              	</label>
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" required="" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_country">
+		              				<option>Việt Nam</option>
+							</datalist>
+		              	</label>
 	            	</div>
 	            	<div class="margin-bot-5">
 	              		<label class="control-label user-label col-md-3 no-padding"></label>
-			              		<label class="control-label col-md-8 no-padding-right">
-			              			<input list="suggestionList" id="answerInput" placeholder="Thành Phố" class="col-md-12 no-padding font-size-12">
-									<datalist id="suggestionList">
-										<?php 
-				              			if(count($city) >0)
-				              			{
-				              			foreach ($city as $rows) { ?>
-				              				<option data-value="<?php echo $rows->id_city ?>"><?php echo $rows->name ?></option>
-				              			<?php }} ?>
-									</datalist>
-									<input type="hidden" id="city">
-									<script type="text/javascript">
-										document.querySelector('#answerInput').addEventListener('input', function(e) {
-										    var input = e.target,
-										        list = input.getAttribute('list'),
-										        options = document.querySelectorAll('#' + list + ' option'),
-										        hiddenInput = document.getElementById('city'),
-										        inputValue = input.value;
-										    hiddenInput.value = inputValue;
-										    for(var i = 0; i < options.length; i++) {
-										        var option = options[i];
-
-										        if(option.innerText === inputValue) {
-										            hiddenInput.value = option.getAttribute('data-value');
-										    		selectCity(option.getAttribute('data-value'));
-										            break;
-										        }else{
-										        	hiddenInput.value="";
-										        }
-										    }
-										});
-									</script>
-			              		</label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_city" placeholder="Tỉnh/Thành Phố" required="" name="city" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_city">
+								<?php 
+		              			if(isset($city)){
+		              			foreach ($city as $rows) { ?>
+		              				<option data-value="<?php echo $rows->id_city ?>"><?php echo $rows->name?></option>
+		              			<?php }} ?>
+							</datalist>
+	              		</label>
 	            	</div>
 	            	<div class="margin-bot-5">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<select class="control-label col-md-8 no-border no-padding margin-left-10" name="district" id="district" onchange="selectDistrict(this)">
-	              			<option selected="true" id="dodulieu" disabled="true">
-    							--Chọn Quận Huyện--
-  							</option>
-	              		</select>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_distr" placeholder="Quận/Huyện" required="" name="district" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_distr">
+							</datalist>
+	              		</label>
 	            	</div>
 	            	<div class="margin-bot-5">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
-	              		<select class="control-label col-md-8 no-border no-padding margin-left-10" name="ward" id="ward">
-	              			<option selected="true" id="dodulieu1" disabled="true">
-    							--Chọn Phường Xã--
-  							</option>
-	              		</select>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_ward" placeholder="Phường/Xã" required="" name="ward" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_ward">
+							</datalist>
+	              		</label>
 	            	</div>
 	            	<div class="margin-bot-5">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	            		<label class="control-label col-md-8 no-padding-right">
-		              		
-	              				<input name="address" id="address" class="col-md-12 no-padding font-size-12" placeholder="-Số nhà, Đường,..." maxlength="15">
+	              			<input name="address" class="col-md-12 no-padding font-size-12" placeholder="Số nhà, Đường,...">
 		              	</label>
 	            	</div>
 	            	</div>
