@@ -28,32 +28,36 @@ $(document).ready( function () {
     var formData = new FormData($(this)[0]);
 
     for (var [key, value] of formData.entries()) { 
-          console.log(key, value);
+          // console.log(key, value);
     }
+
+    var name = formData.get('custname');
 
     $(this).find('button[type=submit]').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
     $.ajax({
-            type: "POST",
-            url: "<?php echo base_url().'user/aj_insert';?>",
-            data:  formData,
-            dataType:'json',
-            contentType: false,
-            cache: false,
-            processData:false,
-            beforeSend: function() {
-            },
-            success: function(data) {
-            $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-              if(data.code==0){
-                swal("Lỗi", data.message, "error");
-              }else{
-                swal("Thành công !", "Thêm người dùng thành công.", "success");
-              }
-            },
-            error: function(xhr, status, error) {
-              console.log(error);
-            }
-        });
+      type: "POST",
+      url: "<?php echo base_url().'user/aj_insert';?>",
+      data:  formData,
+      dataType:'json',
+      contentType: false,
+      cache: false,
+      processData:false,
+      beforeSend: function() {
+      },
+      success: function(data) {
+      $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+        if(data.code==0){
+          swal("Cảnh báo !", data.message, "warning");
+        }else{
+          swal("Thành công !", "Thêm người dùng thành công.", "success");
+          var tab = window.top.$('div.tab-pane.active').attr('id');
+          window.top.$('li a.nav-link[href="#'+tab+'"]').find('span').html(name);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log(error);
+      }
+    });
     return false;
   });
 

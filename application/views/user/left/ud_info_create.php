@@ -37,7 +37,7 @@
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding">Họ và Tên</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập họ tên" name="custname" id="custname">
+		              		<input class="col-md-12 no-padding font-size-12" required="" value="" placeholder="Nhập họ tên" name="custname" id="custname">
 		              	</label>
 	            	</div>
 	            	<div class="div-danhxung">
@@ -52,7 +52,7 @@
 	            		<label class="control-label user-label col-md-4 no-padding">CMND/Passport
 	              		(<span style="color: red">*</span>):</label>
 	              		<label class="control-label col-md-7 no-padding-right">
-		              		<input id="idcard" name="idcard" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required minlength="8">
+		              		<input id="idcard" name="idcard" required="" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập cmnd" required minlength="8">
 		              	</label>
 	            	</div>
 	            	<div class="div-ngaysinh">
@@ -65,7 +65,7 @@
 	            	<div class="div-phone">
 	            		<label class="control-label user-label col-md-3 no-padding">Điện thoại</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="telephone" name="telephone" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập sdt chính">
+		              		<input id="telephone" name="telephone" required="" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập sdt chính">
 		              	</label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
@@ -74,7 +74,7 @@
 	            		<label class="control-label user-label col-md-3 no-padding">E-mail</label> 
 	            	
 	            		<label class="control-label col-md-8 no-padding-right">
-		              		<input id="email" name="email" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính">
+		              		<input id="email" name="email" type="email" required="" class="col-md-12 no-padding font-size-12" value="" placeholder="Nhập email chính">
 		              	</label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
