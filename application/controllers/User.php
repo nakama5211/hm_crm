@@ -1,7 +1,7 @@
 <?php
-error_reporting(0);
-ini_set('display_errors', 0);
-defined('BASEPATH') OR exit('No direct script access allowed');
+// error_reporting(0);
+// ini_set('display_errors', 0);
+// defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
@@ -125,7 +125,9 @@ class User extends CI_Controller {
         //Group List
         $group_list = $this->_init['_jsongroup'];
         $customer['role_list'] = $role_list; 
+        $right['role_list'] = $role_list; 
         $customer['group_list'] = $group_list['data']; 
+        $right['group_list'] = $group_list['data']; 
         
         $customer['detail'] = $_jsonuser['data'];
 
