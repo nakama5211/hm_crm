@@ -12,7 +12,7 @@
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
       loadGroup(load_roleid);
 
-    $('#table-1-contract').DataTable({
+    var table_contract = $('#table-1-contract').DataTable({
                     "paging":   false,
                     "columns": [
                       { "width": "60px" },
@@ -33,9 +33,16 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        var info = this.api().page.info();
+                        console.log('Total records', info.recordsTotal);
+                        console.log('Displayed records', info.recordsDisplay);
+                        $("#tab1").text('Giao dịch ('+info.recordsDisplay+')');
                     }
                   });
     $('.btn-update').click(function(){
+      $('#updateUser').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();
         var groupid = $('#groupid').val();
@@ -54,7 +61,7 @@
         var comments = $('#comments').val();
         var thunhap = $('#thunhap').val();
         var fulladdress = $('#fulladdress').val();
-        // var custid = $('#custid').val();
+        var custid = $('#custid').val();
         var password = $('#password').val();
         var queue = $('#queue').val();
         var queueold = $('#queue_old').val();
@@ -67,6 +74,7 @@
       .done(function(data) {
                  if(data.message =='Success')
                  {
+                  $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                   alert('Sửa thông tin thành công');
                     location.reload();
                  }

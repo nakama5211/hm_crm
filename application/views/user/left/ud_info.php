@@ -221,7 +221,7 @@
           	<div>
 	        <div class="fc-corner-right">
           		<div class="fc-button-group" style="float:right">
-					<button type="submit" id="updateUser" class="fc-agendaWeek-button fc-button fc-state-default fc-state-active fc-corner-right btn-update">Lưu thông tin</button>
+					<button type="submit" id="updateUser" class="btn btn-primary float-right margin-bot-5 btn-update"><i class="fa fa-share"></i>Lưu thông tin</button>
 				</div>
           	</div>
           	</div>

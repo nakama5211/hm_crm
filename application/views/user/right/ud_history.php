@@ -25,10 +25,22 @@
 				      	<p class="margin-bot-3"><?php echo $value['action'] ?></p>
 				        <p class="no-margin-bot"><?php $data = json_decode($value['dataaction'],true);
 				        foreach ($data as $key => $value) {
-				        	echo $key.": ".$value."<br />";
+				        	if($key == "roleid")
+				        	{
+				        		echo "Phân quyền: ".switchRoleId($value)."<br />";
+				        	}
+				        	// echo $key.": ".$value."<br />";
 				        }
 				         ?></p>
 				    </div>
 			  	</div>
 			  	 <?php	$i++;}} ?>
 			</div>
+
+<?php public function switchRoleId($value)
+{
+	if($value == 3)
+	{
+		echo "Khách hàng";
+	}
+} ?>
