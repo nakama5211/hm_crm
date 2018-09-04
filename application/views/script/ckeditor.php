@@ -98,16 +98,18 @@
 	          $('select#level_2 option, select#level_3 option').each(function(){
 	            var ref1 = $(this).attr('ref1');
 	            if (ref1==val) {
-	              $(this).removeClass('hide');
+	              $(this).removeClass('hide').addClass('show');
 	            }else{
-	              $(this).addClass('hide');
+	              $(this).addClass('hide').removeClass('show');
 	            }
 	          });
 	        }else{
 	          $('select#level_2 option, select#level_3 option').each(function(){
-	            $(this).removeClass('hide');
+	            $(this).removeClass('hide').addClass('show');
 	          });
 	        }
+	        $('select#level_2 option.show:first').prop('selected',true);
+        	$('select#level_3 option.show:first').prop('selected',true);
 	    });
 	    $('select#level_2').change(function(){
 	        var val = $(this).val();
@@ -115,16 +117,17 @@
 	          $('select#level_3 option').each(function(){
 	            var ref2 = $(this).attr('ref2');
 	            if (ref2==val) {
-	              $(this).removeClass('hide');
+	              $(this).removeClass('hide').addClass('show');
 	            }else{
-	              $(this).addClass('hide');
+	              $(this).addClass('hide').removeClass('show');
 	            }
 	          });
 	        }else{
 	          $('select#level_3 option').each(function(){
-	            $(this).removeClass('hide');
+	            $(this).removeClass('hide').addClass('show');
 	          });
-	        }  
+	        }
+	        $('select#level_3 option.show:first').prop('selected',true);
 	    });
 	});
     

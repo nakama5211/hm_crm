@@ -29,10 +29,13 @@
 
     $('select#level_1').change(function(){
         var val = $(this).val();
+        $('select#level_2 option:first').prop('selected',true);
+        $('select#level_3 option:first').prop('selected',true);
         if(val){
           $('select#level_2 option, select#level_3 option').each(function(){
             var ref1 = $(this).attr('ref1');
-            if (ref1==val) {
+            var all = $(this).attr('all');
+            if (ref1==val || all || val=="all") {
               $(this).removeClass('hide');
             }else{
               $(this).addClass('hide');
@@ -40,26 +43,41 @@
           });
         }else{
           $('select#level_2 option, select#level_3 option').each(function(){
-            $(this).removeClass('hide');
+            var all = $(this).attr('all');
+            if (!all) {
+              $(this).removeClass('hide');
+            }
           });
         }
     });
     $('select#level_2').change(function(){
         var val = $(this).val();
+        var all = $(this).find('option:selected').attr('all');
+        var ref1 = $('select#level_1').val();
+        $('select#level_3 option:first').prop('selected',true);
         if(val){
           $('select#level_3 option').each(function(){
             var ref2 = $(this).attr('ref2');
-            if (ref2==val) {
+            var all = $(this).attr('all');
+            if (ref2==val || all || val=="all") {
+              $(this).removeClass('hide');
+            }else{
+              $(this).addClass('hide');
+            }
+          });
+        }else if(all){
+            $('select#level_3 option').each(function(){
+            var val1 = $(this).attr('ref1');
+            var all = $(this).attr('all');
+            if (ref1==val1 || all || val=='all') {
               $(this).removeClass('hide');
             }else{
               $(this).addClass('hide');
             }
           });
         }else{
-          $('select#level_3 option').each(function(){
-            $(this).removeClass('hide');
-          });
-        }  
+          $(this).removeClass('hide');
+        }
     });
 	});
 
