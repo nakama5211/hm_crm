@@ -119,7 +119,13 @@
 	            	<div class="">
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
 	            		<label class="control-label col-md-8 no-padding-right">
-	              			<input name="address" class="col-md-12 no-padding font-size-12" placeholder="Số nhà, Đường,...">
+	              			<input name="street" class="col-md-12 no-padding font-size-12" placeholder="Đường">
+		              	</label>
+	            	</div>
+	            	<div class="">
+	            		<label class="control-label user-label col-md-3 no-padding"></label>
+	            		<label class="control-label col-md-8 no-padding-right">
+	              			<input name="address" class="col-md-12 no-padding font-size-12" placeholder="Số nhà">
 		              	</label>
 	            	</div>
 	            </div>

@@ -471,21 +471,21 @@ class User extends CI_Controller {
         $custid = $this->M_api->gen_custid();
 
         $res_data = array(
-            'custid'                       => $custid,
-            'roleid'                       => isset($post['roleid'])?$post['roleid']:'',
-            'groupid'                      => isset($post['groupid'])?$post['groupid']:'',
+            'custid'                       =>$custid,
+            'roleid'                       =>isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      =>isset($post['groupid'])?$post['groupid']:'',
             'custname'                     =>isset($post['custname'])?$post['custname']:'',
             'gender'                       =>isset($post['gender'])?$post['gender']:'',
-            'idcard'                       => isset($post['idcard'])?$post['idcard']:'',
-            'fullbirthday'                 => isset($post['fullbirthday'])?$post['fullbirthday']:'',
+            'idcard'                       =>isset($post['idcard'])?$post['idcard']:'',
+            'fullbirthday'                 =>isset($post['fullbirthday'])?$post['fullbirthday']:'',
             'telephone'                    =>isset($post['telephone'])?$post['telephone']:'',
-            'email'                        => isset($post['email'])?$post['email']:'',
+            'email'                        =>isset($post['email'])?$post['email']:'',
             
             'comments'                     =>isset($post['comments'])?$post['comments']:'',
-            'extinfo'                      => isset($post['ext'])?json_encode($post['ext']):'',
+            'extinfo'                      =>isset($post['ext'])?json_encode($post['ext']):'',
             
-            'password'                     => isset($post['password'])?$post['password']:'',
-            'queue'                        => isset($post['queue'])?$post['queue']:''
+            'password'                     =>isset($post['password'])?$post['password']:'',
+            'queue'                        =>isset($post['queue'])?$post['queue']:''
         );
 
         foreach ($res_data as $key => $value) {
@@ -514,9 +514,10 @@ class User extends CI_Controller {
                 'city'                          =>isset($post['city'])?$post['city']:'',
                 'district'                      =>isset($post['district'])?$post['district']:'',
                 'ward'                          =>isset($post['ward'])?$post['ward']:'',
+                'street'                        =>isset($post['street'])?$post['street']:'',
                 'address'                       =>isset($post['address'])?$post['address']:'',
         );
-        $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['address'];
+        $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
         if ($res_re['code']==1) {
             $r_addr = $this->api_save_address($address);
         }

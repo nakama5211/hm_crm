@@ -394,3 +394,7 @@ function notification(text){
                   '</div>' 
             });
 }
+
+function alertLog(title,text,type){
+    swal(title, text, type);
+}
