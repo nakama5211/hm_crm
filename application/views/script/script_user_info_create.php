@@ -1,8 +1,5 @@
 <script type="text/javascript">
 $(document).ready( function () {
-  $( "#idcard" ).click(function() {
-      $('#updateIdcard').modal('show');
-  });
   $('#table-1-create-user').DataTable({
              "paging":   true,
              "language": {
