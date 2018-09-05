@@ -492,7 +492,9 @@ class User extends CI_Controller {
             'extinfo'                      =>isset($post['ext'])?json_encode($post['ext']):'',
             
             'password'                     =>isset($post['password'])?$post['password']:'',
-            'queue'                        =>isset($post['queue'])?$post['queue']:''
+            'queue'                        =>isset($post['queue'])?$post['queue']:'',
+            'issueddate'                   =>isset($post['issueddate']?$post['issueddate']:''),
+            'issuedplace'                  =>isset($post['issuedplace']?$post['issuedplace']:'')
         );
 
         foreach ($res_data as $key => $value) {

@@ -7,7 +7,7 @@
   $( "#idcard" ).click(function() {
       $('#updateIdcard').modal('show');
       $('#updateIdcard').on('shown.bs.modal', function (e) {
-          $('#issuedday').datetimepicker({timepicker:false,
+          $('#issueddate').datetimepicker({timepicker:false,
           format:'d/m/Y'});
         })
   });
@@ -95,13 +95,33 @@
                         $("#tab1").text('Giao dịch ('+info.recordsDisplay+')');
                     }
                   });
+    $('.btn-update-idcard').click(function(){
+        var custid = '<?php echo strval($_GET['cusid']) ?>';
+        var roleid = $('#roleid').val();
+        var groupid = $('#groupid').val();
+        var idcard = $('#idcard_modal').val();
+        var issueddate = $('#issueddate').val();
+        var issuedplace = $('#issuedplace').val();
+        $.ajax({
+        url: '<?php echo base_url()?>user/updateUser',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace},
+      })
+        .done(function(data){
+          parent.notification("Lưu CMND thành công!!!");
+        })
+        .fail(function(){
+          parent.notification("Lưu CMND thất bại!!!");
+        })
+    });
     $('.btn-update').click(function(){
       $('#updateUser').prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();
         var groupid = $('#groupid').val();
         var custname = $('#custname').val();
-        var idcard = $('#idcard').val();
+        // var idcard = $('#idcard').val();
         var fullbirthday = $('#fullbirthday').val();
         var gender = $('#gender').val();
         var telephone = $('#telephone').val();
@@ -131,6 +151,7 @@
 
                       $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
                       location.reload();
+                        parent.notification("Cập nhật thành công");
 
                       // $.ajax({
                       //   url: '<?php echo base_url() ?>user/getHistoryUser',

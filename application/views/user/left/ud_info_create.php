@@ -182,7 +182,7 @@
           	</div>
      </form>
 
-     <div class="modal fade" id="updateIdcard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <!-- <div class="modal fade" id="updateIdcard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  <div class="modal-dialog" style="margin-top: 5%; width: 31%" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
@@ -231,4 +231,4 @@
 			      </div>
 			    </div>
 			  </div>
-			</div>
+			</div> -->

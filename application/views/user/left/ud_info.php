@@ -384,7 +384,7 @@
 					  <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Loại hình: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_type" placeholder="Loại hình" name="type" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_type" placeholder="Loại hình" name="type" class="col-md-12 no-padding font-size-12" value="CMND">
 							<datalist id="l_type">
 								<option data-value="cmnd">CMND</option>
 								<option data-value="passport">Passport</option>
@@ -394,22 +394,20 @@
 			        <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Số: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_distr" placeholder="Số" name="idcard" class="col-md-12 no-padding font-size-12">
-							<datalist id="l_distr">
-							</datalist>
+	              			<input  placeholder="Số" name="idcard" id="idcard_modal" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['idcard'] ?>">
 	              		</label>
 					  </div>
 					  <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Ngày cấp: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input placeholder="Ngày cấp" name="issuedday" class="col-md-12 no-padding font-size-12" id="issuedday">
+	              			<input placeholder="Ngày cấp" name="issueddate" class="col-md-12 no-padding font-size-12" id="issueddate" value="<?php echo date("d/m/Y",strtotime($detail[0]['issueddate'])); ?>">
 	              		</label>
 					  </div>
 					  
 			      	<div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Nơi cấp: </label>
 					    <label class="control-label col-md-8 no-padding-right">
-					    <input list="l_city" placeholder="Nơi cấp" name="issuedplace" class="col-md-12 no-padding font-size-12" id="issuedplace">
+					    <input list="l_city" placeholder="Nơi cấp" name="issuedplace" class="col-md-12 no-padding font-size-12" id="issuedplace" value="<?php echo $detail[0]['issuedplace'] ?>">
 							<datalist id="l_city">
 							</datalist>
 						</label>
@@ -418,7 +416,7 @@
 
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Thêm</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-update-idcard" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Lưu</button>
 			      </div>
 			    </div>
 			  </div>
