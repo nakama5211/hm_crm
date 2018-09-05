@@ -23,7 +23,7 @@ class M_data_API extends CI_Model {
                 {
                     $lastupdate = date("d/m/Y",strtotime($timeUpdate));
                 }else{$lastupdate='';}
-            $href = ''.base_url().'ticket/detail/'.$data['trade_cntt'][$i]['ticketid'].'/'.$data['trade_cntt'][$i]['custid'].'/'.$data['trade_cntt'][$i]['idcard'].'';
+            $href = ''.base_url().'ticket/detail/'.$data['trade_cntt'][$i]['ticketid'].'/'.$data['trade_cntt'][$i]['custid'].'';
             $onclick = "addTab('".$href."','".$data['trade_cntt'][$i]['ticketid']."')";
             if($i == (count($data['trade_cntt'])-1))
             {
@@ -133,9 +133,7 @@ class M_data_API extends CI_Model {
         $data['trade_cntt'] = $_json2_contractc["result"]["data"];
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
-            if($i == (count($data['trade_cntt'])-1))
-            {
-                if(strtotime($data['trade_cntt'][$i]['transdate']) > $this->dayCompare)
+          if(strtotime($data['trade_cntt'][$i]['transdate']) > $this->dayCompare)
                 {
                     $transdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['transdate']));
                 }else{$transdate='';}
@@ -143,6 +141,9 @@ class M_data_API extends CI_Model {
                 {
                     $duedate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['duedate']));
                 }else{$duedate='';}
+            if($i == (count($data['trade_cntt'])-1))
+            {
+                
                 $text .= '[
                        "'.$data['trade_cntt'][$i]['revenuetype'].'",
                        "'.$data['trade_cntt'][$i]['value0'].'",
@@ -196,12 +197,12 @@ class M_data_API extends CI_Model {
         $data['trade_cntt'] = $_json2_contractc["result"]["data"];
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
-            if($i == (count($data['trade_cntt'])-1))
-            {
                 if(strtotime($data['trade_cntt'][$i]['statusdate']) > $this->dayCompare)
                 {
                     $statusdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['statusdate']));
                 }else{$statusdate='';}
+            if($i == (count($data['trade_cntt'])-1))
+            {
                 $text .= '[
                        "'.$data['trade_cntt'][$i]['status'].'",
                        "'.$statusdate.'",
@@ -247,12 +248,12 @@ class M_data_API extends CI_Model {
         $data['trade_cntt'] = $_json2_contractc["result"]["data"];
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
-            if($i == (count($data['trade_cntt'])-1))
-            {
                 if(strtotime($data['trade_cntt'][$i]['promotiondate']) > $this->dayCompare)
                 {
                     $promotiondate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['promotiondate']));
                 }else{$promotiondate='';}
+            if($i == (count($data['trade_cntt'])-1))
+            {
                 $text .= '[
                        "'.$promotiondate.'",
                        "'.$data['trade_cntt'][$i]['description'].'",
@@ -343,12 +344,12 @@ class M_data_API extends CI_Model {
         $data['trade_cntt'] = $_json2_contractc["result"]["data"];
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
-            if($i == (count($data['trade_cntt'])-1))
-            {
                 if(strtotime($data['trade_cntt'][$i]['eventdate']) > $this->dayCompare)
                 {
                     $eventdate = date("d/m/Y",strtotime($data['trade_cntt'][$i]['eventdate']));
                 }else{$eventdate='';}
+            if($i == (count($data['trade_cntt'])-1))
+            {
                 $text .= '[
                        "'.$data['trade_cntt'][$i]['eventtype'].'",
                        "'.$eventdate.'",

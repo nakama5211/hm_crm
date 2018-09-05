@@ -107,7 +107,7 @@
         var comments = $('#comments').val();
         var thunhap = $('#thunhap').val();
         var fulladdress = $('#fulladdress').val();
-        var custid = $('#custid').val();
+        // var custid = $('#custid').val();
         var password = $('#password').val();
         var queue = $('#queue').val();
         var queueold = $('#queue_old').val();
