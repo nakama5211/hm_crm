@@ -94,7 +94,7 @@ $(document).ready( function () {
     var val = $(this).val();
     var opt = $('datalist#l_distr').find('option[value="'+val+'"]');
     if (opt.length>0) {
-      var id = opt.attr('id-city');
+      var id = opt.attr('id');
       $.ajax({
         url: '<?php echo base_url()?>user/selectDistrict',
         type: 'POST',
