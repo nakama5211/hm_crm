@@ -406,7 +406,7 @@ class User extends CI_Controller {
                 'groupid' => isset($data['groupid'])?$data['groupid']:null,
                 'custname' =>isset($data['custname'])?$data['custname']:null,
                 'gender' =>isset($data['gender'])?$data['gender']:null,
-                // 'idcard' => isset($data['idcard'])?$data['idcard']:null,
+                'idcard' => isset($data['idcard'])?$data['idcard']:null,
                 'fullbirthday' => isset($data['fullbirthday'])?$data['fullbirthday']:null,
                 'telephone' =>isset($data['telephone'])?$data['telephone']:null,
                 'email' => isset($data['email'])?$data['email']:null,
@@ -422,9 +422,8 @@ class User extends CI_Controller {
                 'comments' =>isset($data['comments'])?$data['comments']:null,
                 'queue'=> isset($data['queue'])?$data['queue']:null,
                 'extinfo'=> $__extinfo,
-                ,
-            'issueddate'                   =>isset($post['issueddate'])?$post['issueddate']:'',
-            'issuedplace'                  =>isset($post['issuedplace'])?$post['issuedplace']:''
+            'issueddate' =>isset($data['issueddate'])?$data['issueddate']:null,
+            'issuedplace' =>isset($data['issuedplace'])?$data['issuedplace']:null
                 // 'fulladdress'=> isset($data['fulladdress'])?$data['fulladdress']:null
         ]);
         $opts = array('http' =>

@@ -110,6 +110,7 @@
       })
         .done(function(data){
           parent.notification("Lưu CMND thành công!!!");
+          $('#idcard').val(idcard);
         })
         .fail(function(){
           parent.notification("Lưu CMND thất bại!!!");
