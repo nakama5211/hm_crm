@@ -1,5 +1,12 @@
 <script type="text/javascript">
 $(document).ready( function () {
+  $( "#idcard" ).click(function() {
+      $('#updateIdcard').modal('show');
+      $('#updateIdcard').on('shown.bs.modal', function (e) {
+          $('#createdate').datetimepicker({timepicker:false,
+          format:'d/m/Y'});
+        })
+  });
   $('#table-1-create-user').DataTable({
              "paging":   true,
              "language": {

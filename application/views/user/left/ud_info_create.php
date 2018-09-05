@@ -227,7 +227,7 @@
 
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Thêm</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal">Thêm</button>
 			      </div>
 			    </div>
 			  </div>
