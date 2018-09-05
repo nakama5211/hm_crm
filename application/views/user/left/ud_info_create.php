@@ -205,6 +205,11 @@
 	              		<label class="control-label col-md-8 no-padding-right">
 	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_city">
+								<?php 
+		              			if(isset($city)){
+		              			foreach ($city as $rows) { ?>
+		              				<option id-city="<?php echo $rows->id_city?>" value="<?php echo $rows->name?>"></option>
+		              			<?php }} ?>
 							</datalist>
 	              		</label>
 					  </div>

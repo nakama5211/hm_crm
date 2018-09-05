@@ -50,11 +50,14 @@ $(document).ready( function () {
       success: function(data) {
       $('#btn-save').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
         if(data.code==0){
-          swal("Cảnh báo !", data.message, "warning");
+          // swal("Cảnh báo !", data.message, "warning");
+          parent.alertLog("Cảnh báo !", data.message, "warning");
         }else{
-          swal("Thành công !", "Thêm người dùng thành công.", "success");
+          // swal("Thành công !", "Thêm người dùng thành công.", "success");
+          parent.alertLog("Thành công !", "Thêm người dùng thành công.", "success");
           var tab = window.top.$('div.tab-pane.active').attr('id');
           window.top.$('li a.nav-link[href="#'+tab+'"]').find('span').html(name);
+          // window.location.href = "<?php echo base_url()?>user/selectDistrict";
         }
       },
       error: function(xhr, status, error) {
@@ -94,7 +97,7 @@ $(document).ready( function () {
     var val = $(this).val();
     var opt = $('datalist#l_distr').find('option[value="'+val+'"]');
     if (opt.length>0) {
-      var id = opt.attr('id-city');
+      var id = opt.attr('id');
       $.ajax({
         url: '<?php echo base_url()?>user/selectDistrict',
         type: 'POST',
