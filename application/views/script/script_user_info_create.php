@@ -3,7 +3,7 @@ $(document).ready( function () {
   $( "#idcard" ).click(function() {
       $('#updateIdcard').modal('show');
       $('#updateIdcard').on('shown.bs.modal', function (e) {
-          $('#createdate').datetimepicker({timepicker:false,
+          $('#issuedday').datetimepicker({timepicker:false,
           format:'d/m/Y'});
         })
   });
