@@ -144,7 +144,8 @@ class Ticket extends CI_Controller {
          $knowledge['info_customer']= [];   
         }
 
-        $json_recent_ticket = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/getticketinfo/'.$idcustomer.'/3') ;
+        // $json_recent_ticket = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/getticketinfo/'.$idcustomer.'/3') ;
+        $json_recent_ticket = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?custid='.$idcustomer.'&agentcurrent='.$custid);
         $knowledge['recent_ticket'] = json_decode($json_recent_ticket,true)['data'];
         if($knowledge['recent_ticket'] == null)
         {
