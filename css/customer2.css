@@ -174,3 +174,16 @@ background: rgb(44, 166, 164) !important;
   flex: 0 0 27%;
   max-width: 27%;
 }
+.btn-gray-black{
+    color: #FFF;
+    background-color: #6e6e6e;
+    width: 80px;
+    height: 30px;
+}
+.btn-gray-white{
+    color: #000;
+    background-color: #dbdbdb;
+    width: 80px;
+    height: 30px;
+}
+}

@@ -175,3 +175,74 @@
 				</div>
           	</div>
      </form>
+
+     <div class="modal fade" id="updateIdcard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" style="margin-top: 5%; width: 31%" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title" id="myModalLabel">CMND/ID</h4>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      </div>
+			      <div class="modal-body">
+			      	<div class="form-group">
+					    <label class="control-label col-md-12 no-padding-right">
+					    <input class="col-md-12 no-padding font-size-12" placeholder="Nhập nhãn địa chỉ" maxlength="30" style="
+  border-bottom: 1px solid #DBDBDB;">
+						</label>
+					</div>
+
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_country">
+		              				<option>Việt Nam</option>
+							</datalist>
+		              	</label>
+					  </div>
+					  <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_city">
+							</datalist>
+	              		</label>
+					  </div>
+			        <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_distr">
+							</datalist>
+	              		</label>
+					  </div>
+					  <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_ward">
+							</datalist>
+	              		</label>
+					  </div>
+					  
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Tên đường: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input  placeholder="Tên đường" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
+					<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Số nhà: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input  placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
+			      </div>
+
+			      <div class="modal-footer" style="background: #f5f5f5">
+			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal">Thêm</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>

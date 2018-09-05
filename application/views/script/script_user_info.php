@@ -120,42 +120,46 @@
       .done(function(data) {
                  if(data.message =='Success')
                  {
-                      $.ajax({
-                        url: '<?php echo base_url() ?>user/getHistoryUser',
-                        type: 'POST',
-                        dataType: 'JSON',
-                        data:{custid: custid}
-                      }).done(function(data)
-                      {
-                        var cars = ["gray","red","green","yellow"];
-                        var j =0;
-                        var data_html = "";
-                        $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                        parent.notification("Cập nhật thành công");
-                        for (var i = 0; i < data.data.length; i++) {
-                           var t3 = new Date(data.data[i].createat);
-                           if(t3 > dayCompare)
-                           {
-                           var create = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-                          }else{var create = ''}
-                          if(j >3)
-                          {
-                            j=0;
-                          }
-                          data_html += '\
-                          <div class="entry">\
-                            <div class="title '+cars[j]+'">\
-                              <p class="time-detail"></p>\
-                              <p class="date-detail"></p>\
-                            </div>\
-                          </div>\
-                          ';
-                          j++;
-                        }
-                        $('.timeline').html(data_html);
-                          }).fail(function(){
-                        parent.notification("Cập nhật thất bại");
-                          })
+
+                      $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+                      location.reload();
+
+                      // $.ajax({
+                      //   url: '<?php echo base_url() ?>user/getHistoryUser',
+                      //   type: 'POST',
+                      //   dataType: 'JSON',
+                      //   data:{custid: custid}
+                      // }).done(function(data)
+                      // {
+                        // var cars = ["gray","red","green","yellow"];
+                        // var j =0;
+                        // var data_html = "";
+                        // $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+                        // parent.notification("Cập nhật thành công");
+                        // for (var i = 0; i < data.data.length; i++) {
+                        //    var t3 = new Date(data.data[i].createat);
+                        //    if(t3 > dayCompare)
+                        //    {
+                        //    var create = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
+                        //   }else{var create = ''}
+                        //   if(j >3)
+                        //   {
+                        //     j=0;
+                        //   }
+                        //   data_html += '\
+                        //   <div class="entry">\
+                        //     <div class="title '+cars[j]+'">\
+                        //       <p class="time-detail"></p>\
+                        //       <p class="date-detail"></p>\
+                        //     </div>\
+                        //   </div>\
+                        //   ';
+                        //   j++;
+                        // }
+                        // $('.timeline').html(data_html);
+                        //   }).fail(function(){
+                        // parent.notification("Cập nhật thất bại");
+                        //   })
                  }
                  else{
                   alert(data.message);
