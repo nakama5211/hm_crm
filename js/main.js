@@ -349,7 +349,7 @@ function notification(text){
                   title: "Cập nhật thành công : ",
                   message: text,
                   icon: 'fa fa-check' ,
-                  url: 'https://github.com/mouse0270/bootstrap-notify',
+                  url: '',
                   target: '_blank'
             },{
                   // settings
