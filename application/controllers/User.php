@@ -158,6 +158,13 @@ class User extends CI_Controller {
         $this->load->view('dashboard',$_data);
     }
 
+    public function getHistoryUser()
+    {
+        $_cusid = $this->input->post('custid');
+        $_jsonhistory = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/user_history/'.$_cusid.'');
+        echo $_jsonhistory;
+    }
+
 
 
     public function create(){

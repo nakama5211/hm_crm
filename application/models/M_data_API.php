@@ -9,7 +9,7 @@ class M_data_API extends CI_Model {
 	}
 	public function loadTicketContract($contractid)
 	{
-		$json_ticket_bottom = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?contractid='.$contractid.'');
+		$json_ticket_bottom = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?transref='.$contractid.'');
         $data['trade_cntt'] = json_decode($json_ticket_bottom,true)['data'];
         $text = '';
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 

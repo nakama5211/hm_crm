@@ -34,7 +34,10 @@
             <tbody>
               <?php if(count($recent_ticket)>0)
               {   $c = 0;
-                  foreach ($recent_ticket as $value) {?>
+                  foreach ($recent_ticket as $value) {
+                    if(($value['agentcurrent'] == $agentcurrent['custid'] || strpos($rows['ticketusers'], $agentcurrent) !== false) && $rows['hidden'] == 0 && $rows['status'] != 9)
+                        {
+                    ?>
               <tr>
                     <td width="60">
                       <?php $title = '#'.$value['ticketid'];
@@ -45,7 +48,7 @@
                 </tr> 
               <?php if ($c==2) {
                 break;
-              }else $c++;}}?>			  
+              }else $c++;}}}?>			  
             </tbody>
       	</table>
 

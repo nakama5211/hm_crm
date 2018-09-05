@@ -298,7 +298,7 @@
 			</div>
 
 			<div class="modal fade" id="updateAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" style="margin-top: 5%" role="document">
+			  <div class="modal-dialog" style="margin-top: 5%; width: 31%" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h4 class="modal-title" id="myModalLabel">Sửa địa chỉ</h4>
@@ -306,11 +306,12 @@
 			      </div>
 			      <div class="modal-body">
 			      	<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ: </label>
-					    <label class="control-label col-md-8 no-padding-right">
-					    <input placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12" placeholder="Địa chỉ" maxlength="30">
+					    <label class="control-label col-md-12 no-padding-right">
+					    <input class="col-md-12 no-padding font-size-12" placeholder="Nhập nhãn địa chỉ" maxlength="30" style="
+  border-bottom: 1px solid #DBDBDB;">
 						</label>
 					</div>
+
 			      	<div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
@@ -351,9 +352,15 @@
 					  </div>
 					  
 			      	<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Địa chỉ đầy đủ: </label>
+					    <label class="control-label user-label col-md-3 no-padding">Tên đường: </label>
 					    <label class="control-label col-md-8 no-padding-right">
-					    <input readonly="true" placeholder="Quốc Gia" value="<?php echo $address[0]['fulladdress'] ?>" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+					    <input  placeholder="Tên đường" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
+					<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Số nhà: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input  placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
 						</label>
 					</div>
 			      </div>

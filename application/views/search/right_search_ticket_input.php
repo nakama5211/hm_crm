@@ -18,12 +18,11 @@
 		                	if(count($result['data']) >0&& $result['code']==1)
 		                	{
 		                	foreach ($result['data'] as $rows) {
-		                		if(($rows['agentcurrent'] == $agentcurrent || strpos($rows['ticketusers'], $agentcurrent) !== false) && $rows['hidden'] == 0 && $rows['status'] != 9)
-		                		{
+		                		
 		                		?>
 		                	<tr class="border-bot-1">
 			                    <td>
-			                    	<a class="buttonsearchiframe" onclick="addTab('<?php echo base_url().'ticket/detail/'.$rows['ticketid'].'/'.$rows['custid'] ?>','#<?php echo $rows['ticketid'] ?>')" href="#" title="">
+			                    	<a class="buttonsearchiframe" onclick="addTab('<?php echo base_url().'ticket/detail/'.$rows['ticketid'].'/'.$rows['custid'].'/'.$rows['idcard'] ?>','#<?php echo $rows['ticketid'] ?>')" href="#" title="">
 			                    	<span class="id-label span-warning">P</span>  #<?php echo $rows['ticketid'] ?>
 			                    	</a>
 			                    </td>
@@ -52,7 +51,7 @@
 			                    	else {echo "Không xác định";}
 			                    ?></td>
 		                  	</tr>	
-		                	<?php }}} ?>				  
+		                	<?php }} ?>				  
 		                </tbody>
 	              	</table>
 	            </div>  
