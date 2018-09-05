@@ -493,8 +493,8 @@ class User extends CI_Controller {
             
             'password'                     =>isset($post['password'])?$post['password']:'',
             'queue'                        =>isset($post['queue'])?$post['queue']:'',
-            'issueddate'                   =>isset($post['issueddate']?$post['issueddate']:''),
-            'issuedplace'                  =>isset($post['issuedplace']?$post['issuedplace']:'')
+            'issueddate'                   =>isset($post['issueddate'])?$post['issueddate']:'',
+            'issuedplace'                  =>isset($post['issuedplace'])?$post['issuedplace']:''
         );
 
         foreach ($res_data as $key => $value) {
