@@ -3,9 +3,13 @@
   var dayCompare = new Date("2000-01-01T00:00:00");	
   $(document).ready( function () {
     loadFirst();
-    
+
   $( "#idcard" ).click(function() {
       $('#updateIdcard').modal('show');
+      $('#updateIdcard').on('shown.bs.modal', function (e) {
+          $('#createdate').datetimepicker({timepicker:false,
+          format:'d/m/Y'});
+        })
   });
       });
     function loadFirst()

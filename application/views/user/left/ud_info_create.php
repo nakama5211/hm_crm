@@ -190,69 +190,44 @@
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      </div>
 			      <div class="modal-body">
-			      	<div class="form-group">
-					    <label class="control-label col-md-12 no-padding-right">
-					    <input class="col-md-12 no-padding font-size-12" placeholder="Nhập nhãn địa chỉ" maxlength="30" style="
-  border-bottom: 1px solid #DBDBDB;">
-						</label>
-					</div>
-
-			      	<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
-	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
-							<datalist id="l_country">
-		              				<option>Việt Nam</option>
-							</datalist>
-		              	</label>
-					  </div>
 					  <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
+					    <label class="control-label user-label col-md-3 no-padding">Loại hình: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
-							<datalist id="l_city">
-								<?php 
-		              			if(isset($city)){
-		              			foreach ($city as $rows) { ?>
-		              				<option id-city="<?php echo $rows->id_city?>" value="<?php echo $rows->name?>"></option>
-		              			<?php }} ?>
+	              			<input list="l_type" placeholder="Loại hình" name="type" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_type">
+								<option data-value="cmnd">CMND</option>
+								<option data-value="passport">Passport</option>
 							</datalist>
 	              		</label>
 					  </div>
 			        <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
+					    <label class="control-label user-label col-md-3 no-padding">Số: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_distr" placeholder="Số" name="idcard" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_distr">
 							</datalist>
 	              		</label>
 					  </div>
 					  <div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
+					    <label class="control-label user-label col-md-3 no-padding">Ngày cấp: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
-							<datalist id="l_ward">
-							</datalist>
+	              			<input placeholder="Ngày cấp" name="issuedday" class="col-md-12 no-padding font-size-12" id="issuedday">
 	              		</label>
 					  </div>
 					  
 			      	<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Tên đường: </label>
+					    <label class="control-label user-label col-md-3 no-padding">Nơi cấp: </label>
 					    <label class="control-label col-md-8 no-padding-right">
-					    <input  placeholder="Tên đường" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
-						</label>
-					</div>
-					<div class="form-group">
-					    <label class="control-label user-label col-md-3 no-padding">Số nhà: </label>
-					    <label class="control-label col-md-8 no-padding-right">
-					    <input  placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+					    <input list="l_city" placeholder="Nơi cấp" name="issuedplace" class="col-md-12 no-padding font-size-12" id="issuedplace">
+							<datalist id="l_city">
+							</datalist>
 						</label>
 					</div>
 			      </div>
 
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal">Thêm</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Thêm</button>
 			      </div>
 			    </div>
 			  </div>
