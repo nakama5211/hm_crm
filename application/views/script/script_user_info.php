@@ -106,7 +106,7 @@
         url: '<?php echo base_url()?>user/updateUser',
         type: 'POST',
         dataType: 'JSON',
-        data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace},
+        data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace, ext:$('#dataExt').serialize()},
       })
         .done(function(data){
           parent.notification("Lưu CMND thành công!!!");

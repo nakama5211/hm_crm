@@ -421,7 +421,10 @@ class User extends CI_Controller {
 
                 'comments' =>isset($data['comments'])?$data['comments']:null,
                 'queue'=> isset($data['queue'])?$data['queue']:null,
-                'extinfo'=> $__extinfo
+                'extinfo'=> $__extinfo,
+                ,
+            'issueddate'                   =>isset($post['issueddate'])?$post['issueddate']:'',
+            'issuedplace'                  =>isset($post['issuedplace'])?$post['issuedplace']:''
                 // 'fulladdress'=> isset($data['fulladdress'])?$data['fulladdress']:null
         ]);
         $opts = array('http' =>
@@ -492,9 +495,7 @@ class User extends CI_Controller {
             'extinfo'                      =>isset($post['ext'])?json_encode($post['ext']):'',
             
             'password'                     =>isset($post['password'])?$post['password']:'',
-            'queue'                        =>isset($post['queue'])?$post['queue']:'',
-            'issueddate'                   =>isset($post['issueddate'])?$post['issueddate']:'',
-            'issuedplace'                  =>isset($post['issuedplace'])?$post['issuedplace']:''
+            'queue'                        =>isset($post['queue'])?$post['queue']:''
         );
 
         foreach ($res_data as $key => $value) {
