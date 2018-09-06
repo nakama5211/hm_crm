@@ -455,13 +455,18 @@
               .done(function(data){
                 $('.btn-addfulladdress').prop('disabled',false).find('i').removeClass();
                 parent.notification("Thêm địa chỉ thành công!!!");
+                $('#updateAddress').modal('toggle');
                 var data_html = '';
+                var j  = 0;
                 for (var i = 0; i < data.data.length; i++) {
-                    if(i==0)
+                    
+                    if(data.data[i].hidden != 1)
                     {
+                      if(j==0)
+                      {
                       var label_diachi = "Địa chỉ";
-                    }else{
-                    var label_diachi = '';}
+                      }else{
+                      var label_diachi = '';}
                     var label = "'"+data.data[i].label+"'";
                     var city = "'"+data.data[i].city+"'";
                     var district = "'"+data.data[i].district+"'";
@@ -481,6 +486,8 @@
                         '+addressid+'\
                         )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
                       </label>';
+                      j++;
+                    }
                 }
                 $('.div-address').html(data_html);
                 // alert(data_html);
@@ -591,5 +598,28 @@
       } 
       var today = dd+'/'+mm+'/'+yyyy;
       return today;
+  }
+  function removeAddress(addressid)
+  {
+      $('#modalDeleteAddress').modal('toggle');
+      $('#modalDeleteAddress').on('shown.bs.modal', function (e) {
+            $('#addressid_delete').val(addressid);
+        });
+  }
+  function deleteAddress()
+  {
+    var addressid = $('#addressid_delete').val();
+     $.ajax({
+        url: '<?php echo base_url()?>user/aj_delete_address',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {addressid: addressid},
+     })
+     .done(function(data){
+        alert(data.message);
+     })
+     .fail(function(){
+
+     });
   }
 </script>

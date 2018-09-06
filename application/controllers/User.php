@@ -571,6 +571,27 @@ class User extends CI_Controller {
             $r_addr = $this->api_update_address($address,$post['addressid']);
         echo $r_addr;
     }
+    public function aj_delete_address()
+    {
+        $post = $this->input->post('addressid');
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/delete/'.$post);
+        echo $result;
+    }
+    public function api_delete_address($data,$addressid){
+
+        $postdata = http_build_query($data);
+        $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        $context  = stream_context_create($opts);
+
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/delete/'.$addressid,false,$context);
+        return $result;
+    }
 
     public function api_save_address($data){
 

@@ -145,9 +145,11 @@
 		              			<input class="col-md-12 no-padding font-size-12" value="">
 			              	</label>
 	            		<?php }
-	            		for ($i=0; $i < count($address); $i++) { ?>
-		            		<label class="control-label user-label col-md-3 no-padding"><?php if($i == 0){echo "Địa chỉ";} ?></label>
-		              		<label class="control-label col-md-8 no-padding-right">
+	            		$j = 0;
+	            		for ($i=0; $i < count($address); $i++) {
+	            				if($address[$i]['hidden'] != 1){ ?>
+		            		<label class="control-label user-label col-md-3 no-padding"><?php if($j == 0){echo "Địa chỉ";} ?></label>
+		              		<label class="control-label col-md-7 no-padding-right">
 		              			<input onclick="openModalEdit(
 		              			'<?php echo $address[$i]['label'] ?>',
 		              			'<?php echo $address[$i]['city'] ?>',
@@ -158,7 +160,8 @@
 		              			'<?php echo $address[$i]['addressid'] ?>'
 		              			)" class="col-md-12 no-padding font-size-12" value="<?php echo $address[$i]['label'] ?>">
 			              	</label>
-	            		<?php } ?>
+			              	<a href="#" onclick="removeAddress('<?php echo $address[$i]['addressid'] ?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
+	            		<?php $j++;}} ?>
 	            	</div>
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
@@ -511,6 +514,25 @@
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
 			        <button type="button" class="btn btn-gray-black float-right btn-updatefulladdress"><i class=""></i>Lưu</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+			<div class="modal fade" id="modalDeleteAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" style="margin-top: 7%" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title" id="myModalLabel">Xoá Địa Chỉ</h4>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      </div>
+			      <div class="modal-body">
+			        <p class="bg-danger" style="padding: 10px;color: #FFF;" >Bạn có chắc muốn xoá không?</p>
+			        <input type="hidden" id="addressid_delete" name="addressid_delete">
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			        <button type="button" onclick="deleteAddress()" class="btn btn-danger">Xoá</button>
 			      </div>
 			    </div>
 			  </div>
