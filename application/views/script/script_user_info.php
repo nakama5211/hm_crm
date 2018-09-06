@@ -93,6 +93,7 @@
                         console.log('Total records', info.recordsTotal);
                         console.log('Displayed records', info.recordsDisplay);
                         $("#tab1").text('Giao dịch ('+info.recordsDisplay+')');
+                        this.fnAdjustColumnSizing(true);
                     }
                   });
     $('.btn-update-idcard').click(function(){
@@ -207,6 +208,7 @@
           format:'d/m/Y'});
           
            $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+              $($.fn.dataTable.tables( true ) ).css('width', '100%');
               $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
           });
     }

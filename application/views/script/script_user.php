@@ -522,6 +522,9 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        this.fnAdjustColumnSizing(true);
                     }
         });
           }
@@ -550,7 +553,11 @@
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
                     },
-                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid
+                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid,
+                    "initComplete": function(settings, json){ 
+                        this.fnAdjustColumnSizing(true);
+                    }
+
           });
           }
           else if(target == "crmContract01d"){
@@ -575,6 +582,9 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        this.fnAdjustColumnSizing(true);
                     }
         });
           }
@@ -599,6 +609,9 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        this.fnAdjustColumnSizing(true);
                     }
         });
         }
@@ -624,6 +637,9 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
+                    },
+                    "initComplete": function(settings, json){ 
+                        this.fnAdjustColumnSizing(true);
                     }
           });
         }

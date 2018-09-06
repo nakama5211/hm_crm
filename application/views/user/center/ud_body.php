@@ -91,12 +91,12 @@
 		                		<table class="table table-striped table-bordered" cellspacing="0" id="table-1-contract">
 				              		<thead>
 								    <tr>
-								        <th>Mã GD</th>
-			              				<th>Tình trạng</th>
-			              				<th>Mã căn hộ</th>
-			              				<th>Ngày bắt đầu</th>
-			              				<th>Ngày hiệu lực</th>
-				              			<th>Ghi chú</th>
+								        <th width="60px">Mã GD</th>
+			              				<th width="80px">Tình trạng</th>
+			              				<th width="90px">Mã căn hộ</th>
+			              				<th width="73px">Ngày bắt đầu</th>
+			              				<th width="75px">Ngày hiệu lực</th>
+				              			<th width="250px">Ghi chú</th>
 								    </tr>
 									</thead>
 									
