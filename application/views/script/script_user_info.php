@@ -387,13 +387,13 @@
       })
     }
 
-    function removeemail($email, $emaillist){
+    function removeemail($email, $emaillist,roleid,groupid){
         var custid = $('#cusit_id').attr('custid');
         $.ajax({
           url: '<?php echo base_url()?>user/updateUserEmailList',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid : custid,email:$email,emaillist:$emaillist},
+          data: {custid : custid,email:$email,emaillist:$emaillist,ext:$('#dataExt').serialize(),roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
           if(data.code==1){
@@ -407,13 +407,13 @@
         })
     }
 
-    function removephone($phone, $phonelist){
+    function removephone($phone, $phonelist,roleid,groupid){
         var custid = $('#cusit_id').attr('custid');
         $.ajax({
           url: '<?php echo base_url()?>user/updateUserPhoneList',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid : custid,phone:$phone,phonelist:$phonelist},
+          data: {custid : custid,phone:$phone,phonelist:$phonelist,ext:$('#dataExt').serialize(),roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
             if(data.code==1){
@@ -690,6 +690,51 @@
               })
         }
 
+     })
+     .fail(function(){
+
+     });
+  }
+  function addTelephone(id,idcard,roleid,groupid)
+  {
+    var listtelephone = $('#listtelephone').val();
+    var telephonelist = $('#telephonelist').val();
+    var listphone = listtelephone+','+telephonelist;
+     $.ajax({
+        url: '<?php echo base_url()?>user/insertPhoneList',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {telephonelist: listphone,custid:id,idcard:idcard,roleid:roleid,ext:$('#dataExt').serialize(),groupid:groupid},
+     })
+     .done(function(data){
+        if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
+     })
+     .fail(function(){
+
+     });
+  }
+
+  function addEmail(id,idcard,roleid,groupid)
+  {
+    var listemail = $('#listemail').val();
+    var emaillist = $('#emaillist').val();
+    var listmail = listemail+','+emaillist;
+     $.ajax({
+        url: '<?php echo base_url()?>user/insertEmailList',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {emaillist: listmail,custid:id,idcard:idcard,roleid:roleid,ext:$('#dataExt').serialize(),groupid:groupid},
+     })
+     .done(function(data){
+        if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
      })
      .fail(function(){
 

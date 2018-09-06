@@ -68,6 +68,7 @@
 		              		}
 		              		else{echo 'readonly';}  ?>  minlength="10" maxlength="11" name="telephone" id="telephone" class="col-md-12 no-padding font-size-12" value="<?php echo $detail[0]['telephone'] ?>">
 		              	</label>
+		              	<input type="hidden" name="listtelephone" id="listtelephone" value="<?php echo $detail[0]['telephonelist'] ?>">
 		              	<?php } ?>
 	            	<?php if($detail[0]['telephonelist'] != ''){ ?> 
 	            		<label class="control-label user-label col-md-3 no-padding"></label>
@@ -79,7 +80,7 @@
 	              			foreach ($arrayTelephone as $rows) { ?>
 	              				<div class="row">
 	              				<input class="col-md-9 padding-left-15 font-size-12" value="<?php echo $rows  ?>">
-	              				<a href="#" onclick="removephone('<?php echo $rows  ?>','<?php echo $detail[0]['telephonelist'];?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
+	              				<a href="#" onclick="removephone('<?php echo $rows  ?>','<?php echo $detail[0]['telephonelist'];?>','<?php echo $detail[0]['roleid'];?>','<?php echo $detail[0]['groupid'];?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
 	              				<a href="#"><i class="fas fa-arrow-circle-up fa-md float-right margin-top-3"></i></a>
 	              				</div>
 	              			<?php }}} ?>
@@ -125,7 +126,7 @@
 	              			foreach ($arrayEmail as $rows) { ?>
 	              				<div class="row">
 	              				<input  class="col-md-9 padding-left-15 font-size-12" value="<?php echo $rows  ?>">
-		              			<a href="#" onclick="removeemail('<?php echo $rows  ?>','<?php echo $detail[0]['emaillist'];?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
+		              			<a href="#" onclick="removeemail('<?php echo $rows  ?>','<?php echo $detail[0]['emaillist'];?>','<?php echo $detail[0]['roleid'];?>','<?php echo $detail[0]['groupid'];?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
 	              				<a href="#" ><i class="fas fa-arrow-circle-up fa-md float-right margin-top-3"></i></a>
 	              			</div>
 	              			<?php }}} ?>
@@ -287,7 +288,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="submit" class="btn btn-primary">Thêm</button>
+			        <button type="button" class="btn btn-primary" onclick="addTelephone('<?php echo $id ?>','<?php echo $idcard ?>','<?php echo $roleid ?>','<?php echo $detail[0]['groupid'];?>')">Thêm</button>
 			      </div>
 					</form>
 			    </div>
@@ -303,6 +304,7 @@
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      </div>
 			      <div class="modal-body">
+			      	<input type="hidden" name="listemail" id="listemail" value="<?php echo $detail[0]['emaillist'] ?>">
 			        <div class="form-group">
 					    <label for="exampleInputEmail1">Email</label>
 					    <input type="email" class="form-control" name="emaillist" id="emaillist" name="tvcdb" placeholder="-Email">
@@ -310,7 +312,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="submit" class="btn btn-primary">Thêm</button>
+			        <button type="button" class="btn btn-primary" onclick="addEmail('<?php echo $id ?>','<?php echo $idcard ?>','<?php echo $roleid ?>','<?php echo $detail[0]['groupid'];?>')">Thêm</button>
 			      </div>
 			  		</form>
 			    </div>

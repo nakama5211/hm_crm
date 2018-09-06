@@ -300,12 +300,17 @@ class User extends CI_Controller {
     }
     public function insertPhoneList()
     {
-        $telephonelist = $this->input->post('telephonelist');
-        $idcard = strval($_GET['idcard']);
-        $custid = strval($_GET['cusid']);
-        $roleid = strval($_GET['roleid']);
+        $post = $this->input->post();
+        $__data = $post['ext'];
+        $__data1 = parse_str($__data, $get_array);
+        $__extinfo = json_encode($get_array);
+        $thunhap = json_encode($__data);
         $postdata = http_build_query([
-                'telephonelist' => $telephonelist
+                'telephonelist' => $post['telephonelist'],
+                'extinfo' => $__extinfo,
+                'log_custid' => $post['custid'],
+                'log_groupid' => $post['groupid'],
+                'log_roleid'=> $post['roleid']
         ]);
         $opts = array('http' =>
             array(
@@ -316,18 +321,24 @@ class User extends CI_Controller {
         );
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/customer/update/'.$custid.'',false,$context);
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/update/'.$post['custid'].'',false,$context);
         echo $result;
+        // var_dump($post['custid']);
     }
 
     public function insertEmailList()
     {
-        $emaillist = $this->input->post('emaillist');
-        $idcard = strval($_GET['idcard']);
-        $custid = strval($_GET['cusid']);
-        $roleid = strval($_GET['roleid']);
+        $post = $this->input->post();
+        $__data = $post['ext'];
+        $__data1 = parse_str($__data, $get_array);
+        $__extinfo = json_encode($get_array);
+        $thunhap = json_encode($__data);
         $postdata = http_build_query([
-                'emaillist' => $emaillist
+                'emaillist' => $post['emaillist'],
+                'extinfo' => $__extinfo,
+                'log_custid' => $post['custid'],
+                'log_groupid' => $post['groupid'],
+                'log_roleid'=> $post['roleid']
         ]);
         $opts = array('http' =>
             array(
@@ -338,8 +349,8 @@ class User extends CI_Controller {
         );
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/customer/update/'.$custid.'',false,$context);
-         header('location:/user/detail/?cusid='.$custid.'&idcard='.$idcard.'&roleid='.$roleid);
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/update/'.$post['custid'].'',false,$context);
+        echo $result;
     }
 
     public function selectCity()
@@ -629,32 +640,38 @@ class User extends CI_Controller {
     public function updateUserEmailList()
     {
         $data = $this->input->post();
+        $__data = $data['ext'];
+        $__data1 = parse_str($__data, $get_array);
+        $__extinfo = json_encode($get_array);
         $custid = isset($data['custid'])?$data['custid']:null;
         $email = isset($data['email'])?$data['email']:null;
         $emaillist = isset($data['emaillist'])?$data['emaillist']:null;
         $array_email = explode(',', $emaillist);
         $listemailnew = '';
-        for($i =0;$i< sizeof($array_email);$i++){
+        $sizearray = count($array_email);
+        for($i =0;$i< $sizearray;$i++){
             if($array_email[$i]==$email){
                 unset($array_email[$i]);
             }else{
                 if(strlen($listemailnew) == 0){
                     $listemailnew = $array_email[$i];
                 }else{
-                    $listemailnew.= $array_email[$i];
+                    $listemailnew.= ','.$array_email[$i];
                 }
             }
         }
         $var = $this->session->userdata;
-        $log_custid = $var['custid'];
-        $log_roleid = $var['roleid'];
-        $log_groupid = $var['groupid'];
+        $log_custid = $custid;
+        $log_roleid = $data['roleid'];
+        $log_groupid = $data['groupid'];
+        
 
         $postdata = http_build_query([
             'log_custid' => $log_custid,
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
-            'emaillist' => $listemailnew
+            'emaillist' => $listemailnew,
+            'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
             array(
@@ -673,32 +690,37 @@ class User extends CI_Controller {
     public function updateUserPhoneList()
     {
         $data = $this->input->post();
+        $__data = $data['ext'];
+        $__data1 = parse_str($__data, $get_array);
+        $__extinfo = json_encode($get_array);
         $custid = isset($data['custid'])?$data['custid']:null;
         $phone = isset($data['phone'])?$data['phone']:null;
         $phonelist = isset($data['phonelist'])?$data['phonelist']:null;
         $array_phone = explode(',', $phonelist);
         $listphone = '';
-        for($i =0;$i< sizeof($array_phone);$i++){
+        $sizearray = count($array_phone);
+        for($i =0;$i< $sizearray;$i++){
             if($array_phone[$i]==$phone){
                 unset($array_phone[$i]);
             }else{
                 if(strlen($listphone) == 0){
                     $listphone = $array_phone[$i];
                 }else{
-                    $listphone.= $array_phone[$i];
+                    $listphone.= ','.$array_phone[$i];
                 }
             }
         }
         $var = $this->session->userdata;
-        $log_custid = $var['custid'];
-        $log_roleid = $var['roleid'];
-        $log_groupid = $var['groupid'];
+        $log_custid = $custid;
+        $log_roleid = $data['roleid'];
+        $log_groupid = $data['groupid'];
         
         $postdata = http_build_query([
             'log_custid' => $log_custid,
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
-            'telephonelist' => $listphone
+            'telephonelist' => $listphone,
+            'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
             array(
@@ -711,7 +733,6 @@ class User extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/Customer/update/'.$custid,false,$context);
         echo $result;
-        
     }
 
     public function updateAddress()
