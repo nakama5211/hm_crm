@@ -532,7 +532,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-			        <button type="button" onclick="deleteAddress()" class="btn btn-danger">Xoá</button>
+			        <button type="button" onclick="deleteAddress()" class="btn btn-danger"><i class=""></i>Xoá</button>
 			      </div>
 			    </div>
 			  </div>

@@ -317,7 +317,7 @@ class User extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/customer/update/'.$custid.'',false,$context);
-         header('location:/user/detail/?cusid='.$custid.'&idcard='.$idcard.'&roleid='.$roleid);
+        echo $result;
     }
 
     public function insertEmailList()

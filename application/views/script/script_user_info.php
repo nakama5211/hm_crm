@@ -475,7 +475,7 @@
                     var address = "'"+data.data[i].address+"'";
                     var addressid = "'"+data.data[i].addressid+"'";
                     data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
-                      <label class="control-label col-md-8 no-padding-right">\
+                      <label class="control-label col-md-7 no-padding-right">\
                         <input onclick="openModalEdit(\
                         '+label+',\
                         '+city+',\
@@ -485,11 +485,20 @@
                         '+address+',\
                         '+addressid+'\
                         )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
-                      </label>';
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
                       j++;
                     }
                 }
                 $('.div-address').html(data_html);
+                $('#country').val("");
+                $('#city').val("");
+                $('#district').val("");
+                $('#ward').val("");
+                $('#street').val("");
+                $('#address').val("");
+                $('#label').val("");
                 // alert(data_html);
 
               }).fail(function(){
@@ -533,12 +542,16 @@
                 parent.notification("Thêm địa chỉ thành công!!!");
                 $('#updateFullAddress').modal('toggle');
                 var data_html = '';
+                var j  = 0;
                 for (var i = 0; i < data.data.length; i++) {
-                    if(i==0)
+                    
+                    if(data.data[i].hidden != 1)
                     {
+                      if(j==0)
+                      {
                       var label_diachi = "Địa chỉ";
-                    }else{
-                    var label_diachi = '';}
+                      }else{
+                      var label_diachi = '';}
                     var label = "'"+data.data[i].label+"'";
                     var city = "'"+data.data[i].city+"'";
                     var district = "'"+data.data[i].district+"'";
@@ -547,7 +560,7 @@
                     var address = "'"+data.data[i].address+"'";
                     var addressid = "'"+data.data[i].addressid+"'";
                     data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
-                      <label class="control-label col-md-8 no-padding-right">\
+                      <label class="control-label col-md-7 no-padding-right">\
                         <input onclick="openModalEdit(\
                         '+label+',\
                         '+city+',\
@@ -557,7 +570,11 @@
                         '+address+',\
                         '+addressid+'\
                         )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
-                      </label>';
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
+                      j++;
+                    }
                 }
                 $('.div-address').html(data_html);
                 // alert(data_html);
@@ -608,6 +625,8 @@
   }
   function deleteAddress()
   {
+    var custid = '<?php echo strval($_GET['cusid']) ?>';
+    $('.btn-danger').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
     var addressid = $('#addressid_delete').val();
      $.ajax({
         url: '<?php echo base_url()?>user/aj_delete_address',
@@ -616,7 +635,61 @@
                 data: {addressid: addressid},
      })
      .done(function(data){
-        alert(data.message);
+        if(data.code == 1)
+        {
+            $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-danger').prop('disabled',false).find('i').removeClass();
+                parent.notification("Đã xoá địa chỉ!!!");
+                $('#modalDeleteAddress').modal('toggle');
+                var data_html = '';
+                var j  = 0;
+                for (var i = 0; i < data.data.length; i++) {
+                    
+                    if(data.data[i].hidden != 1)
+                    {
+                      if(j==0)
+                      {
+                      var label_diachi = "Địa chỉ";
+                      }else{
+                      var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-7 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
+                      j++;
+                    }
+                }
+                $('.div-address').html(data_html);
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
+        }
+
      })
      .fail(function(){
 
