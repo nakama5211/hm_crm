@@ -315,7 +315,7 @@
 			      	<div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" id="country" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_country">
 		              				<option>Việt Nam</option>
 							</datalist>
@@ -324,7 +324,7 @@
 					  <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" name="city" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" id="city" name="city" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_city">
 								<?php 
 		              			if(isset($city)){
@@ -337,7 +337,7 @@
 			        <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_distr" placeholder="Quận / Huyện" name="district" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_distr" placeholder="Quận / Huyện" id="district" name="district" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_distr">
 							</datalist>
 	              		</label>

@@ -533,6 +533,23 @@ class User extends CI_Controller {
         }
     }
 
+    public function aj_insert_bonus_address()
+    {
+        $post = $this->input->post();
+        $address = array(
+                'custid'                        => isset($post['custid'])?$post['custid']:'',
+                'country'                       =>isset($post['country'])?$post['country']:'',
+                'city'                          =>isset($post['city'])?$post['city']:'',
+                'district'                      =>isset($post['district'])?$post['district']:'',
+                'ward'                          =>isset($post['ward'])?$post['ward']:'',
+                'street'                        =>isset($post['street'])?$post['street']:'',
+                'address'                       =>isset($post['address'])?$post['address']:'',
+                'label'                         =>"Địa chỉ thường trú"
+        );
+        $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
+            $r_addr = $this->api_save_address($address);
+    }
+
     public function api_save_address($data){
 
         $postdata = http_build_query($data);

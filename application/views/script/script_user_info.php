@@ -424,28 +424,32 @@
     }
 
     $('.btn-addfulladdress').click(function(){
+        var custid = '<?php echo strval($_GET['cusid']) ?>';
         var addid = $(this).attr('addid');
-        var fulladdress = $('#fulladdresstemp').val();
+        var country = $('#country').val();
         var city = $('#city').val();
-        var district = $('#dodulieu').val();
-        var ward = $('#dodulieu1').val();
-        var sonha = $('#sonha').val();
-        $.ajax({
-          url: '<?php echo base_url()?>user/updateAddress',
-          type: 'POST',
-          dataType: 'JSON',
-          data: {addressid : addid,fulladdress:fulladdress,city:city,district:district,ward:ward,address:sonha},
-        })
-        .done(function(data) {
-          if(data.code==1){
-              window.location.reload();
-            }else{
-              alert(data.message);
-            }
-        })
-        .fail(function() {
-            alert("Lỗi hệ thống, vui lòng liên hệ admin");
-        })
+        var district = $('#district').val();
+        var ward = $('#ward').val();
+        var street = $('#street').val();
+        var address = $('#address').val();
+        var label = $('#label').val();
+        // $.ajax({
+        //   url: '<?php echo base_url()?>user/updateAddress',
+        //   type: 'POST',
+        //   dataType: 'JSON',
+        //   data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
+        // })
+        // .done(function(data) {
+        //   if(data.code==1){
+        //       window.location.reload();
+        //     }else{
+        //       alert(data.message);
+        //     }
+        // })
+        // .fail(function() {
+        //     alert("Lỗi hệ thống, vui lòng liên hệ admin");
+        // })
+        alert(city);
     });
     
   function formatDMY(dd,mm,yyyy)
