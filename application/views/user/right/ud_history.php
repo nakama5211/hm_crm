@@ -64,6 +64,14 @@
 				        	{
 				        		echo switchExtField($value,$list_ext);
 				        	}
+				        	if($key == "idcard")
+				        	{
+				        		echo "CMND: ".$value."<br />";
+				        	}
+				        	if($key == "issueddate")
+				        	{
+				        		echo "Ngày cấp: ".date('d-m-Y',strtotime($value))."<br />";
+				        	}
 				        }
 				        }
 				         ?></p>

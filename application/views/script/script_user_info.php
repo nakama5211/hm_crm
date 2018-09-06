@@ -89,6 +89,7 @@
                     }
                   });
     $('.btn-update-idcard').click(function(){
+      $('.btn-update-idcard').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();
         var groupid = $('#groupid').val();
@@ -102,8 +103,11 @@
         data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace, ext:$('#dataExt').serialize()},
       })
         .done(function(data){
+          $('.btn-update-idcard').prop('disabled',false).find('i').removeClass();
+          $('#updateIdcard').modal('toggle');
           parent.notification("Lưu CMND thành công!!!");
           $('#idcard').val(idcard);
+
         })
         .fail(function(){
           parent.notification("Lưu CMND thất bại!!!");
@@ -424,6 +428,7 @@
     }
 
     $('.btn-addfulladdress').click(function(){
+      $('.btn-addfulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var addid = $(this).attr('addid');
         var country = $('#country').val();
@@ -441,7 +446,48 @@
         })
         .done(function(data) {
           if(data.code==1){
-              window.location.reload();
+              $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-addfulladdress').prop('disabled',false).find('i').removeClass();
+                parent.notification("Thêm địa chỉ thành công!!!");
+                var data_html = '';
+                for (var i = 0; i < data.data.length; i++) {
+                    if(i==0)
+                    {
+                      var label_diachi = "Địa chỉ";
+                    }else{
+                    var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-8 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>';
+                }
+                $('.div-address').html(data_html);
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
             }else{
               alert(data.message);
             }
@@ -450,6 +496,90 @@
             alert("Lỗi hệ thống, vui lòng liên hệ admin");
         })
     });
+    $('.btn-updatefulladdress').click(function(){
+      $('.btn-updatefulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
+        var custid = '<?php echo strval($_GET['cusid']) ?>';
+        var addressid = $('#addressid').val();
+        // var country = $('#country_edit').val();
+        var city = $('#city_edit').val();
+        var district = $('#district_edit').val();
+        var ward = $('#ward_edit').val();
+        var street = $('#street_edit').val();
+        var address = $('#address_edit').val();
+        var label = $('#label_edit').val();
+        $.ajax({
+          url: '<?php echo base_url()?>user/aj_update_bonus_address',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid},
+        })
+        .done(function(data) {
+          if(data.code==1){
+              $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-updatefulladdress').prop('disabled',false).find('i').removeClass();
+                parent.notification("Thêm địa chỉ thành công!!!");
+                $('#updateFullAddress').modal('toggle');
+                var data_html = '';
+                for (var i = 0; i < data.data.length; i++) {
+                    if(i==0)
+                    {
+                      var label_diachi = "Địa chỉ";
+                    }else{
+                    var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-8 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>';
+                }
+                $('.div-address').html(data_html);
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
+            }else{
+              alert(data.message);
+            }
+        })
+        .fail(function() {
+            alert("Lỗi hệ thống, vui lòng liên hệ admin");
+        })
+    });
+
+    function openModalEdit(label,city,district,ward,street,address,addressid)
+    {
+        $('#updateFullAddress').modal('toggle');
+        $('#updateFullAddress').on('shown.bs.modal', function (e) {
+            $('#label_edit').val(label);
+            $('#city_edit').val(city);
+            $('#district_edit').val(district);
+            $('#ward_edit').val(ward);
+            $('#street_edit').val(street);
+            $('#address_edit').val(address);
+            $('#addressid').val(addressid);
+        });
+    }
     
   function formatDMY(dd,mm,yyyy)
   {

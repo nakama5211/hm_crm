@@ -137,11 +137,28 @@
 	              		<label class="control-label col-md-8 no-padding-right field-click-able"><a data-toggle="modal" data-target="#insertEmail">+ Thêm địa chỉ e-mail</a></label>
 	            	</div>
 	            	<div class="break-line margin-bot-5"></div>
-	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
-	            		<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
-	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input onkeyup="" name="fulladdress" class="col-md-12 no-padding font-size-12" value="<?php echo $address[0]['fulladdress'] ?>" id="fulladdress" placeholder="Địa chỉ" maxlength="30">
-		              	</label>
+	            	<div class="div-address" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
+	            		<?php 
+	            		if (count($address) == 0) { ?>
+	            			<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
+		              		<label class="control-label col-md-8 no-padding-right">
+		              			<input class="col-md-12 no-padding font-size-12" value="">
+			              	</label>
+	            		<?php }
+	            		for ($i=0; $i < count($address); $i++) { ?>
+		            		<label class="control-label user-label col-md-3 no-padding"><?php if($i == 0){echo "Địa chỉ";} ?></label>
+		              		<label class="control-label col-md-8 no-padding-right">
+		              			<input onclick="openModalEdit(
+		              			'<?php echo $address[$i]['label'] ?>',
+		              			'<?php echo $address[$i]['city'] ?>',
+		              			'<?php echo $address[$i]['district'] ?>',
+		              			'<?php echo $address[$i]['ward'] ?>',
+		              			'<?php echo $address[$i]['street'] ?>',
+		              			'<?php echo $address[$i]['address'] ?>',
+		              			'<?php echo $address[$i]['addressid'] ?>'
+		              			)" class="col-md-12 no-padding font-size-12" value="<?php echo $address[$i]['label'] ?>">
+			              	</label>
+	            		<?php } ?>
 	            	</div>
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
@@ -308,7 +325,7 @@
 			      	<div class="form-group">
 					    <label class="control-label col-md-12 no-padding-right">
 					    <input class="col-md-12 no-padding font-size-12" placeholder="Nhập nhãn địa chỉ" maxlength="30" style="
-  border-bottom: 1px solid #DBDBDB;">
+  border-bottom: 1px solid #DBDBDB;" id="label">
 						</label>
 					</div>
 
@@ -354,20 +371,20 @@
 			      	<div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Tên đường: </label>
 					    <label class="control-label col-md-8 no-padding-right">
-					    <input  placeholder="Tên đường" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+					    <input  placeholder="Tên đường" value="" id="street" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
 						</label>
 					</div>
 					<div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Số nhà: </label>
 					    <label class="control-label col-md-8 no-padding-right">
-					    <input  placeholder="Số nhà" value="" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+					    <input  placeholder="Số nhà" id="address" value="" class="col-md-12 no-padding font-size-12" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
 						</label>
 					</div>
 			      </div>
 
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Thêm</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-addfulladdress" data-dismiss="modal"><i class=""></i>Lưu</button>
 			      </div>
 			    </div>
 			  </div>
@@ -416,7 +433,84 @@
 
 			      <div class="modal-footer" style="background: #f5f5f5">
 			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
-			        <button type="button" class="btn btn-gray-black float-right btn-update-idcard" data-dismiss="modal" addid="<?php echo $address[0]['addressid'] ?>">Lưu</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-update-idcard"><i class=""></i>Lưu</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+		<div class="modal fade" id="updateFullAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" style="margin-top: 5%; width: 31%" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title" id="myModalLabel">Sửa địa chỉ</h4>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      </div>
+			      <div class="modal-body">
+			      	<input type="hidden" name="" id="addressid" value="">
+			      	<div class="form-group">
+					    <label class="control-label col-md-12 no-padding-right">
+					    <input class="col-md-12 no-padding font-size-12" placeholder="Nhập nhãn địa chỉ" maxlength="30" style="
+  border-bottom: 1px solid #DBDBDB;" id="label_edit">
+						</label>
+					</div>
+
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Quốc gia: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_country" placeholder="Quốc Gia" value="Việt Nam" name="country" id="country_edit" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_country">
+		              				<option>Việt Nam</option>
+							</datalist>
+		              	</label>
+					  </div>
+					  <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Tỉnh / Thành Phố: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_city" placeholder="Tỉnh / Thành Phố" id="city_edit" name="city" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_city">
+								<?php 
+		              			if(isset($city)){
+		              			foreach ($city as $rows) { ?>
+		              				<option id-city="<?php echo $rows->id_city?>" value="<?php echo $rows->name?>"></option>
+		              			<?php }} ?>
+							</datalist>
+	              		</label>
+					  </div>
+			        <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Quận / Huyện: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_distr" placeholder="Quận / Huyện" id="district_edit" name="district" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_distr">
+							</datalist>
+	              		</label>
+					  </div>
+					  <div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
+	              		<label class="control-label col-md-8 no-padding-right">
+	              			<input list="l_ward" placeholder="Phường / Xã" id="ward_edit" name="ward" class="col-md-12 no-padding font-size-12">
+							<datalist id="l_ward">
+							</datalist>
+	              		</label>
+					  </div>
+					  
+			      	<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Tên đường: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input  placeholder="Tên đường" value="" id="street_edit" class="col-md-12 no-padding font-size-12"  id="fulladdresstemp" placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
+					<div class="form-group">
+					    <label class="control-label user-label col-md-3 no-padding">Số nhà: </label>
+					    <label class="control-label col-md-8 no-padding-right">
+					    <input  placeholder="Số nhà" id="address_edit" value="" class="col-md-12 no-padding font-size-12"  placeholder="Địa chỉ" maxlength="30" name="fulladdress">
+						</label>
+					</div>
+			      </div>
+
+			      <div class="modal-footer" style="background: #f5f5f5">
+			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
+			        <button type="button" class="btn btn-gray-black float-right btn-updatefulladdress"><i class=""></i>Lưu</button>
 			      </div>
 			    </div>
 			  </div>
