@@ -345,7 +345,7 @@
 					  <div class="form-group">
 					    <label class="control-label user-label col-md-3 no-padding">Phường / Xã: </label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="l_ward" placeholder="Phường / Xã" name="ward" class="col-md-12 no-padding font-size-12">
+	              			<input list="l_ward" placeholder="Phường / Xã" id="ward" name="ward" class="col-md-12 no-padding font-size-12">
 							<datalist id="l_ward">
 							</datalist>
 	              		</label>

@@ -433,23 +433,22 @@
         var street = $('#street').val();
         var address = $('#address').val();
         var label = $('#label').val();
-        // $.ajax({
-        //   url: '<?php echo base_url()?>user/updateAddress',
-        //   type: 'POST',
-        //   dataType: 'JSON',
-        //   data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
-        // })
-        // .done(function(data) {
-        //   if(data.code==1){
-        //       window.location.reload();
-        //     }else{
-        //       alert(data.message);
-        //     }
-        // })
-        // .fail(function() {
-        //     alert("Lỗi hệ thống, vui lòng liên hệ admin");
-        // })
-        alert(city);
+        $.ajax({
+          url: '<?php echo base_url()?>user/aj_insert_bonus_address',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
+        })
+        .done(function(data) {
+          if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
+        })
+        .fail(function() {
+            alert("Lỗi hệ thống, vui lòng liên hệ admin");
+        })
     });
     
   function formatDMY(dd,mm,yyyy)
