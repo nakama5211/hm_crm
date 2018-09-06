@@ -241,6 +241,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/loadTicketContract/"+contractid,
                     dom: "Bfrtip",
@@ -501,6 +502,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getHistory/"+contractid,
                     dom: "Bfrtip",
@@ -508,9 +510,6 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
-                    },
-                    "initComplete": function(settings, json){ 
-                        this.fnAdjustColumnSizing(true);
                     }
         });
           }
@@ -522,16 +521,14 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     dom: "Bfrtip",
                     "processing": true,
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
                     },
-                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid,
-                    "initComplete": function(settings, json){ 
-                        this.fnAdjustColumnSizing(true);
-                    }
+                    "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid
 
           });
           }
@@ -543,6 +540,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getGift/"+contractid,
                     dom: "Bfrtip",
@@ -550,9 +548,6 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
-                    },
-                    "initComplete": function(settings, json){ 
-                        this.fnAdjustColumnSizing(true);
                     }
         });
           }
@@ -564,6 +559,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getBussEmployee/"+contractid,
                     dom: "Bfrtip",
@@ -571,9 +567,6 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
-                    },
-                    "initComplete": function(settings, json){ 
-                        this.fnAdjustColumnSizing(true);
                     }
         });
         }
@@ -585,6 +578,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getNotes/"+contractid,
                     dom: "Bfrtip",
@@ -592,9 +586,6 @@
                     'language':{ 
                        "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />",
                        "processing": ""
-                    },
-                    "initComplete": function(settings, json){ 
-                        this.fnAdjustColumnSizing(true);
                     }
           });
         }
@@ -738,8 +729,8 @@
 
         }
         });
-          // $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
-          //     $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-          // });
+          $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+              $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+          });
   }
 </script>

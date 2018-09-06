@@ -40,14 +40,11 @@
 		                  		<table class="table table-striped table-bordered" id="table-1-history">
                            <thead class="no-border-top">
                              <tr>
-                               <th style="
-                         width: 71px;">HH/DV</th>
-                         <th style="
-                         width: 123px;;">Ngày</th>
-                         <th style="
-                         width: 67px;">Số lượng</th><th style="
-                         width: 65px;;">Giá trị</th>
-                               <th width="323px">Ghi chú</th>
+                               <th width="71px">HH/DV</th>
+                         <th width="123px">Ngày</th>
+                         <th width="67px">Số lượng</th>
+                         <th width="65px">Giá trị</th>
+                         <th width="323px">Ghi chú</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -79,14 +76,11 @@
 		                  		<table class="table table-striped table-bordered" id="table-1-gift">
                            <thead class="no-border-top">
                              <tr>
-                               <th style="
-                         width: 71px;">Ngày</th>
-                         <th style="
-                         width: 123px;;">HH/DV</th>
-                         <th style="
-                         width: 67px;">Số lượng</th><th style="
-                         width: 323px;;">Giá trị</th>
-                               <th>Ghi chú</th>
+                               <th width="71px">Ngày</th>
+                         <th width="123px">HH/DV</th>
+                         <th width="67px">Số lượng</th>
+                         <th width="85px">Giá trị</th>
+                               <th width="323px">Ghi chú</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -99,11 +93,10 @@
 		                  		<table class="table table-striped table-bordered" id="table-1-buss">
                            <thead class="no-border-top">
                              <tr>
-                               <th style="
-                 width: 195px;">Nhân viên</th><th style="
-                 width: 117px;">Sàn</th><th style="
-                 width: 83px;">Tỉ lệ thưởng</th>
-                                               <th width="255px">Ghi chú</th>
+                               <th width="195px">Nhân viên</th>
+                               <th width="117px">Sàn</th>
+                               <th width="83px">Tỉ lệ thưởng</th>
+                               <th width="255px">Ghi chú</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -121,11 +114,10 @@
 				              	<table class="table table-striped table-bordered" id="table-1-notes">
                            <thead class="no-border-top">
                              <tr>
-                               <th style="
-                         width: 81px;">Loại ghi chú</th><th style="
-                         width: 93px;">Ngày ghi chú</th><th style="
-                         width: 71px;">Tình trạng</th><th style="
-                         width: 169px">Nhân viên</th>
+                               <th width="81px">Loại ghi chú</th>
+                               <th width="93px">Ngày ghi chú</th>
+                         <th width="71px">Tình trạng</th>
+                         <th width="169px">Nhân viên</th>
                                <th width="235px">Nội dung</th>
                              </tr>
                            </thead>
