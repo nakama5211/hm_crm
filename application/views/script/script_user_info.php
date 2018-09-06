@@ -68,14 +68,6 @@
   });
     var table_contract = $('#table-1-contract').DataTable({
                     "paging":   false,
-                    "columns": [
-                      { "width": "60px" },
-                      { "width": "80px" },
-                      { "width": "90px" },
-                      { "width": "73px" },
-                      { "width": "75px" },
-                      { "width": "250px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",

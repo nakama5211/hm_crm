@@ -41,13 +41,13 @@
                            <thead class="no-border-top">
                              <tr>
                                <th style="
-                         width: 11%;">HH/DV</th>
+                         width: 71px;">HH/DV</th>
                          <th style="
-                         width: 19%;;">Ngày</th>
+                         width: 123px;;">Ngày</th>
                          <th style="
-                         width: 10.3%;">Số lượng</th><th style="
-                         width: 10%;;">Giá trị</th>
-                               <th>Ghi chú</th>
+                         width: 67px;">Số lượng</th><th style="
+                         width: 65px;;">Giá trị</th>
+                               <th width="323px">Ghi chú</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -58,15 +58,15 @@
 				              	<table class="table table-striped table-bordered" id="table-1-congno">
 				              		<thead class="no-border-top">
 				              			<tr>
-				              				<th>Loại NK</th>
-				              				<th>HĐC</th>
-				              				<th>HĐMB</th>
-				              				<th>Ngày NV</th>
-				              				<th>Ngày ĐH</th>
-				              				<th>S.tiền</th>
-				              				<th>Diễn Giải</th>
-				              				<th>PB</th>
-				              				<th>Tiến Độ</th>
+				              				<th width="46px">Loại NK</th>
+				              				<th width="19px">HĐC</th>
+				              				<th width="38px">HĐMB</th>
+				              				<th width="50px">Ngày NV</th>
+				              				<th width="50px">Ngày ĐH</th>
+				              				<th width="55px">S.tiền</th>
+				              				<th width="220px">Diễn Giải</th>
+				              				<th width="18px">PB</th>
+				              				<th width="450px">Tiến Độ</th>
 				              			</tr>
 				              		</thead>
 					                <tbody>
@@ -80,12 +80,12 @@
                            <thead class="no-border-top">
                              <tr>
                                <th style="
-                         width: 11%;">Ngày</th>
+                         width: 71px;">Ngày</th>
                          <th style="
-                         width: 19%;;">HH/DV</th>
+                         width: 123px;;">HH/DV</th>
                          <th style="
-                         width: 10.3%;">Số lượng</th><th style="
-                         width: 10%;;">Giá trị</th>
+                         width: 67px;">Số lượng</th><th style="
+                         width: 323px;;">Giá trị</th>
                                <th>Ghi chú</th>
                              </tr>
                            </thead>
@@ -100,10 +100,10 @@
                            <thead class="no-border-top">
                              <tr>
                                <th style="
-                 width: 30%;">Nhân viên</th><th style="
-                 width: 18%;">Sàn</th><th style="
-                 width: 12.8%;">Tỉ lệ thưởng</th>
-                                               <th>Ghi chú</th>
+                 width: 195px;">Nhân viên</th><th style="
+                 width: 117px;">Sàn</th><th style="
+                 width: 83px;">Tỉ lệ thưởng</th>
+                                               <th width="255px">Ghi chú</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -122,11 +122,11 @@
                            <thead class="no-border-top">
                              <tr>
                                <th style="
-                         width: 12.5%;">Loại ghi chú</th><th style="
-                         width: 14.3%;">Ngày ghi chú</th><th style="
-                         width: 11%;;">Tình trạng</th><th style="
-                         width: 26%;">Nhân viên</th>
-                               <th>Nội dung</th>
+                         width: 81px;">Loại ghi chú</th><th style="
+                         width: 93px;">Ngày ghi chú</th><th style="
+                         width: 71px;">Tình trạng</th><th style="
+                         width: 169px">Nhân viên</th>
+                               <th width="235px">Nội dung</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -146,8 +146,8 @@
 		              	<table class="table table-striped table-bordered" id="table-1-ticketcontract">
                       <thead class="no-border-top">
                         <tr>
-                          <th>ID</th>
-                          <th>Tựa đề</th>
+                          <th width="60px">ID</th>
+                          <th width="160px">Tựa đề</th>
                           <th width="100px">Ngày yêu cầu</th>
                           <th width="112px">Người phụ trách</th>
                           <th width="110px">Cập nhật lần cuối</th>
