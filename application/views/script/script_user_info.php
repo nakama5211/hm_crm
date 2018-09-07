@@ -18,6 +18,7 @@
       $('#gender').val('<?php echo $detail[0]['gender'] ?>');
       var load_roleid = $('#roleid').val();
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
+      var opid = $('#opid').val();
       loadGroup(load_roleid);
       $('input[name=city]').on('keyup',function(){
     var val = $(this).val();
@@ -73,7 +74,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
-                    "ajax": '<?php echo base_url() ?>user/testContract/'+idcard+'',
+                    "ajax": '<?php echo base_url() ?>user/testContract?idcard='+idcard+'&opid='+opid+'',
                     dom: "Bfrtip",
                     "processing": true,
                     'language':{ 
@@ -468,6 +469,8 @@
                 $('#street').val("");
                 $('#address').val("");
                 $('#label').val("");
+                var iframe = document.getElementById('iframehistory');
+                iframe.src = iframe.src;
                 // alert(data_html);
 
               }).fail(function(){

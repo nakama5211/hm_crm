@@ -58,8 +58,9 @@ class User extends CI_Controller {
     }
     public function testContract()
     {
-        $idcard = $this->uri->segment(3);
-        $this->M_data_API->getContractByIdcard($idcard);
+        $idcard = $this->input->get('idcard');
+        $opid = $this->input->get('opid');
+        $this->M_data_API->getContractByIdcard($idcard,$opid);
     }
     public function detail(){
         $_body = [];

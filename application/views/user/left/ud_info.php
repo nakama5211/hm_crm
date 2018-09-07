@@ -1,5 +1,6 @@
 <form id="insertUserVal" method="POST" role="form">
 <input type="hidden" name="log_groupid" id="log_groupid" value="<?php echo $detail[0]['groupid'] ?>">
+<input type="hidden" name="opid" id="opid" value="<?php echo $detail[0]['opid']?>">
 <div class="tile p-0 padding-5 margin-bot-5">
 	            <div class="tile-body padding-left-10">
 	            	<div class="">
@@ -147,8 +148,23 @@
 			              	</label>
 	            		<?php }
 	            		for ($i=0; $i < count($address); $i++) {
-	            				if($address[$i]['hidden'] != 1){ ?>
-		            		<label class="control-label user-label col-md-3 no-padding"><?php if($j == 0){echo "Địa chỉ";} ?></label>
+	            				if($address[$i]['hidden'] != 1 && $address[$i]['mainaddress'] == 1){ ?>
+		            		<label class="control-label user-label col-md-3 no-padding">Địa chỉ</label>
+		              		<label class="control-label col-md-7 no-padding-right">
+		              			<input onclick="openModalEdit(
+		              			'<?php echo $address[$i]['label'] ?>',
+		              			'<?php echo $address[$i]['city'] ?>',
+		              			'<?php echo $address[$i]['district'] ?>',
+		              			'<?php echo $address[$i]['ward'] ?>',
+		              			'<?php echo $address[$i]['street'] ?>',
+		              			'<?php echo $address[$i]['address'] ?>',
+		              			'<?php echo $address[$i]['addressid'] ?>'
+		              			)" class="col-md-12 no-padding font-size-12" value="<?php echo $address[$i]['label'] ?>">
+			              	</label>
+	            		<?php }} 
+	            		for ($i=0; $i < count($address); $i++) {
+	            				if($address[$i]['hidden'] != 1 && $address[$i]['mainaddress'] == 0){ ?>
+		            		<label class="control-label user-label col-md-3 no-padding"></label>
 		              		<label class="control-label col-md-7 no-padding-right">
 		              			<input onclick="openModalEdit(
 		              			'<?php echo $address[$i]['label'] ?>',
@@ -162,6 +178,7 @@
 			              	</label>
 			              	<a href="#" onclick="removeAddress('<?php echo $address[$i]['addressid'] ?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
 	            		<?php }} ?>
+
 	            	</div>
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
@@ -532,8 +549,8 @@
 			        <input type="hidden" id="addressid_delete" name="addressid_delete">
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-			        <button type="button" onclick="deleteAddress()" class="btn btn-danger"><i class=""></i>Xoá</button>
+			        <button type="button" class="btn btn-gray-white float-right" data-dismiss="modal">Đóng</button>
+			        <button type="button" onclick="deleteAddress()" class="btn btn-delete btn-danger"><i class=""></i>Xoá</button>
 			      </div>
 			    </div>
 			  </div>
