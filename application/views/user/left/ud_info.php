@@ -1,5 +1,5 @@
 <form id="insertUserVal" method="POST" role="form">
-
+<input type="hidden" name="log_groupid" id="log_groupid" value="<?php echo $detail[0]['groupid'] ?>">
 <div class="tile p-0 padding-5 margin-bot-5">
 	            <div class="tile-body padding-left-10">
 	            	<div class="">

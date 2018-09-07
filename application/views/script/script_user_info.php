@@ -430,6 +430,8 @@
     $('.btn-addfulladdress').click(function(){
       $('.btn-addfulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
+        var roleid = '<?php echo strval($_GET['roleid']) ?>';
+        var groupid = $('#log_groupid').val();
         var addid = $(this).attr('addid');
         var country = $('#country').val();
         var city = $('#city').val();
@@ -442,7 +444,7 @@
           url: '<?php echo base_url()?>user/aj_insert_bonus_address',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
+          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label,roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
           if(data.code==1){
@@ -516,6 +518,8 @@
       $('.btn-updatefulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var addressid = $('#addressid').val();
+        var roleid = '<?php echo strval($_GET['roleid']) ?>';
+        var groupid = $('#log_groupid').val();
         // var country = $('#country_edit').val();
         var city = $('#city_edit').val();
         var district = $('#district_edit').val();
@@ -527,7 +531,7 @@
           url: '<?php echo base_url()?>user/aj_update_bonus_address',
           type: 'POST',
           dataType: 'JSON',
-          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid},
+          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid,roleid:roleid,groupid:groupid,custid:custid},
         })
         .done(function(data) {
           if(data.code==1){

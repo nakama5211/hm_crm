@@ -543,6 +543,7 @@ class User extends CI_Controller {
                 'label'                         =>"Địa chỉ thường trú"
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
+
         if ($res_re['code']==1) {
             $r_addr = $this->api_save_address($address);
         }
@@ -562,7 +563,16 @@ class User extends CI_Controller {
                 'label'                         =>isset($post['label'])?$post['label']:''
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
-            $r_addr = $this->api_save_address($address);
+
+        $arrayLog = array(
+            'custid'                        => $post['custid'],
+            'roleid'                       =>isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      =>isset($post['groupid'])?$post['groupid']:'',
+            'action'                       => "Thêm địa chỉ",
+            'dataaction'                   => json_encode($address)
+        );
+
+            $r_addr = $this->api_save_address($address,$arrayLog);
         echo $r_addr;
     }
 
@@ -570,6 +580,7 @@ class User extends CI_Controller {
     {
         $post = $this->input->post();
         $address = array(
+            'custid'                        => isset($post['custid'])?$post['custid']:'',
                 'country'                       =>isset($post['country'])?$post['country']:'',
                 'city'                          =>isset($post['city'])?$post['city']:'',
                 'district'                      =>isset($post['district'])?$post['district']:'',
@@ -579,7 +590,15 @@ class User extends CI_Controller {
                 'label'                         =>isset($post['label'])?$post['label']:''
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
-            $r_addr = $this->api_update_address($address,$post['addressid']);
+        $arrayLog = array(
+            'custid'                        => $post['custid'],
+            'roleid'                       =>isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      =>isset($post['groupid'])?$post['groupid']:'',
+            'action'                       => "Sửa địa chỉ",
+            'id'                            => $post['addressid'],
+            'dataaction'                    => json_encode($address)
+        );
+            $r_addr = $this->api_update_address($address,$post['addressid'],$arrayLog);
         echo $r_addr;
     }
     public function aj_delete_address()
@@ -604,7 +623,7 @@ class User extends CI_Controller {
         return $result;
     }
 
-    public function api_save_address($data){
+    public function api_save_address($data,$dataLog){
 
         $postdata = http_build_query($data);
         $opts = array('http' =>
@@ -617,10 +636,34 @@ class User extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert',false,$context);
-        return $result;
+
+        $postdata1 = http_build_query($dataLog);
+        $opts1 = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata1
+            )
+        );
+        $context1  = stream_context_create($opts1);
+
+        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
+        return $result1;
     }
 
-    public function api_update_address($data,$addressid){
+    public function api_update_address($data,$addressid,$dataLog){
+
+        $postdata1 = http_build_query($dataLog);
+        $opts1 = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata1
+            )
+        );
+        $context1  = stream_context_create($opts1);
+
+        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
 
         $postdata = http_build_query($data);
         $opts = array('http' =>
@@ -633,7 +676,8 @@ class User extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/update/'.$addressid,false,$context);
-        return $result;
+
+        return $result1;
     }
 
     //
