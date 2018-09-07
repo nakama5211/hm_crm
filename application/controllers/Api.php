@@ -425,3 +425,31 @@ class Api extends CI_Controller{
         
     }
 }
+// {
+//   "secret":"ac97db2cca493ad87045946aed59eb29",
+//   "startDate": "2018-08-01 00:00:00",
+//   "endDate": "2018-09-06 17:11:24",
+//   "extensions": [
+//     "2300",
+//     "2301",
+//     "2302",
+//     "2303",
+//     "2304",
+//     "2305",
+//     "2306",
+//     "2307",
+//     "2308",
+//     "2309"
+//   ],
+//   "search": "",
+//   "sorts": {
+//     "calldate": "desc"
+//   },
+//   "page": 1,
+//   "recordsOnPage": 10,
+//   "dsts": [],
+//   "srcs": [],
+//   "dispositions": [],
+//   "getList": true,
+//   "typeFilter": "total"
+// }

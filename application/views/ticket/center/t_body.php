@@ -6,7 +6,7 @@
 	          		<input style="margin-left: 25px; margin-top: -19px;
 	          		" id="title" name="title" class="no-padding font-size-18 width-95per crm-control" log="Tiêu đề" placeholder="Nhập tiêu đề phiếu hỗ trợ" value="<?php echo $ticket['data'][0]['title'] ?>">
 	          	</h5>
-	          	<p class="header-desc field-click-able">#Phiếu: <?php echo $ticket['data'][0]['ticketid'] ?></p>
+	          	<!-- <p class="header-desc field-click-able">#Phiếu: <?php echo $ticket['data'][0]['ticketid'] ?></p> -->
 	          	<div class="btn-group absolute" role="group" style="right: 10px;top: 15px;">
                   <button class="btn btn-primary dropdown-toggle" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end">
@@ -35,7 +35,7 @@
 							<input type="hidden" id="changelog">
 							<textarea name="action" id="action" placeholder="Nhập ghi chú" ></textarea>
 					</div><!-- Status Upload  -->
-					<button type="button" title="<?php echo $ticketid ?>" class="btn btn-gray float-right <?php if($update){ echo "btn-updateAction"; }else{ echo "btn-updateActionUpdate";}  ?>"><i class="fa fa-share"></i> Ghi nhận
+					<button type="button" title="<?php echo $ticketid ?>" class="btn btn-gray margin-top-5 float-right <?php if($update){ echo "btn-updateAction"; }else{ echo "btn-updateActionUpdate";}  ?>"><i class="fa fa-share"></i> Ghi nhận
 					</button>
 						</form>
 				</div>

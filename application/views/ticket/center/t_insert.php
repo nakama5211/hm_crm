@@ -25,7 +25,7 @@
 							<input type="hidden" name="ticketid" value="<?php echo $this->uri->segment(3) ?>">
 							<textarea id="action" name="action" placeholder="Để lại thông tin ghi chú cho phiếu" ></textarea>
 					</div><!-- Status Upload  -->
-					<button type="submit" class="btn btn-gray float-right btn-insertTicket"><i class="fa fa-share"></i> Ghi nhận
+					<button type="submit" class="btn btn-gray float-right margin-top-5 btn-insertTicket"><i class="fa fa-share"></i> Ghi nhận
 					</button>
 				</div>
 			</div>
