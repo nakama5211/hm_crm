@@ -807,8 +807,6 @@ class User extends CI_Controller {
         echo $result;
         
     }
-
-
     public function searchUser()
     {
         $keyword1 = $this->input->post('keyword');
@@ -818,7 +816,9 @@ class User extends CI_Controller {
     }
     public function getUserByRecodeId()
     {
-
+        $post = $this->input->post("id");
+        $_jsonUser = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/search?action=search_customer&id='.$post);
+        echo $_jsonUser;
     }
 }
 ?>
