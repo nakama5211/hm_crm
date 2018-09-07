@@ -31,8 +31,9 @@ class Ticket extends CI_Controller {
         
         $json_news = file_get_contents('http://test.tavicosoft.com/crm/index.php/news/select?pagesize=3') ;
         $this->_init['json_news'] = json_decode($json_news,true)['data'];
-
-
+        //group 
+        $l_group = file_get_contents('http://test.tavicosoft.com/crm/index.php/codedictionary/select/knwgroup');
+        $this->_init['l_group'] = json_decode($l_group,true)['data'];
         
         $l_dtsrc = file_get_contents('http://test.tavicosoft.com/crm/index.php/codedictionary/select');
         $this->_init['l_dtsrc'] = json_decode($l_dtsrc,true)['data'];
@@ -45,11 +46,12 @@ class Ticket extends CI_Controller {
         //extend data
         $l_ext = file_get_contents('http://test.tavicosoft.com/crm/index.php/extdata/select/ticket');
         $this->_init['l_ext'] = json_decode($l_ext,true)['data'];
-
+        //category
         $l_cate = file_get_contents('http://test.tavicosoft.com/crm/index.php/codedictionary/select/knwdetail');
         $this->_init['l_cate'] = json_decode($l_cate,true)['data'];
-        
-
+        //Group List
+        $_jsongroup = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/group');
+        $this->_init['l_agentgroup'] = json_decode($_jsongroup,true)['data'];
     }
 
 	public function index()
@@ -133,6 +135,10 @@ class Ticket extends CI_Controller {
         $data['l_type'] = $this->_init['l_type'];
         //extend data
         $data['l_ext'] = $this->_init['l_ext'];
+        // get the category of ticket
+        $data['l_group'] = $this->_init['l_group'];
+        // get the category of ticket
+        $data['l_agentgroup'] = $this->_init['l_agentgroup'];
 
         
         $knowledge['news'] = $this->_init['json_news'];
@@ -269,13 +275,17 @@ class Ticket extends CI_Controller {
         // get the stage of ticket
         $data['l_dtsrc'] = $this->_init['l_dtsrc'];
         // get the stage of ticket
-        $data['l_stage'] = $this->_init['l_cate'];
+        $data['l_stage'] = $this->_init['l_stage'];
         // get the type ticket
         $data['l_type'] = $this->_init['l_type'];
         //extend data
         $data['l_ext'] = $this->_init['l_ext'];
         // get the category of ticket
         $data['l_cate'] = $this->_init['l_cate'];
+        // get the category of ticket
+        $data['l_group'] = $this->_init['l_group'];
+        // get the category of ticket
+        $data['l_agentgroup'] = $this->_init['l_agentgroup'];
 
         $_body = [];
         $_body['left'] = $this->load->view('ticket/left/t_insert', $data, TRUE); 
@@ -365,11 +375,11 @@ class Ticket extends CI_Controller {
         $data_ext       = isset($post['ext'])?json_encode($post['ext']):null;
         $ticket         = [];
 
-
         $ticket['log_custid']       = $var['custid'];
         $ticket['log_roleid']       = $var['roleid'];
         $ticket['log_groupid']      = $var['groupid'];
         $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'';
+        $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'';
         $ticket['agentcreated']     = $var['custid'];
         $ticket['custid']           = isset($post['customer'])?$post['customer']:'';
         $ticket['contractid']       = isset($post['contractid'])?$post['contractid']:'';
@@ -386,9 +396,11 @@ class Ticket extends CI_Controller {
         $ticket['finishdate']       = isset($post['finishdate'])?$post['finishdate']:'';
         $ticket['levelticket']      = isset($post['levelticket'])?$post['levelticket']:'';
         $ticket['categoryid']       = isset($post['categoryid'])?$post['categoryid']:'';
-        $ticket['type']             = isset($post['tickettype'])?$post['tickettype']:'';
+        $ticket['groupid']          = isset($post['groupid'])?$post['groupid']:'';
+        $ticket['tickettype']       = isset($post['tickettype'])?$post['tickettype']:'';
         $ticket['ticketusers']      = $ticket['agentcurrent'].','.($ticket['agentcurrent']!=$ticket['agentcreated']?$ticket['                          agentcreated']:'');
         $ticket['title']            = isset($post['title'])?$post['title']:'';
+        $ticket['transref']         = isset($post['transref'])?$post['transref']:'';
 
         // var_dump($ticket);
         $postdata   = http_build_query($ticket);
@@ -506,6 +518,7 @@ class Ticket extends CI_Controller {
         $ticket['log_custid']       = $var['custid'];
         $ticket['log_roleid']       = $var['roleid'];
         $ticket['log_groupid']      = $var['groupid'];
+        $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'';
         $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'';
         $ticket['title']     = isset($post['title'])?$post['title']:'';
         $ticket['ticketchannel']    = isset($post['ticketchannel'])?$post['ticketchannel']:'';
@@ -519,10 +532,14 @@ class Ticket extends CI_Controller {
         $ticket['duedate']          = isset($post['duedate'])?$post['duedate']:'';
         $ticket['finishdate']       = isset($post['finishdate'])?$post['finishdate']:'';
         $ticket['levelticket']      = isset($post['levelticket'])?$post['levelticket']:'';
-        $ticket['type']             = isset($post['tickettype'])?$post['tickettype']:'';
+        $ticket['tickettype']       = isset($post['tickettype'])?$post['tickettype']:'';
         $ticket['categoryid']       = isset($post['categoryid'])?$post['categoryid']:'';
+        $ticket['groupid']          = isset($post['groupid'])?$post['groupid']:'';
         $ticket['ticketusers']      = isset($post['ticketusers'])?$post['ticketusers']:'';
         $ticket['changelog']        = isset($post['changelog'])?$post['changelog']:'';
+
+        $ticket['title']            = isset($post['title'])?$post['title']:'';
+        $ticket['transref']         = isset($post['transref'])?$post['transref']:'';
 
         foreach ($ticket as $key => $value) {
             if ($value == '') {

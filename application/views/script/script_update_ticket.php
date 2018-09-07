@@ -11,6 +11,83 @@
 		$('#status').val(status);
     }
     $('#createat,#sla,#duedate,#finishdate,#appointmentdate,#lastupdate,input[name=req_date],input[name=fns_date]').datetimepicker();
+
+    $('select#level_1').change(function(){
+        var val = $(this).val();
+        if(val){
+          $('select#level_2 option, select#level_3 option').each(function(){
+            var ref1 = $(this).attr('ref1');
+            if (ref1==val) {
+              $(this).removeClass('hide').addClass('show');
+            }else{
+              $(this).addClass('hide').removeClass('show');
+            }
+          });
+        }else{
+          $('select#level_2 option, select#level_3 option').each(function(){
+            $(this).removeClass('hide').addClass('show');
+          });
+        }
+        $('select#level_2 option.show:first').prop('selected',true);
+        $('select#level_3 option.show:first').prop('selected',true);
+
+        var log = $('select#level_2').attr('log');
+        if (log) {
+          var text = $('select#level_2').find('option:selected').text();
+          changelog(log,text);
+        }
+
+        var log1 = $('select#level_3').attr('log');
+        if (log1) {
+          var text1 = $('select#level_3').find('option:selected').text();
+          changelog(log1,text1);
+        }
+    });
+    $('select#level_2').change(function(){
+        var val = $(this).val();
+        if(val){
+          $('select#level_3 option').each(function(){
+            var ref2 = $(this).attr('ref2');
+            if (ref2==val) {
+              $(this).removeClass('hide').addClass('show');
+            }else{
+              $(this).addClass('hide').removeClass('show');
+            }
+          });
+        }else{
+          $('select#level_3 option').each(function(){
+            $(this).removeClass('hide').addClass('show');
+          });
+        }
+        $('select#level_3 option.show:first').prop('selected',true);
+        var log1 = $('select#level_3').attr('log');
+        if (log1) {
+          var text1 = $('select#level_3').find('option:selected').text();
+          changelog(log1,text1);
+        }
+    });
+
+    $('select[name=agentgroup]').change(function(){
+      var id = $(this).val();
+      $('input#agentInput').val('');
+      $('input[name=agentcurrent]').val('');
+      $('datalist#suggestionListAgent option').each(function(){
+        var group = $(this).attr('data-group');
+        if (id!==group) {
+          $(this).prop('disabled',true);
+        }else{
+          $(this).prop('disabled',false);
+        }
+        if (!id) {
+          $(this).prop('disabled',false);
+        }
+      });
+    });
+
+    var rights = $('select[name=ticketstatus] option:selected').attr('value');
+    if (rights==4 || rights==9) {
+      $('.crm-control,.crm-ext,textarea,button').prop('disabled',true);
+    }
 	});
 
   $('.data-list').on('input',function() {
@@ -179,6 +256,7 @@
   });
 
   $(document).on('change','.crm-control,.crm-ext',function(){
+    $('.btn-updateAction').html('<i class="fa fa-share"></i> Cập nhật phiếu');
     $(this).addClass('changed');
     var log = $(this).attr('log');
     if (log) {
@@ -186,26 +264,12 @@
       if (!text) {
         text = $(this).val();
       }
-      var oldchange = $('#changelog').val();
-      var newchange = '';
-      var arr_log = oldchange.split('|');
-      if (arr_log.length>0) {
-        for (var i = 0; i < arr_log.length; i++) {
-          // console.log(arr_log[i]);
-          if(arr_log[i]!= ' ' && arr_log[i]!= '' && arr_log[i].indexOf(log) == -1){
-            newchange += arr_log[i].trim()+" | ";
-          }
-        }
-      }
-      newchange += log+': '+text+" | ";
-      console.log(newchange);
-      $('#changelog').val(newchange);
+      changelog(log,text);
     }
-    $('.btn-updateAction').html('<i class="fa fa-share"></i> Cập nhật phiếu');
+    
   });
 
   $('.btn-updateAction').click(function(){
-    $(this).prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
     var ticketid = $(this).attr('title');
     var form = new FormData();
     form.set('ticketid',ticketid);
@@ -247,24 +311,29 @@
       form.set('agentcurrent',agentcurrent);
       form.set('ticketusers',ticketusersold+','+agentcurrent);
     }
-    $.ajax( {
-      processData: false,
-      contentType: false,
-      data: form,
-      type:"POST",
-      dataType: 'json',
-      url: '<?php echo base_url('ticket/aj_update_ticket');?>',
-      success: function( data ){
-         console.log(data);
-         if(data.code==1){
-          window.location.reload();
-        }else{
-          alert(data.message);
+    if (agentcurrent == '') {
+      parent.alertLog('Cảnh báo','Bạn phải chọn người phụ trách.','warning');
+    }else{
+      $(this).prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
+      $.ajax( {
+        processData: false,
+        contentType: false,
+        data: form,
+        type:"POST",
+        dataType: 'json',
+        url: '<?php echo base_url('ticket/aj_update_ticket');?>',
+        success: function( data ){
+           console.log(data);
+           if(data.code==1){
+            window.location.reload();
+          }else{
+            alert(data.message);
+          }
+        },error: function(xhr, status, error) {
+          console.log(error);
         }
-      },error: function(xhr, status, error) {
-        console.log(error);
-      }
-    });
+      });
+    }
     // for(var pair of form.entries()) {
     //   console.log(pair[0]+ ', '+ pair[1]); 
     // }
@@ -402,5 +471,23 @@
                   </div>\
             </div>');  
     return modal;
+  }
+
+  function changelog(log,text){
+    var oldchange = $('#changelog').val();
+    var newchange = '';
+    var arr_log = oldchange.split('|');
+    if (arr_log.length>0) {
+      for (var i = 0; i < arr_log.length; i++) {
+        // console.log(arr_log[i]);
+        if(arr_log[i]!= ' ' && arr_log[i]!= '' && arr_log[i].indexOf(log) == -1){
+          newchange += arr_log[i].trim()+" | ";
+        }
+      }
+    }
+    newchange += log+': '+text+" | ";
+    console.log(newchange);
+    $('#changelog').val(newchange);
+    return false;
   }
 </script>
