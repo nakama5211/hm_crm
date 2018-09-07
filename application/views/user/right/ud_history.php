@@ -77,21 +77,52 @@
 
 				        	if($key == "action")
 				        	{
-				        		echo "Xoá SĐT: ".$labelaction;
+				        		if($value == "deletephone")
+				        		{
+				        			$labelaction = "Xoá SĐT: ";
+				        		}
+				        		else
+				        		{
+				        			$labelaction = "Xoá Email: ";
+				        		}
 				        	}
 				        	if($key == "telephonelist")
+				        	{
+				        		foreach ($value as $key1 => $data1) {
+				        			if(count($data) == 2)
+					        		{
+					        			echo "Thêm SĐT: ".$data1;
+					        			break;
+					        		}
+					        		else
+					        		{
+					        			echo $labelaction.=$data1;
+				        			}
+				        		}
+				        	}
+				        	if($key == "emaillist")
+				        	{
+				        		foreach ($value as $key1 => $data1) {
+				        			if(count($data) == 2)
+					        		{
+					        			echo "Thêm Email: ".$data1;
+					        			break;
+					        		}
+					        		else
+					        		{
+					        			echo $labelaction.=$data1;
+				        			}
+				        		}
+				        	}
+				        	if($key == "emaillist")
 				        	{
 				        		foreach ($value as $key1 => $data1) {
 				        			$labelaction = $data1;
 				        		}
 				        		if(count($data) == 2)
 				        		{
-				        			echo "Thêm SĐT: ".$labelaction;
+				        			echo "Thêm Email: ".$labelaction;
 				        		}
-				        	}
-				        	if($key == "emaillist")
-				        	{
-				        		echo "Danh sách Email: ".$value."<br />";
 				        	}
 				        	if($key == "city")
 				        	{

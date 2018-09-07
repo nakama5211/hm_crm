@@ -148,45 +148,12 @@
                  {
 
                       $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                      location.reload();
+                      // location.reload();
                         parent.notification("Cập nhật thành công");
-
-                      // $.ajax({
-                      //   url: '<?php echo base_url() ?>user/getHistoryUser',
-                      //   type: 'POST',
-                      //   dataType: 'JSON',
-                      //   data:{custid: custid}
-                      // }).done(function(data)
-                      // {
-                        // var cars = ["gray","red","green","yellow"];
-                        // var j =0;
-                        // var data_html = "";
-                        // $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                        // parent.notification("Cập nhật thành công");
-                        // for (var i = 0; i < data.data.length; i++) {
-                        //    var t3 = new Date(data.data[i].createat);
-                        //    if(t3 > dayCompare)
-                        //    {
-                        //    var create = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-                        //   }else{var create = ''}
-                        //   if(j >3)
-                        //   {
-                        //     j=0;
-                        //   }
-                        //   data_html += '\
-                        //   <div class="entry">\
-                        //     <div class="title '+cars[j]+'">\
-                        //       <p class="time-detail"></p>\
-                        //       <p class="date-detail"></p>\
-                        //     </div>\
-                        //   </div>\
-                        //   ';
-                        //   j++;
-                        // }
-                        // $('.timeline').html(data_html);
-                        //   }).fail(function(){
-                        // parent.notification("Cập nhật thất bại");
-                        //   })
+                        //update
+                      // loadHistory();
+                      var iframe = document.getElementById('iframehistory');
+                      iframe.src = iframe.src;
                  }
                  else{
                   alert(data.message);
@@ -620,6 +587,20 @@
       var today = dd+'/'+mm+'/'+yyyy;
       return today;
   }
+  function formatHMS(hh,mm,ss)
+  {
+      if(hh<10){
+      hh='0'+hh;
+      } 
+      if(mm<10){
+          mm='0'+mm;
+      } 
+      if(ss<10){
+          ss='0'+ss;
+      } 
+      var today = hh+':'+mm+':'+ss;
+      return today;
+  }
   function removeAddress(addressid)
   {
       $('#modalDeleteAddress').modal('toggle');
@@ -703,7 +684,13 @@
   {
     var listtelephone = $('#listtelephone').val();
     var telephonelist = $('#telephonelist').val();
-    var listphone = listtelephone+','+telephonelist;
+    if(listtelephone.length == 0)
+    {
+      var listphone = telephonelist;
+    }
+    else{
+      var listphone = listtelephone+','+telephonelist;
+    }
      $.ajax({
         url: '<?php echo base_url()?>user/insertPhoneList',
                 type: 'POST',
@@ -726,7 +713,13 @@
   {
     var listemail = $('#listemail').val();
     var emaillist = $('#emaillist').val();
-    var listmail = listemail+','+emaillist;
+    if(listemail.length == 0)
+    {
+      var listmail = emaillist;
+    }
+    else{
+      var listmail = listemail+','+emaillist;
+    }
      $.ajax({
         url: '<?php echo base_url()?>user/insertEmailList',
                 type: 'POST',

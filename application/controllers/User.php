@@ -718,6 +718,7 @@ class User extends CI_Controller {
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
             'emaillist' => $listemailnew,
+            'action'        => 'deleteemail',
             'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
@@ -767,7 +768,7 @@ class User extends CI_Controller {
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
             'telephonelist' => $listphone,
-            'action'        => 'delete',
+            'action'        => 'deletephone',
             'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
@@ -816,9 +817,30 @@ class User extends CI_Controller {
     }
     public function getUserByRecodeId()
     {
+        $var = $this->session->userdata;
+        $roleid = $var['roleid'];
         $post = $this->input->post("id");
-        $_jsonUser = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/search?action=search_customer&id='.$post);
+        $_jsonUser = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?roleid='.$roleid.'&id='.$post);
         echo $_jsonUser;
+    }
+    public function viewUserHistory()
+    {
+        $_cusid = $_GET['cusid'];
+        $role_list = array();
+            $role_list['1']="Quản Trị Viên";
+            $role_list['2']="Chuyên Viên";
+            $role_list['3']="Khách hàng";
+
+        $group_list = $this->_init['_jsongroup'];
+        $right['role_list'] = $role_list; 
+        $right['group_list'] = $group_list['data']; 
+        $list_ext = $this->_init['_jsonlistext'];
+        $right['list_ext'] = $list_ext['data']; 
+        $_jsonhistory = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/user_history/'.$_cusid.'');
+        $_jsonhistory_data= json_decode($_jsonhistory,true);
+        $right['history'] = $_jsonhistory_data['data'];
+        $_data['mainview'] = $this->load->view('user/right/ud_history', $right, TRUE);
+        $this->load->view('dashboard',$_data);
     }
 }
 ?>

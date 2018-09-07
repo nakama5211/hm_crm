@@ -146,7 +146,6 @@
 		              			<input class="col-md-12 no-padding font-size-12" value="">
 			              	</label>
 	            		<?php }
-	            		$j = 0;
 	            		for ($i=0; $i < count($address); $i++) {
 	            				if($address[$i]['hidden'] != 1){ ?>
 		            		<label class="control-label user-label col-md-3 no-padding"><?php if($j == 0){echo "Địa chỉ";} ?></label>
@@ -162,7 +161,7 @@
 		              			)" class="col-md-12 no-padding font-size-12" value="<?php echo $address[$i]['label'] ?>">
 			              	</label>
 			              	<a href="#" onclick="removeAddress('<?php echo $address[$i]['addressid'] ?>')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>
-	            		<?php $j++;}} ?>
+	            		<?php }} ?>
 	            	</div>
 
 	            	<div class="" <?php if($detail[0]['roleid'] !='3'){echo 'hidden';} ?>>
