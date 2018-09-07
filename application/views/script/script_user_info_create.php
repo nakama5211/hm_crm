@@ -61,6 +61,7 @@ $(document).ready( function () {
           parent.alertLog("Thành công !", "Thêm người dùng thành công.", "success");
           var tab = window.top.$('div.tab-pane.active').attr('id');
           window.top.$('li a.nav-link[href="#'+tab+'"]').find('span').html(name);
+          
           // window.location.href = "<?php echo base_url()?>user/selectDistrict";
         }
       },

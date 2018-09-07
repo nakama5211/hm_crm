@@ -27,6 +27,8 @@
 				        	<?php $data = json_decode($value['dataaction'],true);
 				        	if(count($data)>0)
 				        	{
+
+				        	$labelaction = '';
 				        foreach ($data as $key => $value) {
 				        	if($key == "custname")
 				        	{
@@ -72,13 +74,48 @@
 				        	{
 				        		echo "Ngày cấp: ".date('d-m-Y',strtotime($value))."<br />";
 				        	}
+
+				        	if($key == "action")
+				        	{
+				        		echo "Xoá SĐT: ".$labelaction;
+				        	}
 				        	if($key == "telephonelist")
 				        	{
-				        		echo "Danh sách SĐT: ".$value."<br />";
+				        		foreach ($value as $key1 => $data1) {
+				        			$labelaction = $data1;
+				        		}
+				        		if(count($data) == 2)
+				        		{
+				        			echo "Thêm SĐT: ".$labelaction;
+				        		}
 				        	}
 				        	if($key == "emaillist")
 				        	{
 				        		echo "Danh sách Email: ".$value."<br />";
+				        	}
+				        	if($key == "city")
+				        	{
+				        		echo "Thành phố: ".$value."<br />" ;
+				        	}
+				        	if($key == "district")
+				        	{
+				        		echo "Quận/ Huyện: ".$value."<br />" ;
+				        	}
+				        	if($key == "ward")
+				        	{
+				        		echo "Phường/ Xã: ".$value."<br />" ;
+				        	}
+				        	if($key == "street")
+				        	{
+				        		echo "Đường: ".$value."<br />" ;
+				        	}
+				        	if($key == "address")
+				        	{
+				        		echo "Số nhà: ".$value."<br />" ;
+				        	}
+				        	if($key == "label")
+				        	{
+				        		echo "Nhãn địa chỉ: ".$value."<br />" ;
 				        	}
 				        }
 				        }

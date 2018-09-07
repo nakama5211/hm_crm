@@ -545,7 +545,8 @@ class User extends CI_Controller {
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
 
         if ($res_re['code']==1) {
-            $r_addr = $this->api_save_address($address);
+            $addLog = array();
+            $r_addr = $this->api_save_address($address,$addLog);
         }
     }
 
@@ -624,7 +625,20 @@ class User extends CI_Controller {
     }
 
     public function api_save_address($data,$dataLog){
+        if(count($dataLog)>0)
+        {
+        $postdata1 = http_build_query($dataLog);
+        $opts1 = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata1
+            )
+        );
+        $context1  = stream_context_create($opts1);
 
+        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
+        }
         $postdata = http_build_query($data);
         $opts = array('http' =>
             array(
@@ -637,18 +651,7 @@ class User extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert',false,$context);
 
-        $postdata1 = http_build_query($dataLog);
-        $opts1 = array('http' =>
-            array(
-                'method'  => 'POST',
-                'header'  => 'Content-type: application/x-www-form-urlencoded',
-                'content' => $postdata1
-            )
-        );
-        $context1  = stream_context_create($opts1);
-
-        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
-        return $result1;
+        return $result;
     }
 
     public function api_update_address($data,$addressid,$dataLog){
@@ -764,6 +767,7 @@ class User extends CI_Controller {
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
             'telephonelist' => $listphone,
+            'action'        => 'delete',
             'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
@@ -811,6 +815,10 @@ class User extends CI_Controller {
         $keyword = urlencode($keyword1);
         $_jsonSearch = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/search?action=search_customer&roleid=1&search='.$keyword);
         echo $_jsonSearch;
+    }
+    public function getUserByRecodeId()
+    {
+
     }
 }
 ?>
