@@ -47,7 +47,7 @@
     var val = $(this).val();
     var opt = $('datalist#l_distr').find('option[value="'+val+'"]');
     if (opt.length>0) {
-      var id = opt.attr('id-city');
+      var id = opt.attr('id');
       $.ajax({
         url: '<?php echo base_url()?>user/selectDistrict',
         type: 'POST',
@@ -68,14 +68,6 @@
   });
     var table_contract = $('#table-1-contract').DataTable({
                     "paging":   false,
-                    "columns": [
-                      { "width": "60px" },
-                      { "width": "80px" },
-                      { "width": "90px" },
-                      { "width": "73px" },
-                      { "width": "75px" },
-                      { "width": "250px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
@@ -93,9 +85,11 @@
                         console.log('Total records', info.recordsTotal);
                         console.log('Displayed records', info.recordsDisplay);
                         $("#tab1").text('Giao dịch ('+info.recordsDisplay+')');
+                        this.fnAdjustColumnSizing(true);
                     }
                   });
     $('.btn-update-idcard').click(function(){
+      $('.btn-update-idcard').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var roleid = $('#roleid').val();
         var groupid = $('#groupid').val();
@@ -106,10 +100,14 @@
         url: '<?php echo base_url()?>user/updateUser',
         type: 'POST',
         dataType: 'JSON',
-        data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace},
+        data: {roleid : roleid, groupid: groupid,custid:custid,idcard: idcard, issueddate: issueddate, issuedplace: issuedplace, ext:$('#dataExt').serialize()},
       })
         .done(function(data){
+          $('.btn-update-idcard').prop('disabled',false).find('i').removeClass();
+          $('#updateIdcard').modal('toggle');
           parent.notification("Lưu CMND thành công!!!");
+          $('#idcard').val(idcard);
+
         })
         .fail(function(){
           parent.notification("Lưu CMND thất bại!!!");
@@ -206,6 +204,7 @@
           format:'d/m/Y'});
           
            $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+              $($.fn.dataTable.tables( true ) ).css('width', '100%');
               $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
           });
     }
@@ -388,13 +387,13 @@
       })
     }
 
-    function removeemail($email, $emaillist){
+    function removeemail($email, $emaillist,roleid,groupid){
         var custid = $('#cusit_id').attr('custid');
         $.ajax({
           url: '<?php echo base_url()?>user/updateUserEmailList',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid : custid,email:$email,emaillist:$emaillist},
+          data: {custid : custid,email:$email,emaillist:$emaillist,ext:$('#dataExt').serialize(),roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
           if(data.code==1){
@@ -408,13 +407,13 @@
         })
     }
 
-    function removephone($phone, $phonelist){
+    function removephone($phone, $phonelist,roleid,groupid){
         var custid = $('#cusit_id').attr('custid');
         $.ajax({
           url: '<?php echo base_url()?>user/updateUserPhoneList',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid : custid,phone:$phone,phonelist:$phonelist},
+          data: {custid : custid,phone:$phone,phonelist:$phonelist,ext:$('#dataExt').serialize(),roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
             if(data.code==1){
@@ -429,21 +428,82 @@
     }
 
     $('.btn-addfulladdress').click(function(){
+      $('.btn-addfulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
+        var custid = '<?php echo strval($_GET['cusid']) ?>';
         var addid = $(this).attr('addid');
-        var fulladdress = $('#fulladdresstemp').val();
+        var country = $('#country').val();
         var city = $('#city').val();
-        var district = $('#dodulieu').val();
-        var ward = $('#dodulieu1').val();
-        var sonha = $('#sonha').val();
+        var district = $('#district').val();
+        var ward = $('#ward').val();
+        var street = $('#street').val();
+        var address = $('#address').val();
+        var label = $('#label').val();
         $.ajax({
-          url: '<?php echo base_url()?>user/updateAddress',
+          url: '<?php echo base_url()?>user/aj_insert_bonus_address',
           type: 'POST',
           dataType: 'JSON',
-          data: {addressid : addid,fulladdress:fulladdress,city:city,district:district,ward:ward,address:sonha},
+          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
         })
         .done(function(data) {
           if(data.code==1){
-              window.location.reload();
+              $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-addfulladdress').prop('disabled',false).find('i').removeClass();
+                parent.notification("Thêm địa chỉ thành công!!!");
+                $('#updateAddress').modal('toggle');
+                var data_html = '';
+                var j  = 0;
+                for (var i = 0; i < data.data.length; i++) {
+                    
+                    if(data.data[i].hidden != 1)
+                    {
+                      if(j==0)
+                      {
+                      var label_diachi = "Địa chỉ";
+                      }else{
+                      var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-7 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
+                      j++;
+                    }
+                }
+                $('.div-address').html(data_html);
+                $('#country').val("");
+                $('#city').val("");
+                $('#district').val("");
+                $('#ward').val("");
+                $('#street').val("");
+                $('#address').val("");
+                $('#label').val("");
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
             }else{
               alert(data.message);
             }
@@ -452,6 +512,98 @@
             alert("Lỗi hệ thống, vui lòng liên hệ admin");
         })
     });
+    $('.btn-updatefulladdress').click(function(){
+      $('.btn-updatefulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
+        var custid = '<?php echo strval($_GET['cusid']) ?>';
+        var addressid = $('#addressid').val();
+        // var country = $('#country_edit').val();
+        var city = $('#city_edit').val();
+        var district = $('#district_edit').val();
+        var ward = $('#ward_edit').val();
+        var street = $('#street_edit').val();
+        var address = $('#address_edit').val();
+        var label = $('#label_edit').val();
+        $.ajax({
+          url: '<?php echo base_url()?>user/aj_update_bonus_address',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid},
+        })
+        .done(function(data) {
+          if(data.code==1){
+              $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-updatefulladdress').prop('disabled',false).find('i').removeClass();
+                parent.notification("Thêm địa chỉ thành công!!!");
+                $('#updateFullAddress').modal('toggle');
+                var data_html = '';
+                var j  = 0;
+                for (var i = 0; i < data.data.length; i++) {
+                    
+                    if(data.data[i].hidden != 1)
+                    {
+                      if(j==0)
+                      {
+                      var label_diachi = "Địa chỉ";
+                      }else{
+                      var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-7 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
+                      j++;
+                    }
+                }
+                $('.div-address').html(data_html);
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
+            }else{
+              alert(data.message);
+            }
+        })
+        .fail(function() {
+            alert("Lỗi hệ thống, vui lòng liên hệ admin");
+        })
+    });
+
+    function openModalEdit(label,city,district,ward,street,address,addressid)
+    {
+        $('#updateFullAddress').modal('toggle');
+        $('#updateFullAddress').on('shown.bs.modal', function (e) {
+            $('#label_edit').val(label);
+            $('#city_edit').val(city);
+            $('#district_edit').val(district);
+            $('#ward_edit').val(ward);
+            $('#street_edit').val(street);
+            $('#address_edit').val(address);
+            $('#addressid').val(addressid);
+        });
+    }
     
   function formatDMY(dd,mm,yyyy)
   {
@@ -463,5 +615,129 @@
       } 
       var today = dd+'/'+mm+'/'+yyyy;
       return today;
+  }
+  function removeAddress(addressid)
+  {
+      $('#modalDeleteAddress').modal('toggle');
+      $('#modalDeleteAddress').on('shown.bs.modal', function (e) {
+            $('#addressid_delete').val(addressid);
+        });
+  }
+  function deleteAddress()
+  {
+    var custid = '<?php echo strval($_GET['cusid']) ?>';
+    $('.btn-danger').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
+    var addressid = $('#addressid_delete').val();
+     $.ajax({
+        url: '<?php echo base_url()?>user/aj_delete_address',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {addressid: addressid},
+     })
+     .done(function(data){
+        if(data.code == 1)
+        {
+            $.ajax({
+                url: '<?php echo base_url()?>user/getAddressApi',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {custid: custid},
+              })
+              .done(function(data){
+                $('.btn-danger').prop('disabled',false).find('i').removeClass();
+                parent.notification("Đã xoá địa chỉ!!!");
+                $('#modalDeleteAddress').modal('toggle');
+                var data_html = '';
+                var j  = 0;
+                for (var i = 0; i < data.data.length; i++) {
+                    
+                    if(data.data[i].hidden != 1)
+                    {
+                      if(j==0)
+                      {
+                      var label_diachi = "Địa chỉ";
+                      }else{
+                      var label_diachi = '';}
+                    var label = "'"+data.data[i].label+"'";
+                    var city = "'"+data.data[i].city+"'";
+                    var district = "'"+data.data[i].district+"'";
+                    var ward = "'"+data.data[i].ward+"'";
+                    var street = "'"+data.data[i].street+"'";
+                    var address = "'"+data.data[i].address+"'";
+                    var addressid = "'"+data.data[i].addressid+"'";
+                    data_html +='<label class="control-label user-label col-md-3 no-padding">'+label_diachi+'</label>\
+                      <label class="control-label col-md-7 no-padding-right">\
+                        <input onclick="openModalEdit(\
+                        '+label+',\
+                        '+city+',\
+                        '+district+',\
+                        '+ward+',\
+                        '+street+',\
+                        '+address+',\
+                        '+addressid+'\
+                        )" class="col-md-12 no-padding font-size-12" value="'+data.data[i].label+'">\
+                      </label>\
+                      <a href="#" onclick="removeAddress('+addressid+')"><i class="fas fa-times-circle fa-md float-right margin-top-3" style="margin-right: 2px"></i></a>\
+                      ';
+                      j++;
+                    }
+                }
+                $('.div-address').html(data_html);
+                // alert(data_html);
+
+              }).fail(function(){
+                  alert('fail');
+              })
+        }
+
+     })
+     .fail(function(){
+
+     });
+  }
+  function addTelephone(id,idcard,roleid,groupid)
+  {
+    var listtelephone = $('#listtelephone').val();
+    var telephonelist = $('#telephonelist').val();
+    var listphone = listtelephone+','+telephonelist;
+     $.ajax({
+        url: '<?php echo base_url()?>user/insertPhoneList',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {telephonelist: listphone,custid:id,idcard:idcard,roleid:roleid,ext:$('#dataExt').serialize(),groupid:groupid},
+     })
+     .done(function(data){
+        if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
+     })
+     .fail(function(){
+
+     });
+  }
+
+  function addEmail(id,idcard,roleid,groupid)
+  {
+    var listemail = $('#listemail').val();
+    var emaillist = $('#emaillist').val();
+    var listmail = listemail+','+emaillist;
+     $.ajax({
+        url: '<?php echo base_url()?>user/insertEmailList',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {emaillist: listmail,custid:id,idcard:idcard,roleid:roleid,ext:$('#dataExt').serialize(),groupid:groupid},
+     })
+     .done(function(data){
+        if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
+     })
+     .fail(function(){
+
+     });
   }
 </script>

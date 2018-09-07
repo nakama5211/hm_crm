@@ -64,6 +64,22 @@
 				        	{
 				        		echo switchExtField($value,$list_ext);
 				        	}
+				        	if($key == "idcard")
+				        	{
+				        		echo "CMND: ".$value."<br />";
+				        	}
+				        	if($key == "issueddate")
+				        	{
+				        		echo "Ngày cấp: ".date('d-m-Y',strtotime($value))."<br />";
+				        	}
+				        	if($key == "telephonelist")
+				        	{
+				        		echo "Danh sách SĐT: ".$value."<br />";
+				        	}
+				        	if($key == "emaillist")
+				        	{
+				        		echo "Danh sách Email: ".$value."<br />";
+				        	}
 				        }
 				        }
 				         ?></p>

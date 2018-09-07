@@ -236,18 +236,12 @@
       })
       $('#table-1-ticketcontract').DataTable({
           "paging":   false,
-                    "columns": [
-                      { "width": "60px" },
-                      { "width": "160px" },
-                      { "width": "100px" },
-                      { "width": "112px" },
-                      { "width": "110px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/loadTicketContract/"+contractid,
                     dom: "Bfrtip",
@@ -503,18 +497,12 @@
           {
             $('#table-1-history').DataTable({
           "paging":   false,
-                    "columns": [
-                      { "width": "71px" },
-                      { "width": "123px" },
-                      { "width": "67px" },
-                      { "width": "65px" },
-                      { "width": "323px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getHistory/"+contractid,
                     dom: "Bfrtip",
@@ -528,22 +516,12 @@
           else if(target == "crmContract01c"){
             $('#table-1-congno').DataTable({
             "paging":   false,
-                    "columns": [
-              { "width": "46px" },
-              { "width": "19px" },
-              { "width": "38px" },
-              { "width": "50px"},
-              { "width": "50px" },
-              { "width": "55px" },
-              { "width": "220px" },
-              { "width": "18px" },
-              { "width": "450px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     dom: "Bfrtip",
                     "processing": true,
                     'language':{ 
@@ -551,23 +529,18 @@
                        "processing": ""
                     },
                     "ajax": 'http://crm.tavicosoft.com/dev/user/getCongnoThanhtoan/'+contractid
+
           });
           }
           else if(target == "crmContract01d"){
             $('#table-1-gift').DataTable({
           "paging":   false,
-                    "columns": [
-                      { "width": "71px" },
-                      { "width": "123px" },
-                      { "width": "67px" },
-                      { "width": "65px" },
-                      { "width": "323px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getGift/"+contractid,
                     dom: "Bfrtip",
@@ -581,17 +554,12 @@
         else if(target == "crmContract01f"){
           $('#table-1-buss').DataTable({
           "paging":   false,
-                    "columns": [
-                      { "width": "195px" },
-                      { "width": "117px" },
-                      { "width": "83px" },
-                      { "width": "255px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getBussEmployee/"+contractid,
                     dom: "Bfrtip",
@@ -605,18 +573,12 @@
         else if(target == "crmContract01h"){
           $('#table-1-notes').DataTable({
           "paging":   false,
-                    "columns": [
-                      { "width": "81px" },
-                      { "width": "93px" },
-                      { "width": "71px" },
-                      { "width": "169px" },
-                      { "width": "235px" }
-                    ],
                     "info":     false,
                     "searching": false,
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
+"bAutoWidth": true,
                     "ajax":
                         "<?php echo base_url() ?>user/getNotes/"+contractid,
                     dom: "Bfrtip",
@@ -767,8 +729,8 @@
 
         }
         });
-          // $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
-          //     $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-          // });
+          $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+              $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+          });
   }
 </script>

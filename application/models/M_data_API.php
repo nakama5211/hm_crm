@@ -72,6 +72,7 @@ class M_data_API extends CI_Model {
         $_json2_contractc = json_decode($_json_contractc,true);
         $data['trade_cntt'] = $_json2_contractc["result"]["data"]; 
         $text = '';
+        $array['data'] = [];
         for ($i=0; $i < count($data['trade_cntt']); $i++) { 
             if(strtotime($data['trade_cntt'][$i]['startdate']) > $this->dayCompare)
             {
@@ -83,37 +84,10 @@ class M_data_API extends CI_Model {
             }else{$effectivedate='';}
             $href = ''.base_url().'user/contract/'.$data['trade_cntt'][$i]['contractid'].'';
             $onclick = "addTab('".$href."','".$data['trade_cntt'][$i]['contractid']."')";
-            if($i == (count($data['trade_cntt'])-1))
-            {
-                $text .= '[
-                "<a onclick='.$onclick.' href=\'#\'>' .$data['trade_cntt'][$i]['contractid']. '</a>",
-                       "'.$data['trade_cntt'][$i]['status'].'",
-                       "'.$data['trade_cntt'][$i]['property'].'",
-                       "'.$startdate.'",
-                       "'.$effectivedate.'",
-                       "'.$data['trade_cntt'][$i]['notes'].'"
-                      ]';
-            }
-            else
-            {
-                $text .= '[
-                       "<a onclick='.$onclick.' href=\'#\'>' .$data['trade_cntt'][$i]['contractid']. '</a>",
-                       "'.$data['trade_cntt'][$i]['status'].'",
-                       "'.$data['trade_cntt'][$i]['property'].'",
-                       "'.$startdate.'",
-                       "'.$effectivedate.'",
-                       "'.$data['trade_cntt'][$i]['notes'].'"
-                      ],
-                      ';
-            }
+            $_arr = ["<a onclick=".$onclick." href='#'>".$data['trade_cntt'][$i]['contractid']. "</a>","".$data['trade_cntt'][$i]['status']."","".$data['trade_cntt'][$i]['property']."","".$startdate."","".$effectivedate."","".$data['trade_cntt'][$i]['notes'].""];
+            array_push($array['data'],$_arr);
         }
-
-        echo '{
-              "data": 
-                [
-                    '.$text.'
-                ]
-            }';
+        echo json_encode($array);
 	}
 	public function getCongnoThanhtoan($contractid)
 	{
