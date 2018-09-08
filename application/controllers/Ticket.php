@@ -143,7 +143,7 @@ class Ticket extends CI_Controller {
         
         $knowledge['news'] = $this->_init['json_news'];
         $idcustomer = $this->uri->segment(4);
-        $json_info_customer = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?search=&roleid=1&custid='.$idcustomer) ;
+        $json_info_customer = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?roleid=3&custid='.$idcustomer) ;
         $knowledge['info_customer'] = json_decode($json_info_customer,true)['data'];
         if($knowledge['info_customer'] ==null)
         {
@@ -375,9 +375,6 @@ class Ticket extends CI_Controller {
         $data_ext       = isset($post['ext'])?json_encode($post['ext']):null;
         $ticket         = [];
 
-        $ticket['log_custid']       = $var['custid'];
-        $ticket['log_roleid']       = $var['roleid'];
-        $ticket['log_groupid']      = $var['groupid'];
         $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'';
         $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'';
         $ticket['agentcreated']     = $var['custid'];
@@ -386,10 +383,7 @@ class Ticket extends CI_Controller {
         $ticket['ticketchannel']    = isset($post['ticketchannel'])?$post['ticketchannel']:'';
         $ticket['priority']         = isset($post['priority'])?$post['priority']:'';
         $ticket['extension']        = $data_ext!=null?$data_ext:'';
-        $ticket['action']           = "Tạo phiếu";
-        $ticket['useraction']       = $var['custid'];
         $ticket['status']           = 0;
-        $ticket['cmt']              = isset($post['cmt'])?$post['cmt']:'';
         $ticket['sla']              = isset($post['sla'])?$post['sla']:'';
         $ticket['status']           = isset($post['ticketstatus'])?$post['ticketstatus']:'';
         $ticket['duedate']          = isset($post['duedate'])?$post['duedate']:'';
@@ -415,6 +409,16 @@ class Ticket extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/insert',false,$context);
         echo $result;
+
+        $_res = json_decode($result,true);
+        if (isset($_res['code']) && $_res['code'] == 1 && isset($post['cmt']) && $post['cmt'] !='') {
+            $log['action']           = "";
+            $log['useraction']       = $var['custid'];
+            $log['cmt']              = isset($post['cmt'])?$post['cmt']:'';
+            $log['ticketid']         = $_res['data'];
+            $_result                 = $this->aj_insert_ticket_log($log);
+            echo $_result;
+        }
     }
 
     public function updateTicketStatus(){
@@ -515,18 +519,15 @@ class Ticket extends CI_Controller {
 
         $tid = $ticket['ticketid']  = isset($post['ticketid'])?$post['ticketid']:'';
 
-        $ticket['log_custid']       = $var['custid'];
-        $ticket['log_roleid']       = $var['roleid'];
-        $ticket['log_groupid']      = $var['groupid'];
+        // $ticket['log_custid']       = $var['custid'];
+        // $ticket['log_roleid']       = $var['roleid'];
+        // $ticket['log_groupid']      = $var['groupid'];
         $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'';
         $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'';
         $ticket['title']     = isset($post['title'])?$post['title']:'';
         $ticket['ticketchannel']    = isset($post['ticketchannel'])?$post['ticketchannel']:'';
         $ticket['priority']         = isset($post['priority'])?$post['priority']:'';
         $ticket['extension']        = $data_ext!=null?$data_ext:'';
-        $ticket['action']           = "Cập nhật phiếu";
-        $ticket['useraction']       = $var['custid'];
-        $ticket['cmt']              = isset($post['cmt'])?$post['cmt']:'';
         $ticket['sla']              = isset($post['sla'])?$post['sla']:'';
         $ticket['status']           = isset($post['ticketstatus'])?$post['ticketstatus']:'';
         $ticket['duedate']          = isset($post['duedate'])?$post['duedate']:'';
@@ -536,7 +537,6 @@ class Ticket extends CI_Controller {
         $ticket['categoryid']       = isset($post['categoryid'])?$post['categoryid']:'';
         $ticket['groupid']          = isset($post['groupid'])?$post['groupid']:'';
         $ticket['ticketusers']      = isset($post['ticketusers'])?$post['ticketusers']:'';
-        $ticket['changelog']        = isset($post['changelog'])?$post['changelog']:'';
 
         $ticket['title']            = isset($post['title'])?$post['title']:'';
         $ticket['transref']         = isset($post['transref'])?$post['transref']:'';
@@ -559,8 +559,38 @@ class Ticket extends CI_Controller {
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/update/'.$tid,false,$context);
         echo $result;
+
+        $_res = json_decode($result,true);
+        if (isset($_res['code']) && $_res['code'] == 1 && ((isset($post['cmt']) && $post['cmt'] !='')||(isset($post['changelog'])&&$post['changelog']!=''))) {
+            if ($post['cmt']!='') {
+                $log['action']           = "";
+            }else{
+                $log['action']           = "Cập nhật phiếu";
+            }
+            $log['useraction']       = $var['custid'];
+            $log['cmt']              = isset($post['cmt'])?$post['cmt']:'';
+            $log['changelog']        = isset($post['changelog'])?$post['changelog']:'';
+            $log['ticketid']         = $tid;
+            $_result                 = $this->aj_insert_ticket_log($log);
+            // echo $_result;
+        }
     }
 
+    public function aj_insert_ticket_log($log){
+
+        $postdata = http_build_query($log);
+        $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        $context  = stream_context_create($opts);
+
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/insert_ticketlog/',false,$context);
+        return $result;
+    }
     public function updateTicketLog()
     {
         $var = $this->session->userdata;

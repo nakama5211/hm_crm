@@ -10,7 +10,7 @@
             if(count($info_customer)>0){
             echo $info_customer[0]['avatar'];} ?>" alt="User Image"><?php 
             if(count($info_customer)>0){
-              echo $info_customer[0]['custname'];} ?></p>
+              echo $info_customer[0]['custname'].' - '.$info_customer[0]['groupname'];} ?></p>
           	<p class="header-desc field-click-able">Ngày tạo: <?php 
             if(count($info_customer)>0){
                 echo date("d/m/Y", strtotime($info_customer[0]['createddate'] ));}

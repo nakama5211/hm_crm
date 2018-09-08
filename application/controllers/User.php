@@ -541,7 +541,8 @@ class User extends CI_Controller {
                 'ward'                          =>isset($post['ward'])?$post['ward']:'',
                 'street'                        =>isset($post['street'])?$post['street']:'',
                 'address'                       =>isset($post['address'])?$post['address']:'',
-                'label'                         =>"Địa chỉ thường trú"
+                'label'                         =>"Địa chỉ thường trú",
+                'mainaddress'                   =>1
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
 

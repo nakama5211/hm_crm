@@ -260,7 +260,7 @@
     		<?php 
     		foreach ($userssuppot as $item_user) {
     			?>
-    				<a class="buttonsearchiframe" onclick="addTab('<?php echo base_url() ?>user/detail/?cusid=<?php echo $item_user['custid'] ?>','<?php echo $item_user['custname'] ?>')" href="#" title=""></a><img class="user-avatar" src="<?php echo $item_user['avatar']?>"  alt="User Image"></a>
+    				<a class="buttonsearchiframe" onclick="addTab('<?php echo base_url()."user/detail/?cusid=".$item_user['custid']."&idcard=".$item_user['idcard']."&roleid=".$item_user['roleid']?>','<?php echo $item_user['custname'] ?>')" href="#" title=""><img class="user-avatar" src="<?php echo $item_user['avatar']?>"  alt="User Image" title="<?php echo $item_user['custname'] ?>"></a>
     			<?php
     		}
     		?>

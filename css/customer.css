@@ -2052,3 +2052,6 @@ button#knl-btn-back:hover{
   cursor: pointer;
     color: black;
 }
+img:hover{
+  cursor: pointer;
+}
