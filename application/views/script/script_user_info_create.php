@@ -61,7 +61,18 @@ $(document).ready( function () {
           parent.alertLog("Thành công !", "Thêm người dùng thành công.", "success");
           var tab = window.top.$('div.tab-pane.active').attr('id');
           window.top.$('li a.nav-link[href="#'+tab+'"]').find('span').html(name);
-          // window.location.href = "<?php echo base_url()?>user/selectDistrict";
+          $.ajax({
+            url: '<?php echo base_url() ?>user/getUserByRecodeId',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {id: data.data}
+          })
+          .done(function(data1){
+              window.location.href = "<?php echo base_url()?>user/detail/?cusid="+data1.data[0].custid+"&idcard="+data1.data[0].idcard+"&roleid="+data1.data[0].roleid;
+          })
+          .fail(function(){
+
+          });
         }
       },
       error: function(xhr, status, error) {

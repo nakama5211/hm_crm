@@ -18,6 +18,7 @@
       $('#gender').val('<?php echo $detail[0]['gender'] ?>');
       var load_roleid = $('#roleid').val();
       var idcard = '<?php echo strval($_GET['idcard']) ?>';
+      var opid = $('#opid').val();
       loadGroup(load_roleid);
       $('input[name=city]').on('keyup',function(){
     var val = $(this).val();
@@ -73,7 +74,7 @@
                     "scrollY":        "235px",
                     "scrollX":        true,
                     "scrollCollapse": true,
-                    "ajax": '<?php echo base_url() ?>user/testContract/'+idcard+'',
+                    "ajax": '<?php echo base_url() ?>user/testContract?idcard='+idcard+'&opid='+opid+'',
                     dom: "Bfrtip",
                     "processing": true,
                     'language':{ 
@@ -148,45 +149,12 @@
                  {
 
                       $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                      location.reload();
+                      // location.reload();
                         parent.notification("Cập nhật thành công");
-
-                      // $.ajax({
-                      //   url: '<?php echo base_url() ?>user/getHistoryUser',
-                      //   type: 'POST',
-                      //   dataType: 'JSON',
-                      //   data:{custid: custid}
-                      // }).done(function(data)
-                      // {
-                        // var cars = ["gray","red","green","yellow"];
-                        // var j =0;
-                        // var data_html = "";
-                        // $('#updateUser').prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
-                        // parent.notification("Cập nhật thành công");
-                        // for (var i = 0; i < data.data.length; i++) {
-                        //    var t3 = new Date(data.data[i].createat);
-                        //    if(t3 > dayCompare)
-                        //    {
-                        //    var create = formatDMY(t3.getDate(),t3.getMonth()+1,t3.getFullYear());
-                        //   }else{var create = ''}
-                        //   if(j >3)
-                        //   {
-                        //     j=0;
-                        //   }
-                        //   data_html += '\
-                        //   <div class="entry">\
-                        //     <div class="title '+cars[j]+'">\
-                        //       <p class="time-detail"></p>\
-                        //       <p class="date-detail"></p>\
-                        //     </div>\
-                        //   </div>\
-                        //   ';
-                        //   j++;
-                        // }
-                        // $('.timeline').html(data_html);
-                        //   }).fail(function(){
-                        // parent.notification("Cập nhật thất bại");
-                        //   })
+                        //update
+                      // loadHistory();
+                      var iframe = document.getElementById('iframehistory');
+                      iframe.src = iframe.src;
                  }
                  else{
                   alert(data.message);
@@ -430,6 +398,8 @@
     $('.btn-addfulladdress').click(function(){
       $('.btn-addfulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
+        var roleid = '<?php echo strval($_GET['roleid']) ?>';
+        var groupid = $('#log_groupid').val();
         var addid = $(this).attr('addid');
         var country = $('#country').val();
         var city = $('#city').val();
@@ -442,7 +412,7 @@
           url: '<?php echo base_url()?>user/aj_insert_bonus_address',
           type: 'POST',
           dataType: 'JSON',
-          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label},
+          data: {custid: custid, city:city,district:district,ward:ward,street:street,address: address,label:label,roleid:roleid,groupid:groupid},
         })
         .done(function(data) {
           if(data.code==1){
@@ -499,6 +469,8 @@
                 $('#street').val("");
                 $('#address').val("");
                 $('#label').val("");
+                var iframe = document.getElementById('iframehistory');
+                iframe.src = iframe.src;
                 // alert(data_html);
 
               }).fail(function(){
@@ -516,6 +488,8 @@
       $('.btn-updatefulladdress').prop('disabled',true).find('i').addClass('fa fa-spin fa-spinner');
         var custid = '<?php echo strval($_GET['cusid']) ?>';
         var addressid = $('#addressid').val();
+        var roleid = '<?php echo strval($_GET['roleid']) ?>';
+        var groupid = $('#log_groupid').val();
         // var country = $('#country_edit').val();
         var city = $('#city_edit').val();
         var district = $('#district_edit').val();
@@ -527,7 +501,7 @@
           url: '<?php echo base_url()?>user/aj_update_bonus_address',
           type: 'POST',
           dataType: 'JSON',
-          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid},
+          data: {city:city,district:district,ward:ward,street:street,address: address,label:label,addressid:addressid,roleid:roleid,groupid:groupid,custid:custid},
         })
         .done(function(data) {
           if(data.code==1){
@@ -616,6 +590,20 @@
       var today = dd+'/'+mm+'/'+yyyy;
       return today;
   }
+  function formatHMS(hh,mm,ss)
+  {
+      if(hh<10){
+      hh='0'+hh;
+      } 
+      if(mm<10){
+          mm='0'+mm;
+      } 
+      if(ss<10){
+          ss='0'+ss;
+      } 
+      var today = hh+':'+mm+':'+ss;
+      return today;
+  }
   function removeAddress(addressid)
   {
       $('#modalDeleteAddress').modal('toggle');
@@ -699,7 +687,13 @@
   {
     var listtelephone = $('#listtelephone').val();
     var telephonelist = $('#telephonelist').val();
-    var listphone = listtelephone+','+telephonelist;
+    if(listtelephone.length == 0)
+    {
+      var listphone = telephonelist;
+    }
+    else{
+      var listphone = listtelephone+','+telephonelist;
+    }
      $.ajax({
         url: '<?php echo base_url()?>user/insertPhoneList',
                 type: 'POST',
@@ -722,7 +716,13 @@
   {
     var listemail = $('#listemail').val();
     var emaillist = $('#emaillist').val();
-    var listmail = listemail+','+emaillist;
+    if(listemail.length == 0)
+    {
+      var listmail = emaillist;
+    }
+    else{
+      var listmail = listemail+','+emaillist;
+    }
      $.ajax({
         url: '<?php echo base_url()?>user/insertEmailList',
                 type: 'POST',

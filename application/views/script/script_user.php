@@ -228,8 +228,9 @@
       })
       .done(function(data) {
         var json = jQuery.parseJSON(data);
+      // $(".a_contractid").attr('href','http://demo.tavicosoft.com/connectdb/loginprovider?opid=<?php echo $this->input->get('opid') ?>&returnUrl=%2F%23PCT&token='+json.result.data+'&dataseg=contractid%3D<?php echo $trade[0]['contractid'] ?>%26action%3DV');
       $(".a_contractid").attr('href','http://demo.tavicosoft.com/connectdb/loginprovider?opid=C0001@AGT&returnUrl=%2F%23PCT&token='+json.result.data+'&dataseg=contractid%3D<?php echo $trade[0]['contractid'] ?>%26action%3DV');
-      $(".a_custid").attr('href','http://demo.tavicosoft.com/connectdb/loginprovider?opid=C0001@AGT&returnUrl=%2F%23NAD&token='+json.result.data+'&dataseg=nadcode%3D<?php echo $trade[0]['clientcode'] ?>%26action%3DV');
+      $(".a_custid").attr('href','http://demo.tavicosoft.com/connectdb/loginprovider?opid=<?php echo $this->input->get('opid') ?>&returnUrl=%2F%23NAD&token='+json.result.data+'&dataseg=nadcode%3D<?php echo $trade[0]['clientcode'] ?>%26action%3DV');
               })
       .fail(function() {
          console.log('Load Fail!!!');

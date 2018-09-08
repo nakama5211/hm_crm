@@ -58,8 +58,9 @@ class User extends CI_Controller {
     }
     public function testContract()
     {
-        $idcard = $this->uri->segment(3);
-        $this->M_data_API->getContractByIdcard($idcard);
+        $idcard = $this->input->get('idcard');
+        $opid = $this->input->get('opid');
+        $this->M_data_API->getContractByIdcard($idcard,$opid);
     }
     public function detail(){
         $_body = [];
@@ -544,8 +545,10 @@ class User extends CI_Controller {
                 'mainaddress'                   =>1
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
+
         if ($res_re['code']==1) {
-            $r_addr = $this->api_save_address($address);
+            $addLog = array();
+            $r_addr = $this->api_save_address($address,$addLog);
         }
     }
 
@@ -563,7 +566,16 @@ class User extends CI_Controller {
                 'label'                         =>isset($post['label'])?$post['label']:''
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
-            $r_addr = $this->api_save_address($address);
+
+        $arrayLog = array(
+            'custid'                        => $post['custid'],
+            'roleid'                       =>isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      =>isset($post['groupid'])?$post['groupid']:'',
+            'action'                       => "Thêm địa chỉ",
+            'dataaction'                   => json_encode($address)
+        );
+
+            $r_addr = $this->api_save_address($address,$arrayLog);
         echo $r_addr;
     }
 
@@ -571,6 +583,7 @@ class User extends CI_Controller {
     {
         $post = $this->input->post();
         $address = array(
+            'custid'                        => isset($post['custid'])?$post['custid']:'',
                 'country'                       =>isset($post['country'])?$post['country']:'',
                 'city'                          =>isset($post['city'])?$post['city']:'',
                 'district'                      =>isset($post['district'])?$post['district']:'',
@@ -580,7 +593,15 @@ class User extends CI_Controller {
                 'label'                         =>isset($post['label'])?$post['label']:''
         );
         $address['fulladdress'] = $address['country'].', '.$address['city'].', '.$address['district'].', '.$address['ward'].', '.$address['street'].', '.$address['address'];
-            $r_addr = $this->api_update_address($address,$post['addressid']);
+        $arrayLog = array(
+            'custid'                        => $post['custid'],
+            'roleid'                       =>isset($post['roleid'])?$post['roleid']:'',
+            'groupid'                      =>isset($post['groupid'])?$post['groupid']:'',
+            'action'                       => "Sửa địa chỉ",
+            'id'                            => $post['addressid'],
+            'dataaction'                    => json_encode($address)
+        );
+            $r_addr = $this->api_update_address($address,$post['addressid'],$arrayLog);
         echo $r_addr;
     }
     public function aj_delete_address()
@@ -605,8 +626,21 @@ class User extends CI_Controller {
         return $result;
     }
 
-    public function api_save_address($data){
+    public function api_save_address($data,$dataLog){
+        if(count($dataLog)>0)
+        {
+        $postdata1 = http_build_query($dataLog);
+        $opts1 = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata1
+            )
+        );
+        $context1  = stream_context_create($opts1);
 
+        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
+        }
         $postdata = http_build_query($data);
         $opts = array('http' =>
             array(
@@ -618,10 +652,23 @@ class User extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert',false,$context);
+
         return $result;
     }
 
-    public function api_update_address($data,$addressid){
+    public function api_update_address($data,$addressid,$dataLog){
+
+        $postdata1 = http_build_query($dataLog);
+        $opts1 = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata1
+            )
+        );
+        $context1  = stream_context_create($opts1);
+
+        $result1 = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/insert_LogAddress',false,$context1);
 
         $postdata = http_build_query($data);
         $opts = array('http' =>
@@ -634,7 +681,8 @@ class User extends CI_Controller {
         $context  = stream_context_create($opts);
 
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/address/update/'.$addressid,false,$context);
-        return $result;
+
+        return $result1;
     }
 
     //
@@ -672,6 +720,7 @@ class User extends CI_Controller {
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
             'emaillist' => $listemailnew,
+            'action'        => 'deleteemail',
             'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
@@ -721,6 +770,7 @@ class User extends CI_Controller {
             'log_roleid' => $log_roleid,
             'log_groupid' => $log_groupid,
             'telephonelist' => $listphone,
+            'action'        => 'deletephone',
             'extinfo' => $__extinfo
         ]);
         $opts = array('http' =>
@@ -760,14 +810,39 @@ class User extends CI_Controller {
         echo $result;
         
     }
-
-
     public function searchUser()
     {
         $keyword1 = $this->input->post('keyword');
         $keyword = urlencode($keyword1);
         $_jsonSearch = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/search?action=search_customer&roleid=1&search='.$keyword);
         echo $_jsonSearch;
+    }
+    public function getUserByRecodeId()
+    {
+        $var = $this->session->userdata;
+        $roleid = $var['roleid'];
+        $post = $this->input->post("id");
+        $_jsonUser = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search?roleid='.$roleid.'&id='.$post);
+        echo $_jsonUser;
+    }
+    public function viewUserHistory()
+    {
+        $_cusid = $_GET['cusid'];
+        $role_list = array();
+            $role_list['1']="Quản Trị Viên";
+            $role_list['2']="Chuyên Viên";
+            $role_list['3']="Khách hàng";
+
+        $group_list = $this->_init['_jsongroup'];
+        $right['role_list'] = $role_list; 
+        $right['group_list'] = $group_list['data']; 
+        $list_ext = $this->_init['_jsonlistext'];
+        $right['list_ext'] = $list_ext['data']; 
+        $_jsonhistory = file_get_contents('http://test.tavicosoft.com/crm/index.php/api/user_history/'.$_cusid.'');
+        $_jsonhistory_data= json_decode($_jsonhistory,true);
+        $right['history'] = $_jsonhistory_data['data'];
+        $_data['mainview'] = $this->load->view('user/right/ud_history', $right, TRUE);
+        $this->load->view('dashboard',$_data);
     }
 }
 ?>
