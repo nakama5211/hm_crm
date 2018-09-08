@@ -154,65 +154,6 @@
         return false;
   });
 
-
-   $('#btn-update').click(function(){
-      var ticketid = $(this).attr('ticketid');
-      var customer_request = $('#customer_request').val();
-      var agentcurrent= $('#agentcurrent').val();
-      if(!agentcurrent){
-        alert('Người phụ trách chưa đúng');
-        return false;
-      }
-      var ticketchannel = $('#ticketchannel').val();
-      var status = $('#ticketstatus').val();
-      var cmt = $('#action').val();
-      var priority = $('#priority').val();
-      var title = $('#title').val();
-      var bds = $('#bds').val();
-      var duan = $('#duan').val();
-      var gd = $('#giaodich').val();
-      var dot = $('#dot').val();
-      var sla = $('#sla').val();
-      if(sla_change){
-        var oldchange = $('#changelog').val();
-        oldchange += "Thời hạn SLA : "+$('#sla').val()+" | ";
-        $('#changelog').val(oldchange);
-      }
-      var type = $('#type').val();
-      var levelticket = $('#levelticket').val();
-      var duedate = $('#duedate').val();
-      if(duedate_change){
-        var oldchange = $('#changelog').val();
-        oldchange += "Ngày hẹn : "+duedate+" | ";
-        $('#changelog').val(oldchange);
-      }
-      var finishdate = $('#finishdate').val();
-      if(finish_change){
-        var oldchange = $('#changelog').val();
-        oldchange += "Ngày hoàn thành : "+finishdate+" | ";
-        $('#changelog').val(oldchange);
-      }
-      var type = $('#type').val();
-      var levelticket = $('#levelticket').val();
-      var ticketusers = $('#ticketusers').val();
-      var changelog = $('#changelog').val();
-       $.ajax({
-              url: '<?php echo base_url().'ticket/updateTicketNew' ?>',
-              type: 'POST',
-              dataType: 'JSON',
-              data: {ticketid:ticketid,crequest:customer_request,agentcurrent: agentcurrent, priority: priority,bds:bds,gd:gd,duan:duan,dot:dot,ticketchannel:ticketchannel,sla:sla,duedate:duedate,type:type,levelticket:levelticket,finishdate:finishdate,cmt:cmt,ticketusers:ticketusers,changelog:changelog,status:status},
-            })
-            .done(function(data) {
-                if(data.code==1){
-                  window.location.reload();
-                }else{
-                  alert(data.message);
-                }
-              })
-            .fail(function() {
-               alert('Lỗi hệ thống, vui lòng liên hệ Admin');
-            });
-  });
    function showDetailKnowledge(id)
    {
       var show = $('.knl-caret');
@@ -238,21 +179,21 @@
       var ticketid = $(this).attr('title');
       var action= $('#action').val();
        $.ajax({
-              url: '<?php echo base_url().'ticket/updateTicketLog' ?>',
-              type: 'POST',
-              dataType: 'JSON',
-              data: {cmt:action,ticketid:ticketid},
-            })
-            .done(function(data) {
-                if(data.code==1){
-                  window.location.reload();
-                }else{
-                  alert(data.message);
-                }
-              })
-            .fail(function() {
-               alert('Lỗi hệ thống, vui lòng liên hệ Admin');
-            });
+          url: '<?php echo base_url().'ticket/updateTicketLog' ?>',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {cmt:action,ticketid:ticketid},
+        })
+        .done(function(data) {
+            if(data.code==1){
+              window.location.reload();
+            }else{
+              alert(data.message);
+            }
+          })
+        .fail(function() {
+           alert('Lỗi hệ thống, vui lòng liên hệ Admin');
+        });
   });
 
   $(document).on('change','.crm-control,.crm-ext',function(){

@@ -80,7 +80,7 @@
           $('#title').removeClass('error-input');
           formData.set('title',title);
           formData.set('cmt',action);
-          if (agentgroup=='' && agentgroup=='') {
+          if (agentcurrent=='' && agentgroup=='') {
             error['responsi'] = "Vui lòng nhập 1 trong 2 thông tin: Nhóm phụ trách, Người phụ trách.";
             parent.alertLog('Cảnh báo',error['responsi'],"warning");
           }
