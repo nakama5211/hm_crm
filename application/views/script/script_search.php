@@ -21,7 +21,7 @@
             "bLengthChange": false,
             "iDisplayLength": 25,
             "scrollCollapse": true
-          }).columns.adjust().draw();
+    }).columns.adjust().draw();
     $('#table-1-searchuser').DataTable({
              "paging":   true,
              "language": {
@@ -74,17 +74,17 @@
     var email = $('#email').val();
     var mapping1 = $('#mapping1').val();
 
-    document.getElementById('iframesearch').src = "<?php echo base_url().'search/rightSearch/?search=' ?>"+search+"&custname="+custname+"&custid="+custid+"&telephone="+telephone+"&email="+email+"&mapping1="+mapping1;
+    document.getElementById('iframesearch').src = "<?php echo base_url().'search/rightSearch/?search=' ?>"+search+"&custname="+custname+"&idcard="+custid+"&telephone="+telephone+"&email="+email+"&mapping1="+mapping1+"&roleid=<?php echo($this->session->userdata('roleid'))?>";
   }
   function searchTicket()
   {
-    var searchticket = $('#searchticket').val();
-    var agentcreated = $('#agentcreated').val();
-    var agentcurrent = $('#agentcurrent').val();
-    var priority = $('#priority').val();
-    var status = $('#status').val();
+    var searchticket  = $('#searchticket').val();
+    var customer      = $('#customer').val();
+    var agentcurrent  = $('#agentcurrent').val();
+    var priority      = $('#priority').val();
+    var status        = $('#status').val();
     var ticketchannel = $('#ticketchannel').val();
-    document.getElementById('iframesearch').src = "<?php echo base_url().'search/rightSearchTicketInput/?search='?>"+searchticket+"&custid="+agentcreated+"&agentcurrent="+agentcurrent+"&priority="+priority+"&status="+status+"&ticketchannel="+ticketchannel;
+    document.getElementById('iframesearch').src = "<?php echo base_url().'search/rightSearchTicketInput/?search='?>"+searchticket+"&customer="+customer+"&agentcurrent="+agentcurrent+"&priority="+priority+"&status="+status+"&ticketchannel="+ticketchannel+"&custid=<?php echo($this->session->userdata('custid'))?>&groupid=<?php echo($this->session->userdata('groupid'))?>";
   }
   function keyPress(id)
   {
@@ -152,4 +152,5 @@
       $('#'+id+'').removeAttr('maxLength');
     }
   }
+
 </script>

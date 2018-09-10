@@ -52,6 +52,35 @@
 	        	<span class="app-menu__label">Công việc</span>
 	        </a>
 	    </li>
+        <li class="treeview">
+            <a class="app-menu__item" href="#" data-toggle="treeview">
+                <i class="app-menu__icon fa fa-edit"></i>
+                <span class="app-menu__label">Datasource</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="#" onclick="addTab('<?= base_url('datastage') ?>','Giai đoạn')">
+                        <i class="icon fa fa-circle-o"></i> 
+                    Giai đoạn</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="#" onclick="addTab('<?= base_url('issuetype') ?>','Phân loại')">
+                        <i class="icon fa fa-circle-o"></i> 
+                    Phân loại</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="#" onclick="addTab('<?= base_url('issuegroup') ?>','Nhóm vấn đề')">
+                        <i class="icon fa fa-circle-o"></i> 
+                    Nhóm vấn đề</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="#" onclick="addTab('<?= base_url('issuedetail') ?>','Chi tiết vấn đề')">
+                        <i class="icon fa fa-circle-o"></i> 
+                    Chi tiết vấn đề</a>
+                </li>
+            </ul>
+        </li>
 	    <?php $var = $this->session->userdata;
                     $roleid = $var['roleid'];
                     if($roleid == '1'){?> 

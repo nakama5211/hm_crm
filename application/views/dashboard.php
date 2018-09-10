@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/customer2.css">
   </head>
   <body class="app sidebar-mini rtl sidenav-toggled">
-    <?php $dayCompare = strtotime('2000-01-01T00:00:00');?>
+    <!-- <?php $dayCompare = strtotime('2000-01-01T00:00:00');?> -->
     <?php echo isset($mainview) ? $mainview : ''; ?>
     
 
@@ -43,12 +43,13 @@
     <script src="<?php echo base_url() ?>datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>datetimepicker-master/jquery.datetimepicker.css"/>
-            <script src="<?php echo base_url() ?>js/jquery.scrolling-tabs.js"></script>
-            <script type="text/javascript" src="<?=base_url()?>js/plugins/jquery.validate.min.js"></script>
-            <script type="text/javascript" src="<?=base_url()?>ckeditor/ckeditor.js"></script>
+    <script src="<?php echo base_url() ?>js/jquery.scrolling-tabs.js"></script>
+    <script type="text/javascript" src="<?=base_url()?>js/plugins/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?=base_url()?>ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="<?=base_url()?>ckfinder/ckfinder.js"></script>
+
     <?php echo isset($script) ? $script : ''; ?>
-            <?php echo isset($script2) ? $script2 : ''; ?>
+    <?php echo isset($script2) ? $script2 : ''; ?>
     
   </body>
 </html>

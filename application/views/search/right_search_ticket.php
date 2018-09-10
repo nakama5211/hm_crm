@@ -46,12 +46,12 @@
 			                    	<?php 
 				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
 				                    {
-				                    echo date("d/m/Y", strtotime($rows['duedate']));}?>
+				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));}?>
 			                    	</td>
 			                    <td><?php 
 			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
 			                    {
-			                    echo date("d/m/Y", strtotime($rows['createat']));}?></td>
+			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));}?></td>
 		                  	</tr>	
 		                	<?php }}else{
 		                		if(($rows['agentcreated'] == $agentcurrent && $rows['status']!= 9) || (strpos($rows['ticketusers'], $agentcurrent) !== false && $rows['status']!= 9)){?>
@@ -75,11 +75,11 @@
 			                    <td><?php 
 				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
 				                    {
-				                    echo date("d/m/Y", strtotime($rows['duedate']));}?></td>
+				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));}?></td>
 			                    <td><?php 
 			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
 			                    {
-			                    echo date("d/m/Y", strtotime($rows['createat']));}?></td>
+			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));}?></td>
 		                  	</tr>	
 		                		<?php }}}} ?>				  
 		                </tbody>

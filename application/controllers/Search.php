@@ -26,41 +26,12 @@ class Search extends CI_Controller {
 
 	public function rightSearch()
 	{
-		$_data = [];   
-		if($_GET['search'] != '')
-		{
-			$search1 = urlencode(strval($_GET['search']));
-			$search = '?search='.$search1;
+		$get = $this->input->get();
+		$query = '?';
+		foreach ($get as $key => $value) {
+			$query.=$key.'='.rawurlencode($value).'&';
 		}
-		else{$search ='?search=';}
-		if($_GET['custname'] != '')
-		{
-			$custname1 = urlencode(strval($_GET['custname']));
-			$custname = '&custname='.$custname1;
-		}else{$custname ='';}
-		if($_GET['custid'] != '')
-		{
-			$custid1 = urlencode(strval($_GET['custid']));
-			$custid = '&idcard='.$custid1;
-		}else{$custid ='';}
-		if($_GET['telephone'] != '')
-		{
-			$telephone1 = urlencode(strval($_GET['telephone']));
-			$telephone = '&telephone='.$telephone1;
-		}else{$telephone ='';}
-		if($_GET['email'] != '')
-		{
-			$email1 = urlencode(strval($_GET['email']));
-			$email = '&email='.$email1;
-		}else{$email ='';}
-		if($_GET['mapping1'] != '')
-		{
-			$mapping11 = urlencode(strval($_GET['mapping1']));
-			$mapping1 = '&mapping1='.$mapping11;
-		}else{$mapping1 ='';}
-		$var = $this->session->userdata;
-        $roleid = $var['roleid'];
-        $json = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search'.$search.$custname.$custid.$telephone.$email.'&roleid='.$roleid.$mapping1);
+        $json = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search'.$query);
         $data['result'] = json_decode($json,true);
 		$_data['script'] = $this->load->view('script/script_search', NULL, TRUE);  
 		$_data['mainview'] = $this->load->view('search/right_search', $data , TRUE);
@@ -83,46 +54,13 @@ class Search extends CI_Controller {
 
 	public function rightSearchTicketInput()
 	{
-		$agent = $_GET['agentcurrent'];
-		if(isset($_GET['agent'])){
-			$agent = $_GET['agent'];
+		$get = $this->input->get();
+		$query = '?';
+		foreach ($get as $key => $value) {
+			$query.=$key.'='.rawurlencode($value).'&';
 		}
-		$status = $_GET['status'];
-
-		$_data = [];   
-		if($_GET['search'] != '')
-		{
-			$search1 = urlencode(strval($_GET['search']));
-			$search = '?search='.$search1;
-		}
-		else{$search ='?search=';}
-		if($_GET['custid'] != '')
-		{
-			$agentcreated1 = urlencode(strval($_GET['custid']));
-			$agentcreated = '&custid='.$agentcreated1;
-		}else{$agentcreated ='';}
-		if($_GET['agentcurrent'] != '')
-		{
-			$agentcurrent1 = $agent;
-			$agentcurrent = '&agentcurrent='.$agentcurrent1;
-		}else{$agentcurrent ='';}
-		if($_GET['priority'] != '')
-		{
-			$priority1 = urlencode(strval($_GET['priority']));
-			$priority = '&priority='.$priority1;
-		}else{$priority ='';}
-		if($_GET['status'] != '')
-		{
-			$status1 = urlencode(strval($_GET['status']));
-			$status = '&status='.$status1;
-		}else{$status ='';}
-		if($_GET['ticketchannel'] != '')
-		{
-			$ticketchannel1 = urlencode(strval($_GET['ticketchannel']));
-			$ticketchannel = '&ticketchannel='.$ticketchannel1;
-		}else{$ticketchannel ='';}
 		
-		$json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search'.$search.$agentcreated.$agentcurrent.$priority.$status.$ticketchannel);
+		$json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search'.$query);
 		
 		$var = $this->session->userdata;
         $custidLogin = $var['custid'];
@@ -132,5 +70,6 @@ class Search extends CI_Controller {
 		$_data['script'] = $this->load->view('script/script_search', NULL, TRUE);  
 		$_data['mainview'] = $this->load->view('search/right_search_ticket_input', $data , TRUE);
 		$this->load->view('dashboard',$_data);
+		// echo ('http://test.tavicosoft.com/crm/index.php/ticket/search'.$query);
 	}
 }

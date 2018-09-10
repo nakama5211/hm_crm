@@ -28,7 +28,7 @@
 			                    <td><?php 
 			                    if($rows['lastupdate']!=null && strtotime($rows['lastupdate'])>$dayCompare)
 			                    {
-			                    echo date("d/m/Y", strtotime($rows['lastupdate']));}
+			                    echo date("d/m/Y H:i:s", strtotime($rows['lastupdate']));}
 			                     ?></td>
 		                  	</tr>	
 		                	<?php }} ?>				  
