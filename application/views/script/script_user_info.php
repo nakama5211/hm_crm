@@ -551,6 +551,8 @@
                     }
                 }
                 $('.div-address').html(data_html);
+                var iframe = document.getElementById('iframehistory');
+                      iframe.src = iframe.src;
                 // alert(data_html);
 
               }).fail(function(){
