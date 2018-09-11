@@ -92,6 +92,22 @@
 		                		</label></p>
 		                	</a>
 		                </li>
+		                <li>
+		                	<a id="a_appbarticket" class="dropdown-item no-padding margin-top-bot-10 border-radius-3" role="tab" data-toggle="tab" href="#" onclick="loctheonhom(0);">
+		                		<p class="no-padding no-margin padding-left-right-10"> Toàn bộ phiếu của nhóm
+		                		<label class="float-right">
+		                			(9)
+		                		</label></p>
+		                	</a>
+		                </li>
+		                <li>
+		                	<a id="a_appbarticket" class="dropdown-item no-padding margin-top-bot-10 border-radius-3" role="tab" data-toggle="tab" href="#" onclick="loctheonhom(1);">
+		                		<p class="no-padding no-margin padding-left-right-10"> Phiếu của nhóm chưa xử lý
+		                		<label class="float-right">
+		                			(9)
+		                		</label></p>
+		                	</a>
+		                </li>
 	              	</ul>
 	        	</div>
 	        </div>

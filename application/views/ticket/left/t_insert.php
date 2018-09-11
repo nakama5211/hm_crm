@@ -138,7 +138,6 @@
 	              				}
 	              			} ?>
 		              		</select>
-	              		
 	            	</div>
 	            </div>
           	</div>
@@ -180,13 +179,13 @@
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Ngày yêu cầu</label>
 	              		<label class="control-label col-md-7 no-padding-right">
-	              			<input name="createat" log="Ngày yêu cầu" id="createat" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="">
+	              			<input name="requestdate" log="Ngày yêu cầu" id="createat" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="">
 	              		</label>
 	            	</div>
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Ngày phản hồi</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input name="lastupdate" log="Ngày phản hồi" id="lastupdate" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="">
+	              			<input name="firstreply" log="Ngày phản hồi" id="lastupdate" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="">
 	              		</label>
 	            	</div>
 	            	<div class="flex">

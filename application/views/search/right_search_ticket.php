@@ -43,15 +43,11 @@
 			                    	else {echo "Không xác định";}
 			                    ?></td>
 			                    <td>
-			                    	<?php 
-				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
-				                    {
-				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));}?>
+			                    	<?php if (strtotime($rows['duedate'])>strtotime("2000/01/01"))
+				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));?>
 			                    	</td>
-			                    <td><?php 
-			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
-			                    {
-			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));}?></td>
+			                    <td><?php if (strtotime($rows['duedate'])>strtotime("2000/01/01"))
+			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));?></td>
 		                  	</tr>	
 		                	<?php }}else{
 		                		if(($rows['agentcreated'] == $agentcurrent && $rows['status']!= 9) || (strpos($rows['ticketusers'], $agentcurrent) !== false && $rows['status']!= 9)){?>
@@ -72,14 +68,10 @@
 			                    	elseif ($rows['priority']==3) {echo "Khẩn cấp";}
 			                    	else {echo "Không xác định";}
 			                    ?></td>
-			                    <td><?php 
-				                    if($rows['duedate']!=null && strtotime($rows['duedate']) > $dayCompare)
-				                    {
-				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));}?></td>
-			                    <td><?php 
-			                    if($rows['createat']!=null && strtotime($rows['createat']) > $dayCompare)
-			                    {
-			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));}?></td>
+			                    <td><?php if (strtotime($rows['duedate'])>strtotime("2000/01/01"))
+				                    echo date("d/m/Y H:i:s", strtotime($rows['duedate']));?></td>
+			                    <td><?php if (strtotime($rows['duedate'])>strtotime("2000/01/01"))
+			                    echo date("d/m/Y H:i:s", strtotime($rows['createat']));?></td>
 		                  	</tr>	
 		                		<?php }}}} ?>				  
 		                </tbody>

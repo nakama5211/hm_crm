@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(0);
-ini_set('display_errors', 0);
+// error_reporting(0);
+// ini_set('display_errors', 0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Search extends CI_Controller {
@@ -32,6 +32,8 @@ class Search extends CI_Controller {
 			$query.=$key.'='.rawurlencode($value).'&';
 		}
         $json = file_get_contents('http://test.tavicosoft.com/crm/index.php/customer/search'.$query);
+        //echo 'http://test.tavicosoft.com/crm/index.php/customer/search'.$query;
+        //exit;
         $data['result'] = json_decode($json,true);
 		$_data['script'] = $this->load->view('script/script_search', NULL, TRUE);  
 		$_data['mainview'] = $this->load->view('search/right_search', $data , TRUE);
@@ -39,7 +41,7 @@ class Search extends CI_Controller {
 	}
 
 	public function rightSearchTicket()
-	{
+	{	
 		$agent = $_GET['agentcurrent'];
 		$json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/getticketinfo/'.$agent);
 		$lienquan = $_GET['lienquan'];
@@ -52,6 +54,15 @@ class Search extends CI_Controller {
 		$this->load->view('dashboard',$_data);
 	}
 
+	public function ticketByType($type){
+		$data = [];
+		$json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/getticketbyagentgroup/'.$this->session->userdata('groupid').'/'.$type);
+		$data['result'] = json_decode($json,true)['data'];
+		$_data['script'] = $this->load->view('script/script_search', NULL, TRUE);  
+		$_data['mainview'] = $this->load->view('search/ticket_by_status', $data , TRUE);
+		$this->load->view('dashboard',$_data);
+	}
+
 	public function rightSearchTicketInput()
 	{
 		$get = $this->input->get();
@@ -61,7 +72,6 @@ class Search extends CI_Controller {
 		}
 		
 		$json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search'.$query);
-		
 		$var = $this->session->userdata;
         $custidLogin = $var['custid'];
 		$data['agentcurrent'] = $custidLogin;
@@ -69,6 +79,7 @@ class Search extends CI_Controller {
         $data['status'] = $_GET['status'];
 		$_data['script'] = $this->load->view('script/script_search', NULL, TRUE);  
 		$_data['mainview'] = $this->load->view('search/right_search_ticket_input', $data , TRUE);
+
 		$this->load->view('dashboard',$_data);
 		// echo ('http://test.tavicosoft.com/crm/index.php/ticket/search'.$query);
 	}

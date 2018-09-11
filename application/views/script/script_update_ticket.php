@@ -10,7 +10,8 @@
     {
 		$('#status').val(status);
     }
-    $('#createat,#sla,#duedate,#finishdate,#appointmentdate,#lastupdate,input[name=req_date],input[name=fns_date]').datetimepicker();
+    $('#sla,#duedate,#finishdate,#appointmentdate,input[name=req_date],input[name=fns_date],input[name=firstreply],input[name=requestdate]')
+    .datetimepicker({format:'d/m/Y H:i'});
 
     $('select#level_1').change(function(){
         var val = $(this).val();
@@ -88,8 +89,50 @@
     if (rights==4 || rights==9) {
       $('.crm-control,.crm-ext,textarea,button').prop('disabled',true);
     }
-	});
 
+    var agentcurrent = $('input[name=agentcurrent]').val();
+    if (agentcurrent) {
+      $('#btn-accept').remove();
+    }
+	});
+  $('#table-23').DataTable( {
+    "ajax": "<?php echo base_url('ticket/recent_contract/'.$param['idcard']);?>",
+    "paging":         false,
+    "info":           false,
+    "searching":      false,
+    "scrollY":        false,
+    "scrollX":        false,
+    "scrollCollapse": false,
+    "ordering": false,
+    "processing": true,
+    'language':{ 
+       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />"
+    },
+    "initComplete": function(settings, json){ 
+        this.find('thead').css("display","none");
+        this.fnAdjustColumnSizing(true);
+        $(this).find('tbody td').css('padding','2px 8px');
+    }
+  });
+  $('#table-22').DataTable( {
+    "ajax": "<?php echo base_url('ticket/recent_ticket/'.$this->uri->segment(4).'/'.$this->session->userdata('custid').'/'.$param['idcard'])?>",
+    "paging":         false,
+    "info":           false,
+    "searching":      false,
+    "scrollY":        false,
+    "scrollX":        false,
+    "scrollCollapse": false,
+    "ordering": false,
+    "processing": true,
+    'language':{ 
+       "loadingRecords": "<img style='width:50px; height:50px;' src='<?php echo base_url().'images/ajax-loading.gif' ?>' />"
+    },
+    "initComplete": function(settings, json){ 
+        this.find('thead').css("display","none");
+        this.fnAdjustColumnSizing(true);
+        $(this).find('tbody td').css('padding','2px 8px');
+    }
+  });
   $('.data-list').on('input',function() {
     var selectedOption = $('._data option[value="'+$(this).val()+'"]');
     if(selectedOption.length>0){
@@ -97,107 +140,8 @@
     }
   });
 
-  $('#_btn-task').click(function(){
-    $('#_form-task').css('display','block');
-  });
-
-  $('#_cancel').click(function(){
-    $('#_form-task').css('display','none');
-  });
-
-  $('#f_task').on('submit',function(){
-    var form = new FormData($(this)[0]);
-    var url = '<?php echo(base_url().'task/aj_api_insert');?>';
-      $.ajax({
-            type: "POST",
-            url: url,
-            data:  form,
-            dataType:'json',
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function(data) {
-              if (data.code==1) {
-                console.log(data);
-                var title = '#task'+data.data+'';
-                var link =  '<?php echo(base_url('task/de_tail/'))?>';
-                var row = 
-                '\
-                  <tr class="border-bot-1">\
-                    <td width="150">\
-                      <div class="flex">\
-                        <span class="label-circle label-default span-default">\
-                          <i class="fa fa-check"></i>\
-                        </span> \
-                        <div class="task-user-name">'+form.get('realname')+'</div>\
-                      </div>\
-                    </td>\
-                    <td width="300">\
-                      <a class="new_tab" onclick="addTab('+link+','+title+')" href="#">'+form.get('title')+'</a>\
-                    </td>\
-                    <td>'+form.get('fns_date')+'</td>\
-                  </tr>\
-                ';
-                $('#_tb-task tbody').prepend(row);
-                $('#_form-task').css('display','none');
-                var str = $('#_count-task').html(); 
-                var count = str.match(/\d+/)[0];
-                count = parseInt(count)+1;
-                $('#_count-task').html(count+' công việc');
-              }
-            },
-            error: function(xhr, status, error) {
-              console.log(error);
-            }
-        });
-
-        return false;
-  });
-
-   function showDetailKnowledge(id)
-   {
-      var show = $('.knl-caret');
-      if (show.hasClass('fa-angle-double-up')) {$('.knl-caret').trigger('click');}
-      $('#knl_list').css('display','none');
-      $('.knl-content').html("Đang tải dữ liệu...").css('display','block');
-       $.ajax({
-              url: '<?php echo base_url().'knowledge/detailKnowledge' ?>',
-              type: 'POST',
-              dataType: 'JSON',
-              data: {id:id},
-            })
-            .done(function(data) {
-                $('.knl-content').html(data.data[0].article).css('display','block');
-              })
-            .fail(function() {
-               alert('Lỗi hệ thống, vui lòng liên hệ Admin');
-            });
-   }
-
-  
-   $('.btn-updateActionUpdate').click(function(){
-      var ticketid = $(this).attr('title');
-      var action= $('#action').val();
-       $.ajax({
-          url: '<?php echo base_url().'ticket/updateTicketLog' ?>',
-          type: 'POST',
-          dataType: 'JSON',
-          data: {cmt:action,ticketid:ticketid},
-        })
-        .done(function(data) {
-            if(data.code==1){
-              window.location.reload();
-            }else{
-              alert(data.message);
-            }
-          })
-        .fail(function() {
-           alert('Lỗi hệ thống, vui lòng liên hệ Admin');
-        });
-  });
-
   $(document).on('change','.crm-control,.crm-ext',function(){
-    $('.btn-updateAction').html('<i class="fa fa-share"></i> Cập nhật phiếu');
+    // $('.btn-updateAction').html('<i class="fa fa-share"></i> Cập nhật phiếu');
     $(this).addClass('changed');
     var log = $(this).attr('log');
     if (log) {
@@ -210,10 +154,47 @@
     
   });
 
+  $('.btn-updateActionUpdate').click(function(){
+    var cur = $(this);
+    var ticketid = $(this).attr('title');
+    var cmt= $('#action').val();
+    if (cmt=='') {
+      parent.alertLog('Cảnh báo','Bạn chưa nhập ghi chú cho phiếu.','warning');
+    }else{
+      cur.prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
+     $.ajax({
+        url: '<?php echo base_url().'ticket/updateTicketLog' ?>',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {cmt:cmt,ticketid:ticketid},
+      })
+      .done(function(data) {
+          cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+          if(data.code==1){
+            $('#action').val('');
+            var iframe = window.tck_log;
+            iframe.location.reload();
+            parent.notification("OK");
+            iframe.onload = function() {
+             alert('myframe is loaded'); 
+            }; // before setting 'src'
+          }else{
+            alert(data.message);
+          }
+        })
+      .fail(function() {
+         cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+         alert('Lỗi hệ thống, vui lòng liên hệ Admin');
+      });
+    }
+  });
+
   $('.btn-updateAction').click(function(){
+    var cur = $(this);
     var ticketid = $(this).attr('title');
     var form = new FormData();
     form.set('ticketid',ticketid);
+
     $('input.crm-ext,input.crm-control.changed').each(function(){
       var name = $(this).attr('name');
       var value = $(this).val();
@@ -231,7 +212,6 @@
         console.log(value);
         form.set(name,value);
       }else{
-        
         form.set(name,'');
       }
     });
@@ -247,6 +227,7 @@
     form.set('changelog',changelog);
     form.set('ticketusers',tckuser);
     form.set('title',title);
+
     if(agentcurrentold != agentcurrent)
     {
       form.set('agentcurrent',agentcurrent);
@@ -255,7 +236,7 @@
     if (agentcurrent == '') {
       parent.alertLog('Cảnh báo','Bạn phải chọn người phụ trách.','warning');
     }else{
-      $(this).prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
+      cur.prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
       $.ajax( {
         processData: false,
         contentType: false,
@@ -264,13 +245,22 @@
         dataType: 'json',
         url: '<?php echo base_url('ticket/aj_update_ticket');?>',
         success: function( data ){
-           console.log(data);
-           if(data.code==1){
+          cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+          console.log(data);
+          if(data.code==1){
+            // $('#changelog').val('');
+            // var iframe = window.tck_log;
+            // iframe.location.reload();
+            // iframe.onload = function() {
+            //  alert('myframe is loaded'); 
+            // }; // before setting 'src'
+            parent.alertLog('Thành công.','Cập nhật thông tin thành công.','success');
             window.location.reload();
           }else{
-            alert(data.message);
+            parent.alertLog("Cảnh báo",data.message,'warning');
           }
         },error: function(xhr, status, error) {
+          cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
           console.log(error);
         }
       });
@@ -320,7 +310,7 @@
                                     </div>\
                                     <p>Tìm phiếu cần ghép</p>\
                                     <div id="call-input">\
-                                          <input class="form-control margin-top-10 margin-bot-5" type="text" placeholder="Nhập ID hoặc Tiêu đề phiếu để tìm kiếm" list="tck_lst">\
+                                          <input class="form-control margin-top-10 margin-bot-5" type="number" placeholder="Nhập ID phiếu để tìm kiếm" list="tck_lst">\
                                           <datalist id="tck_lst">\
                                             '+option+'\
                                           </datalist>\
@@ -430,5 +420,24 @@
     console.log(newchange);
     $('#changelog').val(newchange);
     return false;
+  }
+
+  function showDetailKnowledge(id){
+    var show = $('.knl-caret');
+    if (show.hasClass('fa-angle-double-up')) {$('.knl-caret').trigger('click');}
+    $('#knl_list').css('display','none');
+    $('.knl-content').html("Đang tải dữ liệu...").css('display','block');
+      $.ajax({
+        url: '<?php echo base_url().'knowledge/detailKnowledge' ?>',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {id:id},
+      })
+      .done(function(data) {
+          $('.knl-content').html(data.data[0].article).css('display','block');
+        })
+      .fail(function() {
+         alert('Lỗi hệ thống, vui lòng liên hệ Admin');
+      });
   }
 </script>

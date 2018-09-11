@@ -4,13 +4,13 @@
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Người yêu cầu(<span style="color: red;">*</span>)</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input readonly="true" id="agentcreated" name="angentcrete" class="col-md-12 no-padding font-size-12 crm-control" placeholder="-" value="<?php echo $ticket['data'][0]['agentcreatedname']; ?>">
+	              			<input readonly="true" id="agentcreated" name="angentcrete" class="col-md-12 no-padding font-size-12 crm-control" placeholder="-" value="<?php echo $ticket['data'][0]['custname']; ?>">
 	              		</label>
 	            	</div>
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Người tạo(<span style="color: red;">*</span>)</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input readonly="true" id="agentcreated" class="col-md-12 no-padding font-size-12 crm-control" placeholder="-" value="<?php echo $ticket['data'][0]['name']; ?>">
+	              			<input readonly="true" id="agentcreated" class="col-md-12 no-padding font-size-12 crm-control" placeholder="-" value="<?php echo $ticket['data'][0]['agentcreatedname']; ?>">
 	              		</label>
 	            	</div>
 	            	<div class="flex">
@@ -31,7 +31,7 @@
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Phụ trách(<span style="color: blue;">*</span>)</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="suggestionListAgent" id="agentInput" placeholder="Người phụ trách" class="col-md-12 no-padding font-size-12 crm-control" log="Phụ trách" value="<?php echo $agentcurrent['custname'] ?>">
+	              			<input list="suggestionListAgent" id="agentInput" placeholder="Người phụ trách" class="col-md-12 no-padding font-size-12 crm-control" log="Phụ trách" value="<?php echo $ticket['data'][0]['agentcurrentname']; ?>">
 							<datalist id="suggestionListAgent">
 								<?php
 		              				foreach ($listuser as $user) {
@@ -43,8 +43,7 @@
 		              				}
 		              			?>
 							</datalist>
-							<input type="hidden" id="agentcurrent" class="crm-control changed" name="agentcurrent" value="<?php echo $agentcurrent['custid'] ?>">
-							<input type="hidden" id="agentcurrentold" value="<?php echo $agentcurrent['custid'] ?>">
+							<input type="hidden" id="agentcurrent" class="crm-control changed" name="agentcurrent" value="<?php echo $ticket['data'][0]['agentcurrent']; ?>">
 							<script type="text/javascript">
   								var hasUpdate = false;
 								document.querySelector('#agentInput').addEventListener('input', function(e) {
@@ -167,13 +166,13 @@
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Ngày yêu cầu</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input name="createat" log="Ngày yêu cầu" id="createat" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="<?php echo isset($ticket['data'][0]['createat'])?date("d/m/Y H:i", strtotime($ticket['data'][0]['createat'])):'';?>">
+	              			<input name="requestdate" log="Ngày yêu cầu" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="<?php echo isset($ticket['data'][0]['requestdate'])?date("d/m/Y H:i", strtotime($ticket['data'][0]['requestdate'])):'';?>">
 	              		</label>
 	            	</div>
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Ngày phản hồi</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input name="lastupdate" log="Ngày phản hồi" id="lastupdate" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="<?php echo isset($ticket['data'][0]['lastupdate'])?date("d/m/Y H:i", strtotime($ticket['data'][0]['lastupdate'])):'';?>">
+	              			<input name="firstreply" log="Ngày phản hồi" id="lastupdate" class="col-md-12 no-padding font-size-12 crm-control" placeholder="dd-mm-yyyy hh:ii" value="<?php echo isset($ticket['data'][0]['firstreply'])?date("d/m/Y H:i", strtotime($ticket['data'][0]['firstreply'])):'';?>">
 	              		</label>
 	            	</div>
 	            	<div class="flex">

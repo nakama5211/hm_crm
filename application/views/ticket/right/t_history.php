@@ -1,92 +1,56 @@
 <div class="div-info-customer">
-<?php 
-            if(isset($info_customer)){ ?>
+<?php if(isset($customer)){ ?>
 <div class="tile p-0 padding-5 margin-bot-5">
-
-    <div class="content-title user-history">
-      
-        <div class="div">
-          	<p><img class="user-avatar" src="<?php 
-            if(count($info_customer)>0){
-            echo $info_customer[0]['avatar'];} ?>" alt="User Image"><?php 
-            if(count($info_customer)>0){
-              echo $info_customer[0]['custname'].' - '.$info_customer[0]['groupname'];} ?></p>
-          	<p class="header-desc field-click-able">Ngày tạo: <?php 
-            if(count($info_customer)>0){
-                echo date("d/m/Y", strtotime($info_customer[0]['createddate'] ));}
-             ?></p>
-            <p class="margin-left-50">Số điện thoại: <a href="#" onclick="parent.iframe_click('<?php echo($info_customer[0]['telephone'])?>','<?php echo($ticketid)?>')" id="user_phone_number"><?php echo($info_customer[0]['telephone'])?></a></p>
-        </div>
+  <div class="content-title user-history">
+    <div class="width-100per">
+    	<p class="flex">
+        <img onclick="addTab('<?php echo base_url()."user/detail/?cusid=".$customer[0]['custid']."&idcard=".$customer[0]['idcard']."&roleid=".$customer[0]['roleid']?>','<?php echo $customer[0]['custname'] ?>')" class="user-avatar" src="<?php echo $customer[0]['avatar']; ?>" alt="User Image"><?php echo $customer[0]['custname'];?> - <?php echo $customer[0]['groupname'];?>
+      </p>
+    	<p class="header-desc field-click-able">
+        Ngày tạo: <?php echo date("d/m/Y", strtotime($customer[0]['createddate']));?>
+      </p>
+      <p class="margin-left-50">
+        Số điện thoại: 
+        <a href="#" onclick="parent.iframe_click('<?php echo($customer[0]['telephone'])?>','<?php echo($this->uri->segment(3))?>')" id="user_phone_number">
+          <?php echo($customer[0]['telephone'])?>
+        </a>
+      </p>
     </div>
-</div>
-
-      <?php } ?>
-</div>
-<div class="div-recent-ticket">
-<?php if (isset($recent_ticket)){?>
-<div class="tile p-0 padding-5 margin-bot-5">
-	<p>Phiếu gần nhất</p>
-    <div class="table-responsive">
-      <?php if(count($recent_ticket)==0){
-        echo 'Không có phiếu gần đây!';
-      } ?>
-      	<table class="table" id="table-2">
-            <tbody>
-              <?php if(count($recent_ticket)>0)
-              {   $c = 0;
-                  foreach ($recent_ticket as $value) {
-                    if(($value['agentcurrent'] == $agentcurrent['custid'] || strpos($rows['ticketusers'], $agentcurrent) !== false) && $rows['hidden'] == 0 && $rows['status'] != 9)
-                        {
-                    ?>
-              <tr>
-                    <td width="60">
-                      <?php $title = '#'.$value['ticketid'];
-                            $url = base_url().'ticket/detail/'.$value['ticketid'].'/'.$value['custid'].'/'.$value['idcard'] ?>
-                      <span class="id-label span-warning">P</span>  <a style="cursor: pointer;" class="user-name" onclick="addTab('<?php echo $url ?>','<?php echo $title ?>')">#<?php echo $value['ticketid'] ?></a>
-                    </td>
-                    <td><?php echo $value['title'] ?></td>
-                </tr> 
-              <?php if ($c==2) {
-                break;
-              }else $c++;}}}?>			  
-            </tbody>
-      	</table>
-
-    </div>
+  </div>
 </div>
 <?php } ?>
+</div>
+<div class="div-recent-ticket">
+  <div class="tile p-0 padding-5 margin-bot-5">
+	 <p class="no-margin">Phiếu gần nhất</p>
+      <div class="table-responsive">
+        <table class="table" id="table-22">
+          <thead class="hide">
+            <tr>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+  </div>
 </div>
 
 <div class="div-contract">
-<?php if(isset($contract)){ ?>
-<div class="tile p-0 padding-5 margin-bot-5">
-	<p>Giao dịch gần nhất</p>
-    <div class="table-responsive">
-       <?php if(count($contract)==0){
-        echo 'Không có phiếu gần đây!';
-       } ?>
-      	<table class="table" id="table-2">
-            <tbody>
-              <?php if(count($contract)>0){
-                $c=0;
-                foreach ($contract as $value) { ?>
-                  <tr>
-                    <td width="60">
-                      <?php $titleContract = '#'.$value['contractid'];
-                            $urlContract= base_url().'user/contract/'.$value['contractid']; ?>
-                      <a style="cursor: pointer;" class="user-name" onclick="addTab('<?php echo $urlContract ?>','<?php echo $titleContract ?>')">#<?php echo $value['contractid'] ?></a>
-                    </td>
-                    <td><?php echo $value['status'] ?></td>
-                    <td><?php echo $value['property'] ?></td>
-                </tr> 
-                <?php if ($c==2) {
-                  break;
-                }else $c++;}} ?> 
-            </tbody>
-      	</table>
-    </div>
-</div>
-<?php } ?>
+  <div class="tile p-0 padding-5 margin-bot-5">
+  	<p class="no-margin">Giao dịch gần nhất</p>
+      <div class="table-responsive">
+        <table class="table" id="table-23">
+          <thead class="hide">
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+  </div>
 </div>
 <div class="tile p-0 padding-5 margin-bot-5 toggle-up">
    <p>Thư viện kiến thức

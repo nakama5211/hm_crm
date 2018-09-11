@@ -5,7 +5,8 @@
       var val = $('#suggestionList '+'option[data-value='+cus_res+']').html();
       $('#answerInput').val(val);
     }
-    $('#createat,#sla,#duedate,#finishdate,#appointmentdate,#lastupdate').datetimepicker();
+    $('#sla,#duedate,#finishdate,#appointmentdate,input[name=firstreply],input[name=requestdate]').
+    datetimepicker({format:'d/m/Y H:i'});
 
     $('select#level_1').change(function(){
         var val = $(this).val();
@@ -98,11 +99,7 @@
                   $('#answerInput').removeClass('error-input');
                 }
                 break;
-              case 'agentcurrent':
-                if (value=='') {
-                  error[key] = "Vui lòng chọn người phụ trách."
-                }
-                break;
+              
               default: break;
             }
         }
