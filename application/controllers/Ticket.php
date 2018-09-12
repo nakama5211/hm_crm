@@ -475,6 +475,36 @@ class Ticket extends CI_Controller {
         echo $result;
     }
 
+    public function get_to_my_ticket($tckid){
+
+        $ticket         = [];
+        $ticket['agentcurrent']     = $this->session->userdata['custid'];
+
+        $postdata   = http_build_query($ticket);
+        $opts       = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        $context  = stream_context_create($opts);
+
+        $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/update/'.$tckid,false,$context);
+        echo $result;
+
+        $_res = json_decode($result,true);
+        if (isset($_res['code']) && $_res['code'] == 1) {
+            $log['action']           = "Tiếp nhập phiếu";
+            $log['useraction']       = $this->session->userdata['custid'];
+            $log['cmt']              = '';
+            $log['changelog']        = 'Người phụ trách: '.$this->session->userdata['custname'];
+            $log['ticketid']         = $tckid;
+            $_result                 = $this->aj_insert_ticket_log($log);
+            // echo $_result;
+        }
+    }
+
     public function deleteTicket()
     {
         $ticketid = $this->input->post('ticketid');

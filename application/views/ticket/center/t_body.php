@@ -7,7 +7,9 @@
 	          		" id="title" name="title" class="no-padding font-size-18 width-95per crm-control" log="Tiêu đề" placeholder="Nhập tiêu đề phiếu hỗ trợ" value="<?php echo $ticket['data'][0]['title'] ?>">
 	          	</h5>
 	          	<div class="btn-group absolute" role="group" style="right: 10px;top: 15px;">
-	          	  <button class="btn btn-primary" type="button" id="btn-accept">Tiếp nhận</button>
+	          	  <button class="btn btn-primary" type="button" id="btn-accept" tckid="<?php echo $ticketid ?>">
+	          	  	<i class="fa fa-share"></i>
+	          	  Tiếp nhận</button>
                   <button class="btn btn-primary dropdown-toggle" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end">
                   	<a class="dropdown-item" href="#" tck-id="<?php echo $ticket['data'][0]['ticketid'] ?>" tck-stt="<?php echo $ticket['data'][0]['status'] ?>" tck-title="<?php echo $ticket['data'][0]['title'] ?>" id="btn-ticket-merge">Ghép phiếu</a>
@@ -28,7 +30,7 @@
                     else{ echo 'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg';} ?>')"></div>
 				</div>
 				<div class="comment-block">
-						<form method="post" enctype= multipart/form-data action="<?php echo base_url().'ticket/insertTicketLog' ?>">
+						<form method="post" enctype= multipart/form-data action="">
 					
 					<div class="status-upload">
 							<input type="hidden" name="ticketid" value="<?php echo $this->uri->segment(3) ?>">

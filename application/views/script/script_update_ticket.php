@@ -87,12 +87,14 @@
 
     var rights = $('select[name=ticketstatus] option:selected').attr('value');
     if (rights==4 || rights==9) {
-      $('.crm-control,.crm-ext,textarea,button').prop('disabled',true);
+      $('.crm-control,.crm-ext,textarea,.btn-updateAction,.btn-updateActionUpdate').prop('disabled',true);
     }
 
     var agentcurrent = $('input[name=agentcurrent]').val();
     if (agentcurrent) {
       $('#btn-accept').remove();
+    }else{
+      $('.crm-control,.crm-ext').prop('disabled',true);
     }
 	});
   $('#table-23').DataTable( {
@@ -269,6 +271,7 @@
     //   console.log(pair[0]+ ', '+ pair[1]); 
     // }
   });
+
   $('#btn-ticket-merge').click(function(){
     var old_ticketid = $(this).attr('tck-id'),new_ticketid='';
     var old_status   = $(this).attr('tck-stt');
@@ -380,6 +383,35 @@
     .fail(function() {
        alert('Kết nối dữ liệu tới server thất bại, vui lòng liên hệ bộ phận IT để được hỗ trợ.');
     });
+  });
+
+  $('#btn-accept').click(function(){
+    var cur = $(this);
+    var tckid = $(this).attr('tckid');
+    if (tckid)
+    $.ajax({
+        url: '<?php echo base_url().'ticket/get_to_my_ticket/'?>'+tckid,
+        type: 'POST',
+        dataType: 'JSON',
+      })
+      .done(function(data) {
+          cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+          if(data.code==1){
+            $('#action').val('');
+            var iframe = window.tck_log;
+            iframe.location.reload();
+            parent.notification("OK");
+            iframe.onload = function() {
+             alert('myframe is loaded'); 
+            }; // before setting 'src'
+          }else{
+            alert(data.message);
+          }
+        })
+      .fail(function() {
+         cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
+         alert('Lỗi hệ thống, vui lòng liên hệ Admin');
+      });
   });
 
   function createModal(){
