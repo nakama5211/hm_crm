@@ -31,45 +31,17 @@
 	            	<div class="flex">
 	            		<label class="control-label user-label col-md-4 no-padding">Phụ trách(<span style="color: blue;">*</span>)</label>
 	              		<label class="control-label col-md-8 no-padding-right">
-	              			<input list="suggestionListAgent" id="agentInput" placeholder="Người phụ trách" class="col-md-12 no-padding font-size-12 crm-control" log="Phụ trách" value="<?php echo $ticket['data'][0]['agentcurrentname']; ?>">
-							<datalist id="suggestionListAgent">
-								<?php
-		              				foreach ($listuser as $user) {
-		              					if($user['roleid']==2){
-		              					?>
-		              					<option data-group="<?php echo $user['groupid']?>" data-value="<?php echo $user['custid']?>"><?php echo $user['custname']?></option>
-		              					<?php
-		              					}
-		              				}
-		              			?>
-							</datalist>
-							<input type="hidden" id="agentcurrent" class="crm-control changed" name="agentcurrent" value="<?php echo $ticket['data'][0]['agentcurrent']; ?>">
-							<script type="text/javascript">
-  								var hasUpdate = false;
-								document.querySelector('#agentInput').addEventListener('input', function(e) {
-								    var input = e.target,
-								        list = input.getAttribute('list'),
-								        options = document.querySelectorAll('#' + list + ' option'),
-								        hiddenInput = document.getElementById('agentcurrent'),
-								        inputValue = input.value;
-
-								    hiddenInput.value = inputValue;
-
-								    for(var i = 0; i < options.length; i++) {
-								        var option = options[i];
-
-								        if(option.innerText === inputValue) {
-								            hiddenInput.value = option.getAttribute('data-value');
-								            var oldchange = $('#changelog').val();
-										      oldchange += "Phụ trách : "+option.innerText+" | ";
-										      $('#changelog').val(oldchange);
-								            break;
-								        }else{
-								        	hiddenInput.value="";
-								        }
-								    }
-								});
-							</script>
+	              			<input class="col-md-12 no-padding font-size-12 data-list crm-control" list="l_agentcurrent" required="" log="Phụ trách" placeholder="Người phụ trách" value="<?php echo $ticket['data'][0]['agentcurrentname'];?>">
+		              		<input class="crm-control" type="hidden" name="agentcurrent" value="<?php echo $ticket['data'][0]['agentcurrent']; ?>">
+                            <datalist id="l_agentcurrent">
+                                <?php if (isset($listuser)) {
+                                  	foreach ($listuser as $cus) {
+                                  		if ($cus['roleid']==2 && $cus['custname']!='') {
+                                  			echo('<option data-group="'.$cus['groupid'].'" id="'.$cus['custid'].'" value="'.$cus['custname'].'"></option>');
+                                  		}
+                                  	}
+                                } ?>
+                            </datalist>
 	              		</label>
 	            	</div>
 	            </div>
@@ -126,7 +98,7 @@
 	              			<?php if (isset($l_type) && !empty($l_type)) {
 	              				foreach ($l_type as $key => $value) {
 	              					$sel = '';
-	              					if (isset($ticket['data'][0]['type']) && $value['code']==$ticket['data'][0]['type']) {
+	              					if (isset($ticket['data'][0]['tickettype']) && $value['code']==$ticket['data'][0]['tickettype']) {
 	              						$sel = 'selected';
 	              					}
 	              					echo '<option '.$sel.' value="'.$value['code'].'">'.$value['name'].'</option>';
@@ -143,7 +115,7 @@
 	              					if (isset($ticket['data'][0]['groupid']) && $value['code']==$ticket['data'][0]['groupid']) {
 	              						$sel = 'selected';
 	              					}
-	              					echo '<option ref1="'.$value['ref1'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
+	              					echo '<option '.$sel.' ref1="'.$value['ref1'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
 	              				}
 	              			} ?>
 	              		</select>
@@ -157,7 +129,7 @@
 	              					if (isset($ticket['data'][0]['categoryid']) && $value['code']==$ticket['data'][0]['categoryid']) {
 	              						$sel = 'selected';
 	              					}
-	              					echo '<option ref1="'.$value['ref1'].'" ref2="'.$value['ref2'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
+	              					echo '<option '.$sel.' ref1="'.$value['ref1'].'" ref2="'.$value['ref2'].'" value="'.$value['code'].'">'.$value['name'].'</option>';
 	              				}
 	              			} ?>
 	              		</select>

@@ -8,7 +8,7 @@
 							<datalist id="suggestionList">
 								<?php
 		              				foreach ($listuser as $user) {
-		              					if($user['roleid']==3){
+		              					if($user['roleid']==3 && $user['custname']!=''){
 		              					?>
 		              					<option data-value="<?php echo $user['custid']?>"><?php echo $user['custname']?></option>
 		              					<?php
@@ -65,7 +65,7 @@
 							<datalist id="suggestionListAgent">
 								<?php
 		              				foreach ($listuser as $user) {
-		              					if($user['roleid']==2){
+		              					if($user['roleid']==2 && $user['custname']!=''){
 		              					?>
 		              					<option data-group="<?php echo $user['groupid']?>" data-value="<?php echo $user['custid']?>"><?php echo $user['custname']?></option>
 		              					<?php

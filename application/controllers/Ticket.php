@@ -65,6 +65,9 @@ class Ticket extends CI_Controller {
         $data['custid'] = $custid;
         $data['result'] = json_decode($json,TRUE);
 
+        $json = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/countticket/'.$this->session->userdata('groupid').'/1');
+        $data['counter'] = json_decode($json,true)['data'];
+
         $_data['script'] = $this->load->view('script/script_ticket', NULL, TRUE);
 		$_data['mainview'] = $this->load->view('ticket/ticket', $data , TRUE);
 		$this->load->view('dashboard',$_data);
@@ -170,9 +173,9 @@ class Ticket extends CI_Controller {
                 if ($key=='ticketid') {
                     $href = base_url().'ticket/detail/'.$value.'/'.$custid.'/'.$idcard;
                     $onclick = "addTab('".$href."','#".$value."')";
-                    $out['data'][$i][] = "<a onclick=".$onclick." href='#'>#Phiếu ".$value. "</a>";
+                    $out['data'][$i][] = "<a onclick=".$onclick." href='#'>#".$value. "</a>";
                 }elseif ($key=='title') {
-                    $out['data'][$i][] = $value;
+                    $out['data'][$i][] = $this->limit_text($value,8);
                 }
             };
         }
@@ -378,34 +381,33 @@ class Ticket extends CI_Controller {
         $data_ext       = isset($post['ext'])?json_encode($post['ext']):null;
         $ticket         = [];
 
-        $tid = $ticket['ticketid']  = isset($post['ticketid'])?$post['ticketid']:'';
+        $tid = $ticket['ticketid']  = isset($post['ticketid'])?$post['ticketid']:'-1';
 
         // $ticket['log_custid']       = $var['custid'];
         // $ticket['log_roleid']       = $var['roleid'];
         // $ticket['log_groupid']      = $var['groupid'];
-        $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'';
-        $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'';
-        $ticket['title']     = isset($post['title'])?$post['title']:'';
-        $ticket['ticketchannel']    = isset($post['ticketchannel'])?$post['ticketchannel']:'';
-        $ticket['priority']         = isset($post['priority'])?$post['priority']:'';
-        $ticket['extension']        = $data_ext!=null?$data_ext:'';
-        $ticket['sla']              = isset($post['sla'])?$post['sla']:'';
-        $ticket['status']           = isset($post['ticketstatus'])?$post['ticketstatus']:'';
-        $ticket['duedate']          = isset($post['duedate'])?$post['duedate']:'';
-        $ticket['finishdate']       = isset($post['finishdate'])?$post['finishdate']:'';
-        $ticket['requestdate']      = isset($post['requestdate'])?$post['requestdate']:'';
-        $ticket['firstreply']       = isset($post['firstreply'])?$post['firstreply']:'';
-        $ticket['levelticket']      = isset($post['levelticket'])?$post['levelticket']:'';
-        $ticket['tickettype']       = isset($post['tickettype'])?$post['tickettype']:'';
-        $ticket['categoryid']       = isset($post['categoryid'])?$post['categoryid']:'';
-        $ticket['groupid']          = isset($post['groupid'])?$post['groupid']:'';
-        $ticket['ticketusers']      = isset($post['ticketusers'])?$post['ticketusers']:'';
-
-        $ticket['title']            = isset($post['title'])?$post['title']:'';
-        $ticket['transref']         = isset($post['transref'])?$post['transref']:'';
+        $ticket['agentgroup']       = isset($post['agentgroup'])?$post['agentgroup']:'-1';
+        $ticket['agentcurrent']     = isset($post['agentcurrent'])?$post['agentcurrent']:'-1';
+        $ticket['title']            = isset($post['title'])?$post['title']:'-1';
+        $ticket['ticketchannel']    = isset($post['ticketchannel'])?$post['ticketchannel']:'-1';
+        $ticket['priority']         = isset($post['priority'])?$post['priority']:'-1';
+        $ticket['extension']        = $data_ext!=null?$data_ext:'-1';
+        $ticket['sla']              = isset($post['sla'])?$post['sla']:'-1';
+        $ticket['status']           = isset($post['ticketstatus'])?$post['ticketstatus']:'-1';
+        $ticket['duedate']          = isset($post['duedate'])?$post['duedate']:'-1';
+        $ticket['finishdate']       = isset($post['finishdate'])?$post['finishdate']:'-1';
+        $ticket['requestdate']      = isset($post['requestdate'])?$post['requestdate']:'-1';
+        $ticket['firstreply']       = isset($post['firstreply'])?$post['firstreply']:'-1';
+        $ticket['levelticket']      = isset($post['levelticket'])?$post['levelticket']:'-1';
+        $ticket['tickettype']       = isset($post['tickettype'])?$post['tickettype']:'-1';
+        $ticket['categoryid']       = isset($post['categoryid'])?$post['categoryid']:'-1';
+        $ticket['groupid']          = isset($post['groupid'])?$post['groupid']:'-1';
+        $ticket['ticketusers']      = isset($post['ticketusers'])?$post['ticketusers']:'-1';
+        $ticket['title']            = isset($post['title'])?$post['title']:'-1';
+        $ticket['transref']         = isset($post['transref'])?$post['transref']:'-1';
 
         foreach ($ticket as $key => $value) {
-            if ($value == '') {
+            if ($value == '-1') {
                 unset($ticket[$key]);
             }
         }
@@ -479,6 +481,7 @@ class Ticket extends CI_Controller {
 
         $ticket         = [];
         $ticket['agentcurrent']     = $this->session->userdata['custid'];
+        $ticket['ticketid']         = $tckid;
 
         $postdata   = http_build_query($ticket);
         $opts       = array('http' =>
@@ -529,6 +532,15 @@ class Ticket extends CI_Controller {
         $ticketid = $this->input->post('ticketid');
         $result = file_get_contents('http://test.tavicosoft.com/crm/index.php/ticket/search?ticketid='.$ticketid.'');
         echo $result;
+    }
+
+    private function limit_text($text, $limit) {
+      if (str_word_count($text, 0) > $limit) {
+          $words = str_word_count($text, 2);
+          $pos = array_keys($words);
+          $text = substr($text, 0, $pos[$limit]) . '...';
+      }
+      return $text;
     }
 
 }

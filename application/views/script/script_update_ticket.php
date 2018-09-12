@@ -29,8 +29,8 @@
             $(this).removeClass('hide').addClass('show');
           });
         }
-        $('select#level_2 option.show:first').prop('selected',true);
-        $('select#level_3 option.show:first').prop('selected',true);
+        $('select#level_2 option.show:first').prop('selected',true); $('select#level_2').removeClass('changed').addClass('changed');
+        $('select#level_3 option.show:first').prop('selected',true); $('select#level_3').removeClass('changed').addClass('changed');
 
         var log = $('select#level_2').attr('log');
         if (log) {
@@ -60,7 +60,7 @@
             $(this).removeClass('hide').addClass('show');
           });
         }
-        $('select#level_3 option.show:first').prop('selected',true);
+        $('select#level_3 option.show:first').prop('selected',true); $('select#level_3').removeClass('changed').addClass('changed');
         var log1 = $('select#level_3').attr('log');
         if (log1) {
           var text1 = $('select#level_3').find('option:selected').text();
@@ -68,11 +68,21 @@
         }
     });
 
+    $('.data-list').on('input',function() {
+      var datalist = $(this).attr('list');
+      var selectedOption = $('#'+datalist+' option[value="'+$(this).val()+'"]');
+      if(selectedOption.length>0){
+        $(this).next().val(selectedOption.attr('id')).removeClass('changed').addClass('changed');
+      }else{
+        $(this).next().val('').removeClass('changed').addClass('changed');
+      }
+    });
+
     $('select[name=agentgroup]').change(function(){
       var id = $(this).val();
-      $('input#agentInput').val('');
+      $('input[list="l_agentcurrent"]').val('');
       $('input[name=agentcurrent]').val('');
-      $('datalist#suggestionListAgent option').each(function(){
+      $('datalist#l_agentcurrent option').each(function(){
         var group = $(this).attr('data-group');
         if (id!==group) {
           $(this).prop('disabled',true);
@@ -219,9 +229,10 @@
     });
 
     var cmt = $('#action').val();
+    var agentgroup = $('select[name="agentgroup"]').val();
     var changelog = $('#changelog').val();
     var tckuser = $('#ticketusers').val();
-    var agentcurrent = $('#agentcurrent').val();
+    var agentcurrent = $('input[name="agentcurrent"]').val();
     var title = $('#title').val();
     var agentcurrentold = $('#agentcurrentold').val();
     var ticketusersold = $('#ticketusers').val();
@@ -235,8 +246,8 @@
       form.set('agentcurrent',agentcurrent);
       form.set('ticketusers',ticketusersold+','+agentcurrent);
     }
-    if (agentcurrent == '') {
-      parent.alertLog('Cảnh báo','Bạn phải chọn người phụ trách.','warning');
+    if (agentcurrent == '' && agentgroup == '') {
+      parent.alertLog('Cảnh báo','Bạn phải điền 1 trong 2 thông tin: Người phụ trách, Nhóm phụ trách.','warning');
     }else{
       cur.prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
       $.ajax( {
@@ -389,23 +400,19 @@
     var cur = $(this);
     var tckid = $(this).attr('tckid');
     if (tckid)
+    cur.prop('disabled',true).find('i').removeClass().addClass('fa fa-spin fa-spinner');
     $.ajax({
         url: '<?php echo base_url().'ticket/get_to_my_ticket/'?>'+tckid,
         type: 'POST',
         dataType: 'JSON',
       })
       .done(function(data) {
-          cur.prop('disabled',false).find('i').removeClass().addClass('fa fa-share');
           if(data.code==1){
-            $('#action').val('');
-            var iframe = window.tck_log;
-            iframe.location.reload();
-            parent.notification("OK");
-            iframe.onload = function() {
-             alert('myframe is loaded'); 
-            }; // before setting 'src'
+            parent.notification('Tiếp nhận phiếu thành công.');
+            window.location.reload();
           }else{
-            alert(data.message);
+            parent.alertLog('Lỗi',data.message,'danger');
+            // alert(data.message);
           }
         })
       .fail(function() {

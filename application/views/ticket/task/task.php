@@ -46,7 +46,7 @@
 		                                } ?>
 		                            </datalist>
 		                            <input type="hidden" name="u_request" value="<?php echo($this->session->userdata('custid'))?>">
-		                            <input type="hidden" name="ticketid" value="<?php echo($ticketid)?>">
+		                            <input type="hidden" name="ticketid" value="<?php echo($this->uri->segment(3))?>">
         						</div>
         						<div class="col-md-4">
         							<label class="tsk-label">Mức ưu tiên</label>
